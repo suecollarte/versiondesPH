@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} PH Rubros {% endblock %}
+
+{% block content %}
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="{% static 'js/tablas/rubros.js' %}"></script>  
+
+    <div class="container mt-4">
+    
+        {% csrf_token %}
+    
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                    <table style="width:100%">
+                        <tr>
+                            <td width="90%" class="titform20">Rubros de Especialistas</td>
+                            <td width="10%" class="text8c">
+                                <button class='btn btn-sm btn-primary tip' title='Agregar Rubro' onClick='AgregarRegistro()' >
+                                    <i class='fa-solid fa-plus'></i>
+                                </button>                        
+                            </td>
+                        </tr>
+                    </table>
+    
+    {% include 'varios/rubros_ajax_list.html' %}
+    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="diagedit">
+        <br />
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <table class="table-responsive" border="0" width="100%">
+                <tr>
+                    <td width="20%" class="tdtit8r">Identificador:&nbsp;</td>
+                    <td width="80%" class="text8l">
+                        <input type="text" readonly name="id" id="id" size="10" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="tdtit8r">Rubro:&nbsp;</td>
+                    <td width="80%" class="text8l">
+                        <input type="text" name="nombre" id="nombre" placeholder="Indique Rubro" size="50" maxlength="45" class="form-control w-50" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="tdtit8r">Indicar si es Area Salud:&nbsp;</td>
+                    <td width="80%" class="text8l">
+                        <select class="form-control text8l w-auto" name="areasalud" id="areasalud" style="font-size:11px;">
+                                <option value="0" class="text8l">No</option>
+                                <option value="1" class="text8l" selected>Si</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+{% endblock %}

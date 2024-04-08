@@ -1,0 +1,27 @@
+<div id="datatablediv">
+    <table id="tablaregs" class="cell-border compact stripe hover order-column" style="width:100%">
+        <thead >
+            <tr>
+                <td width="10%" class="tdtit10">ID</td>
+                <td width="80%" class="tdtit10">Nombre</td>
+                <td width="10%" class="tdtit10">Accion</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for formapago in formaspagos %}
+            <tr>
+                <td class="text8c" id="id{{formapago.id}}">{{formapago.id}}</td>
+                <td class="text8c" id="nom{{formapago.id}}">{{formapago.nombre}}</td>
+                <td class="text8c"> 
+                    <button class='btn btn-sm btn-primary tip' title='Editar Forma Pago' onClick='EditarRegistro({{formapago.id}})'>
+                        <i class='fa-solid fa-pencil'></i>
+                    </button>
+                    <button class='btn btn-sm btn-danger tip' title='Eliminar Forma Pago' onClick='BorrarRegistro({{formapago.id}})'>
+                        <i class='fa-solid fa-trash-can'></i>
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>   
+</div>

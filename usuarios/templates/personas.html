@@ -1,0 +1,51 @@
+<div id="diagedit">
+    <br />
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <table class="table-responsive" border="0" width="100%">
+            <tr>
+                <td width="20%" class="tdtit8r">Identificador:&nbsp;</td>
+                <td width="80%" class="text8l">
+                    <input type="text" readonly name="id" id="id" size="10" />
+                </td>
+            </tr>
+            <tr>
+                <td width="20%" class="tdtit8r">Nombres:&nbsp;</td>
+                <td width="80%" class="text8l">
+                    <input type="text" name="nombre" id="nombre" placeholder="Nombre" size="100" maxlength="90" class="form-control w-75 ucword" />
+                </td>
+            </tr>
+            <tr>
+                <td width="20%" class="tdtit8r">Apellidos:&nbsp;</td>
+                <td width="80%" class="text8l">
+                    <input type="text" name="pclave" id="pclave" placeholder="Apellidos" size="100" maxlength="90" class="form-control w-75 ucword" />
+                </td>
+            </tr>
+            <tr>
+                <td width="20%" class="tdtit8r">Fecha Nacimiento:&nbsp;</td>
+                <td width="80%" class="text8l">
+                    <input type="text" name="fnacimiento" placeholder="dd-mm-aaaa" id="fnacimiento" size="12" maxlength="10" class="fechainput" />
+                </td>
+            </tr>
+            <tr>
+                <td width="20%" class="tdtit8r">Correo:&nbsp;</td>
+                <td width="80%" class="text8l">
+                    <input type="text" name="email" id="email" placeholder="Correo Electrónico" size="100" maxlength="90" class="form-control w-75" />
+                </td>
+            </tr>
+            <td width="80%">
+                <select required="required" class="form-control w-auto" name="region" id="region" style="font-size:11px;">
+                    {% for region in regiones %}
+                        <option value="{{ region.id }}" class="text8l">{{ region.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td width="80%">
+                <select required="required" class="form-control w-auto" name="comuna" id="comuna" style="font-size:11px;">
+                    {% for comuna in comunas %}
+                        <option value="{{ region.id }}" class="text8l">{{ comuna.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </table>
+    </div>
+</div>

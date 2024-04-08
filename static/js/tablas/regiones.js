@@ -1,0 +1,190 @@
+$(document).ready(function(){
+
+	var f100 = new LiveValidation('numero');
+	f100.add(Validate.Presence);
+	var f102 = new LiveValidation('nombre');
+	f102.add(Validate.Presence);
+
+//
+// Dialogo para Modificar Registro.
+//	
+	$("#diagedit").dialog({
+		autoOpen: false,	 
+		position: { my: "center", at: "center", of: window },
+		height:300,
+		width: 800,
+		resizable: false,
+		modal: true,  
+		show: {
+			effect: "blind",
+			duration: 1000
+		  	},
+		hide: {
+			effect: "explode",
+			duration: 1000
+		  	},
+		open: function() {
+			},
+		close: function() {
+			$("#id").val('');
+			$("#numero").val('');
+			$("#nombre").val('');
+			}
+		});
+		
+	Crear_DataTable(); 
+	});
+//
+// ********************************
+//          Funciones
+// ********************************
+//
+function PrepararRegistro(id){
+	$('#id').val(allTrim($('#id'+id).html()));
+	$('#numero').val(allTrim($('#num'+id).html()));
+	$('#nombre').val(allTrim($('#nom'+id).html()));
+	};
+
+function CamposValidos(){
+	var numero = allTrim($('#numero').val());
+	var nombre = allTrim($('#nombre').val());
+	if (numero == "") 	{
+		mostrarMensaje("Debe indicar Número de Región",MSG_STOP);
+		return false;
+		}
+	if (nombre == "") 	{
+		mostrarMensaje("Debe indicar Nombre de Región",MSG_STOP);
+		return false;
+		}
+	return true;
+	};
+	
+function EditarRegistro(id){
+
+	CampoEnReadWrite("numero");
+	CampoEnReadWrite("nombre");
+	PrepararRegistro(id);
+	
+	$("#diagedit").dialog({
+		title: "Editar Región",
+		buttons: [
+			{
+				text: "Grabar",
+				click: function() {
+					if (CamposValidos()) {
+						EnviaPeticionAjax(EDITAR_REG,id);
+						$( this ).dialog("close");	
+						}
+					},
+				class:"ui-corner-all", style:"color:Green" 
+			},
+			{
+				text: "Salir",
+				click: function() {
+					$( this ).dialog("close");
+					},
+				class:"ui-corner-all", style:"color:Black" 
+			}
+			]
+	  });
+	$("#diagedit").dialog("open");
+	};
+
+function AgregarRegistro(){
+
+	CampoEnReadWrite("numero");
+	CampoEnReadWrite("nombre");
+	$('#id').val('');
+
+	$("#diagedit").dialog({
+		title: "Agregar Región",
+		buttons: [
+			{
+				text: "Grabar",
+				click: function() {
+					if (CamposValidos()) {
+						EnviaPeticionAjax(AGREGAR_REG,0);
+						$( this ).dialog("close");
+						}
+					},
+				class:"ui-corner-all", style:"color:Green" 
+			},
+			{
+				text: "Salir",
+				click: function() {
+					$( this ).dialog("close");
+					},
+				class:"ui-corner-all", style:"color:Black" 
+			}
+			]
+		});
+
+	$("#diagedit").dialog("open");
+	};
+	
+function BorrarRegistro(id){
+	
+	CampoEnReadOnly("numero");
+	CampoEnReadOnly("nombre");
+
+	PrepararRegistro(id);
+
+	$("#diagedit").dialog({
+		title: "Eliminar Región",
+		buttons: [
+			{
+				text: "Eliminar",
+				click: function() {
+					confirmarMensaje("La Región será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
+					$( this ).dialog("close");
+					},
+				class:"ui-corner-all", style:"color:Red" 
+			},
+			{
+				text: "Salir",
+				click: function() {
+					$( this ).dialog("close");
+					},
+				class:"ui-corner-all", style:"color:Green" 
+			}
+			]
+		});	
+	$("#diagedit").dialog("open");
+	};
+
+function EnviaPeticionAjax(accion,id){
+
+	try {
+		$.ajax({
+			type: "POST",
+			url: "/tablas/regiones/",
+			data: {accion: accion, id: id, numero: allTrim($('#numero').val()), nombre: allTrim($('#nombre').val()), csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
+			success: function( response ) {
+				if (response != ""){
+					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
+					$('#datatablediv').html('');
+					$("#datatablediv").html(response);
+					Crear_DataTable();
+					}
+				else
+					mostrarMensaje("ERROR DESCONOCIDO<br />Cambio NO realizado",MSG_WARNING);
+				}
+			});
+	} catch (error) {
+		MensajeErrorDesconocido(error);
+		}
+	};
+
+function Crear_DataTable() {
+
+	$('#tablaregs').DataTable({
+		language: {url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-CL.json'	},
+		pagingType: 'full_numbers',
+		bJQueryUI: 'true',
+		iDisplayLength: '25',
+		order: [[2, 'asc']],
+		columnDefs: [
+			{ orderable: false, targets: [0,3] }
+		  ]
+		});
+	}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} PH Promociones {% endblock %}
+
+{% block content %}
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="{% static 'js/tablas/promociones.js' %}"></script>  
+
+    <div class="container mt-4">
+    
+        {% csrf_token %}
+    
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="table-responsive">
+                    <table style="width:100%">
+                        <tr>
+                            <td width="90%" class="titform20">Promociones</td>
+                            <td width="10%" class="text8c">
+                                <button class='btn btn-sm btn-primary tip' title='Agregar Promoción' onClick='AgregarRegistro()' >
+                                    <i class='fa-solid fa-plus'></i>
+                                </button>                        
+                            </td>
+                        </tr>
+                    </table>
+    
+    {% include 'varios/promociones_ajax_list.html' %}
+    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="diagedit">
+        <br />
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <table class="table-responsive" border="0" width="100%">
+                <tr>
+                    <td width="20%" class="tdtit8r">Identificador:&nbsp;</td>
+                    <td width="80%" class="text8l">
+                        <input type="text" readonly name="id" id="id" size="10" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="tdtit8r">Nombre:&nbsp;</td>
+                    <td width="80%" class="text8l">
+                        <input type="text" name="nombre" id="nombre" placeholder="Nombre" size="50" maxlength="45" class="form-control w-75 ucword" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="tdtit8r">Palabra Clave:&nbsp;</td>
+                    <td width="80%" class="text8l">
+                        <input type="text" name="pclave" id="pclave" placeholder="Palabra Clave" size="50" maxlength="45" class="form-control w-75" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="tdtit8r">Fecha Inicio:&nbsp;</td>
+                    <td width="80%" class="text8l">
+                        <input type="text" name="fdesde" placeholder="dd-mm-aaaa" id="fdesde" size="12" maxlength="10" class="fechainput" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="tdtit8r">Fecha Término:&nbsp;</td>
+                    <td width="80%" class="text8l">
+                        <input type="text" name="fhasta" placeholder="dd-mm-aaaa" id="fhasta" size="12" maxlength="10" class="fechainput" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="tdtit8r">Porcentaje Descuento:&nbsp;</td>
+                    <td width="80%" class="text8r">
+                        <input type="text" name="dcto_porcentaje" id="dcto_porcentaje" size="6" maxlength="2" class="form-control w-25 text-rigth" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" class="tdtit8r">O bien Cantidad:&nbsp;</td>
+                    <td width="80%" class="text8r">
+                        <input type="text" name="dcto_cantidad" id="dcto_cantidad" size="50" maxlength="12" class="form-control w-25 text-right" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+{% endblock %}

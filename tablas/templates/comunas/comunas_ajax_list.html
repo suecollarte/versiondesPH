@@ -1,0 +1,29 @@
+<div id="datatablediv">
+    <table id="tablaregs" class="cell-border compact stripe hover order-column" style="width:100%">
+        <thead >
+            <tr>
+                <td width="10%" class="tdtit10">ID</td>
+                <td width="40%" class="tdtit10">Nombre</td>
+                <td width="40%" class="tdtit10">Región</td>
+                <td width="10%" class="tdtit10">Accion</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comuna in comunas %}
+            <tr>
+                <td class="text8c" id="id{{comuna.id}}">{{comuna.id}}</td>
+                <td class="text8c" id="nom{{comuna.id}}">{{comuna.nombre}}</td>
+                <td class="text8c" id="reg{{comuna.id}}">{{comuna.region}}</td>
+                <td class="text8c"> 
+                    <button class='btn btn-sm btn-primary tip' title='Editar Comuna' onClick='EditarRegistro({{comuna.id}})'>
+                        <i class='fa-solid fa-pencil'></i>
+                    </button>
+                    <button class='btn btn-sm btn-danger tip' title='Eliminar Comuna' onClick='BorrarRegistro({{comuna.id}})'>
+                        <i class='fa-solid fa-trash-can'></i>
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>   
+</div>

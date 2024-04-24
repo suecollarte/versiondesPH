@@ -3,14 +3,14 @@
         <thead >
             <tr>
                 <td width="10%" class="tdtit10">ID</td>
-                <td width="80%" class="tdtit10">Nombre</td>
-                <td width="10%" class="tdtit10">Accion</td>
+                <td width="80%" class="tdtit10">Tipo de Previsión</td>
+                <td width="10%" class="tdtit10">Acción</td>
             </tr>
         </thead>
         <tbody>
             {% for tipoprevision in tiposprevision %}
             <tr>
-                <td class="text8c" id="id{{tipoprevision.id}}">{{tipoprevision.id}}</td>
+                <td class="text8c" id="id{{tipoprevision.id}}">{{tipoprevision.id|stringformat:"s"}}</td>
                 <td class="text8c" id="nom{{tipoprevision.id}}">{{tipoprevision.nombre}}</td>
                 <td class="text8c"> 
                     <button class='btn btn-sm btn-primary tip' title='Editar Tipo Previsión' onClick='EditarRegistro({{tipoprevision.id}})'>

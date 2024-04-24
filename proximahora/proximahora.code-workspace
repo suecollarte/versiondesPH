@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"window.zoomLevel": 0,
+		"workbench.iconTheme": "material-icon-theme",
+		"workbench.colorTheme": "After Dark",
+		"terminal.integrated.defaultProfile.windows": "Command Prompt"
+	}
+}

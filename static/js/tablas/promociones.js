@@ -19,8 +19,8 @@ $(document).ready(function(){
 	$("#diagedit").dialog({
 		autoOpen: false,	 
 		position: { my: "center", at: "center", of: window },
-		height:450,
-		width: 800,
+		height:480,
+		width: 500,
 		resizable: false,
 		modal: true,  
 		show: {
@@ -172,8 +172,8 @@ function BorrarRegistro(id){
 			{
 				text: "Eliminar",
 				click: function() {
-					confirmarMensaje("La Promoción será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
 					$( this ).dialog("close");
+					confirmarMensaje("La Promoción será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
 					},
 				class:"ui-corner-all", style:"color:Red" 
 			},
@@ -204,10 +204,10 @@ function EnviaPeticionAjax(accion,id){
 				   dcto_cantidad: dcto_cantidad, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
 			success: function( response ) {
 				if (response != ""){
-					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
 					$('#datatablediv').html('');
 					$("#datatablediv").html(response);
 					Crear_DataTable();
+					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
 					}
 				else
 					mostrarMensaje("ERROR DESCONOCIDO<br />Cambio NO realizado",MSG_WARNING);

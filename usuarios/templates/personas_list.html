@@ -1,0 +1,408 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} PH Usuarios {% endblock %}
+
+{% block content %}
+
+    <!-- Custom JS -->
+<script type="text/javascript" src="{% static 'js/usuarios/personas.js' %}"></script>  
+
+<div class="container mt-4">
+
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
+                <table style="width:100%">
+                    <tr>
+                        <td width="90%" class="titform20">Usuarios Proxima Hora</td>
+                        <td width="10%" class="text8c">
+                            <button class='btn btn-sm btn-primary tip' title='Agregar Usuario' onClick='AgregarRegistro()' >
+                                <i class='fa-solid fa-plus'></i>
+                            </button>                        
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'personas_ajax_list.html' %}
+
+</div>
+
+
+  <!-- 
+
+<div id="diagedit">
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="col-lg-12">            
+                <div class="row">
+                    <div class="col-lg-12 mx-auto">
+                        <div class="card border-secondary">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="tit10lb">Usuario</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                        </div>
+                                        <div>
+                                            <input type="hidden" name="id" id="id" size="10" />
+                                            <input type="text" name="username" id="username" readonly class="form-control w-auto ucword text8l"  />
+                                        </div>
+                                    </div>
+                                    <div id="strengthMessage"></div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="tit10lb">R.U.T.</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                                        </div>
+                                        <div>
+                                            <input type="text" name="rut" id="rut" placeholder="R.U.T." size="20" maxlength="12" class="form-control w-auto ucword text8l" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="tit10lb">Nombres</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                        </div>
+                                        <input type="text" name="nombre" id="nombre" placeholder="Nombres" size="100" maxlength="90" class="form-control w-75 ucword text8l" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="tit10lb">Apellidos</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                        </div>
+                                        <input type="text" name="apellido" id="apellido" placeholder="Apellidos" size="100" maxlength="90" class="form-control w-75 ucword text8l" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="tit10lb">Correo Electrónico</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                        </div>
+                                        <input type="text" name="email" id="email" placeholder="Correo Electrónico" size="100" maxlength="90" class="form-control w-75 text8l" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="tit10lb">Fecha Nacimiento</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                        <div>
+                                            <input type="text" name="fnacimiento" id="fnacimiento" placeholder="dd-mm-aaaa"  size="12" maxlength="10" class="form-control fechainput text8l" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="tit10lb">Teléfono</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                        </div>
+                                        <div>
+                                            <input type="text" name="telefono" id="telefono" placeholder="Teléfono" size="25" maxlength="20" class="form-control w-auto text8l" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="tit10lb">Región</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                        </div>
+                                        <div id="divregiones" name="divregiones">
+                                            <input type="hidden" name="miregion" id="miregion"  value="{{miregion}}" />
+                                            <select required="required" class="form-control w-auto" name="region" id="region" style="font-size:11px;">
+                                                {% for region in regiones %}
+                                                    {% if region.id == miregion %} 
+                                                        <option value="{{region.id}}" selected class="text8l">{{region.nombre}}</option>
+                                                    {% else %}
+                                                        <option value="{{region.id}}" class="text8l">{{region.nombre}}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>                    
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="tit10lb">Comuna</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                        </div>
+                                        <div id="divcomunas" name="divcomunas">
+                                            {% include 'comunas/comunas_ajax_select.html' %}
+                                        </div> 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="tit10lb">Ciudad</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                        </div>
+                                        <div id="divciudades" name="divciudades">
+                                            {% include 'ciudades/ciudades_ajax_select.html' %}
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+NavBar --> 
+
+
+<div id="diagedit">
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="card border-secondary">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="tit10lb">R.U.T.</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                                    </div>
+                                    <input type="text" name="rut" id="rut" placeholder="R.U.T." size="20" maxlength="12" class="form-control w-auto ucword text8l" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="tit10lb">Usuario</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <input type="hidden" name="id" id="id" />
+                                    <input type="text" name="username" id="username" readonly class="form-control w-auto ucword text8l"  />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Nombres</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                    </div>
+                                <input type="text" name="nombre" id="nombre" placeholder="Nombres" size="100" maxlength="90" class="form-control w-75 ucword text8l" />
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Apellidos</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                    </div>
+                                    <input type="text" name="apellido" id="apellido" placeholder="Apellidos" size="100" maxlength="90" class="form-control w-75 ucword text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Correo Electrónico</label>
+                                <div class="input-group">
+                                     <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                    </div>
+                                    <input type="text" name="email" id="email" placeholder="Correo Electrónico" size="100" maxlength="90" class="form-control w-75 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Teléfono</label>
+                                <div class="input-group">
+                                     <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                    </div>
+                                    <input type="text" name="telefono" id="telefono" placeholder="Teléfono" size="25" maxlength="20" class="form-control w-25 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Fecha Nacimiento</label>
+                                <div class="input-group">
+                                     <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    <input type="text" name="fnacimiento" id="fnacimiento" placeholder="dd-mm-aaaa"  size="12" maxlength="10" class="form-control w-25 fechainput text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="tit10lb">Región</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                    </div>
+                                    <div id="divregiones" name="divregiones">
+                                        <input type="hidden" name="miregion" id="miregion"  value="{{miregion}}" />
+                                        <select required="required" class="form-control w-auto" name="region" id="region" style="font-size:11px;">
+                                            {% for region in regiones %}
+                                                {% if region.id == miregion %} 
+                                                    <option value="{{region.id}}" selected class="text8l">{{region.nombre}}</option>
+                                                {% else %}
+                                                    <option value="{{region.id}}" class="text8l">{{region.nombre}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>                    
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="tit10lb">Comuna</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                    </div>
+                                    <div id="divcomunas" name="divcomunas">
+                                        {% include 'comunas/comunas_ajax_select.html' %}
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="tit10lb">Ciudad</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                    </div>
+                                    <div id="divciudades" name="divciudades">
+                                        {% include 'ciudades/ciudades_ajax_select.html' %}
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="passwdedit">
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="card border-secondary">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="tit10lb">Nueva Password</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                    </div>
+                                    <input id="txtPassword" type="Password" size="20" maxlength="20" class="form-control w-50 text8l" />
+                                </div>
+                                <div id="strengthMessage"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="tit10lb">Confirmar Password</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                    </div>
+                                    <input id="txtConfirmPassword" type="Password" size="20" maxlength="20" class="form-control w-50 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  <!-- 
+<div id="passwdedit">
+    <br />
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="col-lg-12">            
+                <div class="row">
+                    <div class="col-lg-12 mx-auto">
+                        <div class="card border-secondary">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="tit10lb">Nueva Password</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                        </div>
+                                        <input id="txtPassword" type="Password" size="20" maxlength="20" class="form-control w-50 text8l" />
+                                    </div>
+                                    <div id="strengthMessage"></div>
+                                </div>   <br />
+                                <div class="form-group">
+                                    <label class="tit10lb">Confirmar Password</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                        </div>
+                                        <input id="txtConfirmPassword" type="Password" size="20" maxlength="20" class="form-control w-50 text8l" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+NavBar --> 
+
+{% endblock %}

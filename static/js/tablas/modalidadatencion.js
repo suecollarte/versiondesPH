@@ -10,7 +10,7 @@ $(document).ready(function(){
 		autoOpen: false,	 
 		position: { my: "center", at: "center", of: window },
 		height:300,
-		width: 800,
+		width: 500,
 		resizable: false,
 		modal: true,  
 		show: {
@@ -44,7 +44,7 @@ function PrepararRegistro(id){
 function CamposValidos(){
 	var nombre = allTrim($('#nombre').val());
 	if (nombre == "") 	{
-		mostrarMensaje("Debe indicar Nombre de Modalidad de Atención",MSG_STOP);
+		mostrarMensaje("Debe indicar Modalidad de Atención",MSG_STOP);
 		return false;
 		}
 	return true;
@@ -122,8 +122,8 @@ function BorrarRegistro(id){
 			{
 				text: "Eliminar",
 				click: function() {
-					confirmarMensaje("Modalidad de Atención será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
 					$( this ).dialog("close");
+					confirmarMensaje("Modalidad de Atención será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
 					},
 				class:"ui-corner-all", style:"color:Red" 
 			},
@@ -148,10 +148,10 @@ function EnviaPeticionAjax(accion,id){
 			data: {accion: accion, id: id, nombre: allTrim($('#nombre').val()), csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
 			success: function( response ) {
 				if (response != ""){
-					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
 					$('#datatablediv').html('');
 					$("#datatablediv").html(response);
 					Crear_DataTable();
+					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
 					}
 				else
 					mostrarMensaje("ERROR DESCONOCIDO<br />Cambio NO realizado",MSG_WARNING);

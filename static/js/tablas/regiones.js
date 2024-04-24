@@ -11,9 +11,10 @@ $(document).ready(function(){
 	$("#diagedit").dialog({
 		autoOpen: false,	 
 		position: { my: "center", at: "center", of: window },
-		height:300,
-		width: 800,
+		height:380,
+		width: 500,
 		resizable: false,
+		fluid: true, 
 		modal: true,  
 		show: {
 			effect: "blind",
@@ -24,6 +25,7 @@ $(document).ready(function(){
 			duration: 1000
 		  	},
 		open: function() {
+			fluidDialog();
 			},
 		close: function() {
 			$("#id").val('');
@@ -135,8 +137,8 @@ function BorrarRegistro(id){
 			{
 				text: "Eliminar",
 				click: function() {
-					confirmarMensaje("La Región será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
 					$( this ).dialog("close");
+					confirmarMensaje("La Región será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
 					},
 				class:"ui-corner-all", style:"color:Red" 
 			},
@@ -161,10 +163,10 @@ function EnviaPeticionAjax(accion,id){
 			data: {accion: accion, id: id, numero: allTrim($('#numero').val()), nombre: allTrim($('#nombre').val()), csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
 			success: function( response ) {
 				if (response != ""){
-					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
 					$('#datatablediv').html('');
 					$("#datatablediv").html(response);
 					Crear_DataTable();
+					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
 					}
 				else
 					mostrarMensaje("ERROR DESCONOCIDO<br />Cambio NO realizado",MSG_WARNING);
@@ -184,7 +186,8 @@ function Crear_DataTable() {
 		iDisplayLength: '25',
 		order: [[2, 'asc']],
 		columnDefs: [
-			{ orderable: false, targets: [0,3] }
+			{ orderable: false, targets: [3] },
+			{ searchable: false, targets: [3] }
 		  ]
 		});
 	}

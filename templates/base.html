@@ -22,13 +22,11 @@
     <!-- SmartMenus CSS -->
     <link rel='stylesheet' href="{% static 'css/sm-core-css.css' %}" type='text/css'>
     <link rel='stylesheet' href="{% static 'css/sm-blue.css' %}" type='text/css'>
-    <!-- Custom CSS -->
-    <link rel='stylesheet' href="{% static 'css/system.css' %}" type='text/css'>
+    <!-- checkpassword CSS -->
+    <link rel='stylesheet' href="{% static 'css/checkpassword.css' %}" type='text/css'>
+   <!-- Custom CSS -->
+   <link rel='stylesheet' href="{% static 'css/system.css' %}" type='text/css'>
 
-    <!-- jQuery.js -->
-    <!-- 
-    <script type="text/javascript" src="{% static 'jquery/external/jquery/jquery.js' %}"></script>
-     -->
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- jQuery JS --> 
@@ -41,6 +39,8 @@
     <script type="text/javascript" src="{% static 'js/system.js' %}"></script>     
     <!-- LiveValidation JS -->
     <script type="text/javascript" src="{% static 'js/livevalidation.js' %}"></script>  
+    <!-- checkpassword JS -->
+    <script type="text/javascript" src="{% static 'js/checkpassword.js' %}"></script>  
     <!-- SmartMenus JS -->
     <script type="text/javascript" src="{% static 'jquery/jquery.smartmenus.min.js' %}"></script> 
 
@@ -63,13 +63,13 @@
             <a class="nav-link" href="#" role="button">Usuarios</a>
             <ul class="dropdown-menu ">
                 <li class="nav-item">    
-                    <a class="dropdown-item" href="/usuarios/usuarios">Usuarios</a>
+                    <a class="dropdown-item" href="/usuarios/personas_listar">Usuarios</a>
                 </li>
                 <li class="nav-item">    
-                    <a class="dropdown-item" href="/usuarios/agendas">Agendas</a>
+                    <a class="dropdown-item" href="/usuarios/personas_agendas">Agendas</a>
                 </li>
                 <li class="nav-item">    
-                    <a class="dropdown-item" href="/usuarios/evaluaciones">Evaluaciones</a>
+                    <a class="dropdown-item" href="/usuarios/personas_evaluaciones">Evaluaciones</a>
                 </li>
             </ul>
         </li>
@@ -77,13 +77,13 @@
             <a class="nav-link" href="#" role="button">Especialistas</a>
             <ul class="dropdown-menu ">
                 <li class="nav-item">    
-                    <a class="dropdown-item" href="/especialistas/usuarios">Especialistas</a>
+                    <a class="dropdown-item" href="/usuarios/especialistas_listar">Especialistas</a>
                 </li>
                 <li class="nav-item">    
-                    <a class="dropdown-item" href="/especialistas/agendas">Agendas</a>
+                    <a class="dropdown-item" href="/usuarios/especialistas_agendas">Agendas</a>
                 </li>
                 <li class="nav-item">    
-                    <a class="dropdown-item" href="/especialistas/evaluaciones">Evaluaciones</a>
+                    <a class="dropdown-item" href="/usuarios/especialistas_evaluaciones">Evaluaciones</a>
                 </li>
             </ul>
         </li>

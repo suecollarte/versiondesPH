@@ -2,86 +2,139 @@
 
 {% load static %}
 
-{% block title %} PH Promociones {% endblock %}
+{% block title %}ProximaHora Promociones {% endblock %}
 
 {% block content %}
 
     <!-- Custom JS -->
-    <script type="text/javascript" src="{% static 'js/tablas/promociones.js' %}"></script>  
+<script type="text/javascript" src="{% static 'js/tablas/promociones.js' %}"></script>  
 
-    <div class="container mt-4">
-    
-        {% csrf_token %}
-    
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="table-responsive">
-                    <table style="width:100%">
-                        <tr>
-                            <td width="90%" class="titform20">Promociones</td>
-                            <td width="10%" class="text8c">
-                                <button class='btn btn-sm btn-primary tip' title='Agregar Promoción' onClick='AgregarRegistro()' >
-                                    <i class='fa-solid fa-plus'></i>
-                                </button>                        
-                            </td>
-                        </tr>
-                    </table>
-    
-    {% include 'varios/promociones_ajax_list.html' %}
-    
-                </div>
+<div class="container mt-4">
+
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
+                <table style="width:100%">
+                    <tr>
+                        <td width="90%" class="titform20">Promociones</td>
+                        <td width="10%" class="text8c">
+                            <button class='btn btn-sm btn-primary tip' title='Agregar Promoción' onClick='AgregarRegistro()' >
+                                <i class='fa-solid fa-plus'></i>
+                            </button>                        
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
 
-    <div id="diagedit">
-        <br />
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <table class="table-responsive" border="0" width="100%">
-                <tr>
-                    <td width="20%" class="tdtit8r">Identificador:&nbsp;</td>
-                    <td width="80%" class="text8l">
-                        <input type="text" readonly name="id" id="id" size="10" />
-                    </td>
-                </tr>
-                <tr>
-                    <td width="20%" class="tdtit8r">Nombre:&nbsp;</td>
-                    <td width="80%" class="text8l">
-                        <input type="text" name="nombre" id="nombre" placeholder="Nombre" size="50" maxlength="45" class="form-control w-75 ucword" />
-                    </td>
-                </tr>
-                <tr>
-                    <td width="20%" class="tdtit8r">Palabra Clave:&nbsp;</td>
-                    <td width="80%" class="text8l">
-                        <input type="text" name="pclave" id="pclave" placeholder="Palabra Clave" size="50" maxlength="45" class="form-control w-75" />
-                    </td>
-                </tr>
-                <tr>
-                    <td width="20%" class="tdtit8r">Fecha Inicio:&nbsp;</td>
-                    <td width="80%" class="text8l">
-                        <input type="text" name="fdesde" placeholder="dd-mm-aaaa" id="fdesde" size="12" maxlength="10" class="fechainput" />
-                    </td>
-                </tr>
-                <tr>
-                    <td width="20%" class="tdtit8r">Fecha Término:&nbsp;</td>
-                    <td width="80%" class="text8l">
-                        <input type="text" name="fhasta" placeholder="dd-mm-aaaa" id="fhasta" size="12" maxlength="10" class="fechainput" />
-                    </td>
-                </tr>
-                <tr>
-                    <td width="20%" class="tdtit8r">Porcentaje Descuento:&nbsp;</td>
-                    <td width="80%" class="text8r">
-                        <input type="text" name="dcto_porcentaje" id="dcto_porcentaje" size="6" maxlength="2" class="form-control w-25 text-rigth" />
-                    </td>
-                </tr>
-                <tr>
-                    <td width="20%" class="tdtit8r">O bien Cantidad:&nbsp;</td>
-                    <td width="80%" class="text8r">
-                        <input type="text" name="dcto_cantidad" id="dcto_cantidad" size="50" maxlength="12" class="form-control w-25 text-right" />
-                    </td>
-                </tr>
-            </table>
+    {% include 'varios/promociones_ajax_list.html' %}
+
+</div>
+
+
+<div id="diagedit">
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="card border-secondary">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Identificador</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                    </div>
+                                    <input type="text" readonly name="id" id="id" size="10" class="text8r"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Nombre de la Promoción</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                    </div>
+                                    <input type="text" name="nombre" id="nombre" placeholder="Nombre" size="50" maxlength="45" class="form-control ucword w-50 text8l  " />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Palabra Clave</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                    </div>
+                                    <input type="text" name="pclave" id="pclave" placeholder="Palabra Clave" size="50" maxlength="45" class="form-control w-50 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Fecha de Inicio</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    <input type="text" name="fdesde" id="fdesde" placeholder="dd-mm-aaaa"  size="12" maxlength="10" class="form-control fechainput text8l" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Fecha de Término</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                    <input type="text" name="fhasta" placeholder="dd-mm-aaaa" id="fhasta" size="12" maxlength="10" class="form-control fechainput input-sm text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Porcentaje de Descuento</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-percent"></i></span>
+                                    </div>
+                                    <input type="text" name="dcto_porcentaje" id="dcto_porcentaje" size="6" maxlength="2" class="form-control w-50 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">O Cantidad a Descontar</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-usd"></i></span>
+                                    </div>
+                                    <input type="text" name="dcto_cantidad" id="dcto_cantidad" size="10" maxlength="10" class="form-control w-50 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
+</div>
+
+
+
+
+
 {% endblock %}

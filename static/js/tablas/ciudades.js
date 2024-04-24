@@ -5,34 +5,34 @@ $(document).ready(function(){
     //
     // Dialogo para Modificar Registro.
     //	
-        $("#diagedit").dialog({
-            autoOpen: false,	 
-            position: { my: "center", at: "center", of: window },
-            height:300,
-            width: 800,
-            resizable: false,
-            modal: true,  
-            show: {
-                effect: "blind",
-                duration: 1000
-                  },
-            hide: {
-                effect: "explode",
-                duration: 1000
-                  },
-            open: function() {
+    $("#diagedit").dialog({
+        autoOpen: false,	 
+        position: { my: "center", at: "center", of: window },
+        height:380,
+        width: 500,
+        resizable: false,
+        modal: true,  
+        show: {
+            effect: "blind",
+            duration: 1000
                 },
-            close: function() {
-                $("#id").val('');
-                $("#nombre").val('');
-                $("#region option:selected").each(function(){
-                    $(this).removeAttr("selected");
-                    });
-                }
-            });
-            
-        Crear_DataTable(); 
+        hide: {
+            effect: "explode",
+            duration: 1000
+                },
+        open: function() {
+            },
+        close: function() {
+            $("#id").val('');
+            $("#nombre").val('');
+            $("#region option:selected").each(function(){
+                $(this).removeAttr("selected");
+                });
+            }
         });
+        
+    Crear_DataTable(); 
+    });
 //
 // ********************************
 //          Funciones
@@ -138,8 +138,8 @@ function BorrarRegistro(id){
             {
                 text: "Eliminar",
                 click: function() {
-                    confirmarMensaje("La Ciudad será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
                     $( this ).dialog("close");
+                    confirmarMensaje("La Ciudad será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
                     },
                 class:"ui-corner-all", style:"color:Red" 
             },
@@ -152,7 +152,6 @@ function BorrarRegistro(id){
             }
             ]
         });	
-//	$("#diagedit").dialog( "option", "classes.ui-dialog", "alert" );
     $("#diagedit").dialog("open");
     };
 
@@ -166,10 +165,10 @@ function EnviaPeticionAjax(accion,id){
             data: {accion: accion, id: id, nombre: nombre, region: region, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
             success: function( response ) {
                 if (response != ""){
-					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
                     $('#datatablediv').html('');
                     $("#datatablediv").html(response);
                     Crear_DataTable();
+					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
                     }
                 else
                     mostrarMensaje("ERROR DESCONOCIDO<br />Cambio NO realizado",MSG_WARNING);
@@ -186,11 +185,11 @@ function Crear_DataTable() {
         language: {url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-CL.json'	},
         pagingType: 'full_numbers',
         bJQueryUI: 'true',
-        iDisplayLength: '25',
-        order: [[2, 'asc']],
+        iDisplayLength: '50',
+        order: [[1, 'asc']],
         columnDefs: [
-            { orderable: false, targets: [0,1,3] },
-            { searchable: false, targets: [0,1,3] }
+            { orderable: false, targets: [3] },
+            { searchable: false, targets: [3] }
             ]
         });
     }

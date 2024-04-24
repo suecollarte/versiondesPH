@@ -11,7 +11,7 @@
         <tbody>
             {% for ciudad in ciudades %}
             <tr>
-                <td class="text8c" id="id{{ciudad.id}}">{{ciudad.id}}</td>
+                <td class="text8c" id="id{{ciudad.id}}">{{ciudad.id|stringformat:"s"}}</td>
                 <td class="text8c" id="nom{{ciudad.id}}">{{ciudad.nombre}}</td>
                 <td class="text8c" id="reg{{ciudad.id}}">{{ciudad.region}}</td>
                 <td class="text8c"> 

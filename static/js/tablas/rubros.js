@@ -5,34 +5,34 @@ $(document).ready(function(){
     //
     // Dialogo para Modificar Registro.
     //	
-        $("#diagedit").dialog({
-            autoOpen: false,	 
-            position: { my: "center", at: "center", of: window },
-            height:300,
-            width: 800,
-            resizable: false,
-            modal: true,  
-            show: {
-                effect: "blind",
-                duration: 1000
-                  },
-            hide: {
-                effect: "explode",
-                duration: 1000
-                  },
-            open: function() {
+    $("#diagedit").dialog({
+        autoOpen: false,	 
+        position: { my: "center", at: "center", of: window },
+        height:380,
+        width: 500,
+        resizable: false,
+        modal: true,  
+        show: {
+            effect: "blind",
+            duration: 1000
                 },
-            close: function() {
-                $("#id").val('');
-                $("#nombre").val('');
-                $("#areasalud option:selected").each(function(){
-                    $(this).removeAttr("selected");
-                    });
-                }
-            });
-            
-        Crear_DataTable(); 
+        hide: {
+            effect: "explode",
+            duration: 1000
+                },
+        open: function() {
+            },
+        close: function() {
+            $("#id").val('');
+            $("#nombre").val('');
+            $("#areasalud option:selected").each(function(){
+                $(this).removeAttr("selected");
+                });
+            }
         });
+        
+    Crear_DataTable(); 
+    });
 //
 // ********************************
 //          Funciones
@@ -43,20 +43,13 @@ function PrepararRegistro(id){
     var aux;
     $('#id').val(allTrim($('#id'+id).html()));
     $('#nombre').val(allTrim($('#nom'+id).html()));
-
-    $("#areasalud option").each(function(){
-        $(this).prop("selected", false);
-        aux = allTrim($(this).text());
-        if (asalud === aux) {
-            $(this).attr("selected", "selected");
-            }
-        });
+    $('#areasalud').val($('#asalud'+id).val());
     };
 
 function CamposValidos(){
     var nombre = allTrim($('#nombre').val());
     if (nombre == "") 	{
-        mostrarMensaje("Debe indicar Nombre de Ciudad",MSG_STOP);
+        mostrarMensaje("Debe indicar Rubro",MSG_STOP);
         return false;
         }
     return true;
@@ -137,8 +130,8 @@ function BorrarRegistro(id){
             {
                 text: "Eliminar",
                 click: function() {
-                    confirmarMensaje("El Rubro será eliminado de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
                     $( this ).dialog("close");
+                    confirmarMensaje("El Rubro será eliminado de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
                     },
                 class:"ui-corner-all", style:"color:Red" 
             },
@@ -164,10 +157,10 @@ function EnviaPeticionAjax(accion,id){
             data: {accion: accion, id: id, nombre: nombre, areasalud: areasalud, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
             success: function( response ) {
                 if (response != ""){
-					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
                     $('#datatablediv').html('');
                     $("#datatablediv").html(response);
                     Crear_DataTable();
+					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
                     }
                 else
                     mostrarMensaje("ERROR DESCONOCIDO<br />Cambio NO realizado",MSG_WARNING);
@@ -187,7 +180,7 @@ function Crear_DataTable() {
         iDisplayLength: '25',
         order: [[1, 'asc']],
         columnDefs: [
-            { orderable: false, targets: [0,3] },
+            { orderable: false, targets: [3] },
             { searchable: false, targets: [0,3] }
             ]
         });

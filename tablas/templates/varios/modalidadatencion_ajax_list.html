@@ -3,14 +3,14 @@
         <thead >
             <tr>
                 <td width="10%" class="tdtit10">ID</td>
-                <td width="80%" class="tdtit10">Nombre</td>
-                <td width="10%" class="tdtit10">Accion</td>
+                <td width="80%" class="tdtit10">Modalidad de Atención</td>
+                <td width="10%" class="tdtit10">Acción</td>
             </tr>
         </thead>
         <tbody>
             {% for modalidadatencion in modalidadesatencion %}
             <tr>
-                <td class="text8c" id="id{{modalidadatencion.id}}">{{modalidadatencion.id}}</td>
+                <td class="text8c" id="id{{modalidadatencion.id}}">{{modalidadatencion.id|stringformat:"s"}}</td>
                 <td class="text8c" id="nom{{modalidadatencion.id}}">{{modalidadatencion.nombre}}</td>
                 <td class="text8c"> 
                     <button class='btn btn-sm btn-primary tip' title='Editar Modalidad Atención' onClick='EditarRegistro({{modalidadatencion.id}})'>

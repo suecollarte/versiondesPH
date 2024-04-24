@@ -25,4 +25,5 @@ urlpatterns = [
     path('about/', views.about),
     path('ayuda/', views.ayuda),
     path('tablas/', include ('tablas.urls')),
+    path('usuarios/', include ('usuarios.urls')),
 ]

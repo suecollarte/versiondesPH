@@ -1,0 +1,55 @@
+<div id="datatablediv">
+    <table id="tablaregs" class="cell-border compact stripe hover order-column" style="width:100%">
+        <thead >
+            <tr>
+                <td width="10%" class="tdtit10">R.U.T.</td>
+                <td width="30%" class="tdtit10">Nombre</td>
+                <td width="20%" class="tdtit10">Correo</td>                
+                <td width="8%" class="tdtit10">Estado</td>
+                <td width="7%" class="tdtit10">Perfil</td>
+                <td width="10%" class="tdtit10">Sistema</td>
+                <td width="15%" class="tdtit10">Accion</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for persona in personas %}
+            <tr>
+                <td class="text8c" id="rut{{persona.id}}">{{persona.rut}}
+                    <input type="hidden" name="id{{persona.id}}" id="id{{persona.id}}" />
+                </td>
+                <td class="text8c" id="nom{{persona.id}}">{{persona.usuario.last_name}} , {{persona.usuario.first_name}} </td>
+                <td class="text8c" id="ema{{persona.id}}">{{persona.usuario.email}}</td>
+                <td class="text8c" id="est{{persona.id}}">{{persona.get_estado_display}}</td>
+                <td class="text8c" id="per{{persona.id}}">{{persona.get_perfil_display}}</td>
+                <td class="text8c" id="act{{persona.id}}">
+                    {% if persona.usuario.is_active %}
+                        Activo
+                    {% else %}
+                        Bloqueado
+                    {% endif %}
+                </td>
+                <td class="text8c"> 
+                    <button class='btn btn-sm btn-success tip' title='Ver Usuario' onClick='VerRegistro({{persona.id}})'>
+                        <i class='fa fa-search'></i>
+                    </button>
+                    <button class='btn btn-sm btn-primary tip' title='Editar Usuario' onClick='EditarRegistro({{persona.id}})'>
+                        <i class='fa fa-pencil'></i>
+                    </button>
+                    <button class='btn btn-sm btn-warning tip' title='Cambiar Password' onClick='CambiarClave({{persona.id}})'>
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    </button>
+                    {% if persona.usuario.is_active %}
+                        <button class='btn btn-sm btn-danger tip' title='Bloquear Usuario' onClick='BloquearRegistro({{persona.id}})'>
+                            <i class='fa fa-lock'></i>
+                        </button>
+                    {% else %}
+                        <button class='btn btn-sm btn-danger tip' title='DesBloquear Usuario' onClick='DesBloquearRegistro({{persona.id}})'>
+                            <i class='fa fa-unlock aria-hidden="true"'></i>
+                        </button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>   
+</div>

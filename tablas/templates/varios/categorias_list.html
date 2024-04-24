@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %} PH Categorias {% endblock %}
+{% block title %}ProximaHora Categorias {% endblock %}
 
 {% block content %}
 
@@ -26,41 +26,60 @@
                             </td>
                         </tr>
                     </table>
-    
-    {% include 'varios/categorias_ajax_list.html' %}
-    
                 </div>
             </div>
         </div>
+    
+        {% include 'varios/categorias_ajax_list.html' %}
+    
     </div>
 
     <div id="diagedit">
-        <br />
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <table class="table-responsive" border="0" width="100%">
-                <tr>
-                    <td width="20%" class="tdtit8r">Identificador:&nbsp;</td>
-                    <td width="80%" class="text8l">
-                        <input type="text" readonly name="id" id="id" size="10" />
-                    </td>
-                </tr>
-                <tr>
-                    <td width="20%" class="tdtit8r">Nombre:&nbsp;</td>
-                    <td width="80%" class="text8l">
-                        <input type="text" name="nombre" id="nombre" placeholder="Nombre" size="50" maxlength="45" class="form-control ucword w-50" />
-                    </td>
-                </tr>
-                <tr>
-                    <td width="20%" class="tdtit8r">Rubro:&nbsp;</td>
-                    <td width="80%">
-                        <select required="required" class="form-control w-50" name="rubro" id="rubro" style="font-size:11px;">
-                            {% for rubro in rubros %}
-                                <option value="{{ rubro.id }}" class="text8l">{{ rubro.nombre }}</option>
-                            {% endfor %}
-                        </select>
-                    </td>
-                </tr>
-            </table>
+        <div class="container-fluid py-3">
+            <div class="row">
+                <div class="col-lg-12">            
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="card border-secondary">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="tit10lb">Identificador</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                            </div>
+                                            <input type="text" readonly name="id" id="id" size="10" class="text8r"/>
+                                        </div>
+                                        <div id="strengthMessage"></div>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class="tit10lb">Nombre Categoría</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                            </div>
+                                            <input type="text" name="nombre" id="nombre" placeholder="Nombre" size="50" maxlength="45" class="form-control ucword w-50 text8l  " />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="tit10lb">Rubro</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                            </div>
+                                            <select required="required" class="form-control w-auto" name="rubro" id="rubro" style="font-size:12px;">
+                                                {% for rubro in rubros %}
+                                                    <option value="{{ rubro.id }}" class="text8l">{{ rubro.nombre }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     

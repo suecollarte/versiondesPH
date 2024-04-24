@@ -3,15 +3,30 @@
 #
 from datetime import datetime
 import calendar
-ESPANOL = 0
-INGLES = 1
 
-def number_unformat(nump,formato=ESPANOL):
+class Constantes:
+    REGIONMETRO = 13
+    CIUDADSTGO = 325
+    COMUNASTGO = 13101
+    MEDICINA = 1
+    MEDICOCIRUJANO = 1
+    CIRUJANOGRAL = 1
+    ESPANOL = 0
+    INGLES = 1
+
+
+class FuncionesAjax:
+    ELIMINAR = '0'
+    CREAR = '1'
+    MODIFICAR = '2'
+    
+    
+def number_unformat(nump,formato=Constantes.ESPANOL):
     if nump == "":
         numx = "0"
     else:
         nums = str(nump)
-        if formato == ESPANOL:
+        if formato == Constantes.ESPANOL:
             nums = nums.replace(".", "")
             numx = nums.replace(",", ".")
         else: 
@@ -30,3 +45,6 @@ def fecha_str_to_sql(fecha_str):
     fecha_nuevo_formato = fecha.strftime('%Y-%m-%d')
     return fecha_nuevo_formato
 
+def fecha_sql_to_str(fecha_str):
+    fecha_nuevo_formato = fecha_str.strftime('%d-%m-%Y')
+    return fecha_nuevo_formato

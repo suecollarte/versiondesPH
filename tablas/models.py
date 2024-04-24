@@ -37,7 +37,10 @@ class Ciudades(models.Model):
     class Meta:
         ordering = ['nombre']
 
-
+    def __str__(self):
+        return (self.nombre)
+    
+    
 class Rubros(models.Model):
     '''
     (4) Tabla Normalizada de Rubros de Especialistas
@@ -53,7 +56,9 @@ class Rubros(models.Model):
     
     class Meta:
         ordering = ['nombre', 'areasalud']
-       
+
+    def __str__(self):
+        return (self.nombre)   
         
 class Categorias(models.Model):
     '''
@@ -65,6 +70,9 @@ class Categorias(models.Model):
     class Meta:
         ordering = ['nombre']
  
+    def __str__(self):
+        return (self.nombre)   
+
         
 class SubCategorias(models.Model):
     '''
@@ -76,6 +84,10 @@ class SubCategorias(models.Model):
     
     class Meta:
         ordering = ['nombre']
+
+    def __str__(self):
+        return (self.nombre)   
+
  
 class FormaPagoSalud(models.Model):
     '''
@@ -86,6 +98,9 @@ class FormaPagoSalud(models.Model):
     class Meta:
         ordering = ['nombre']
 
+    def __str__(self):
+        return (self.nombre)   
+
 
 class FormaPagoGral(models.Model):
     '''
@@ -95,6 +110,9 @@ class FormaPagoGral(models.Model):
         
     class Meta:
         ordering = ['nombre']
+
+    def __str__(self):
+        return (self.nombre)   
 
         
 class TipoPrevision(models.Model):
@@ -116,6 +134,9 @@ class ModalidadAtencion(models.Model):
     class Meta:
         ordering = ['nombre']
 
+    def __str__(self):
+        return (self.nombre)   
+
 
 class Promociones(models.Model):
     '''
@@ -131,4 +152,6 @@ class Promociones(models.Model):
     class Meta:
         ordering = ['nombre','fdesde','fhasta','pclave','dcto_porcentaje','dcto_cantidad']
         
+    def __str__(self):
+        return (self.nombre)   
 

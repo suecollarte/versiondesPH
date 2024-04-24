@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Proxima Hora Especialistas {% endblock %}
+
+{% block content %}
+
+    <!-- Custom JS -->
+<script type="text/javascript" src="{% static 'js/usuarios/especialistas.js' %}"></script>  
+
+<div class="container mt-4">
+
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
+                <table style="width:100%">
+                    <tr>
+                        <td width="90%" class="titform20">Especialistas Proxima Hora</td>
+                        <td width="10%" class="text8c">
+                            <button class='btn btn-sm btn-primary tip' title='Agregar Especialista' onClick='AgregarRegistro()' >
+                                <i class='fa-solid fa-plus'></i>
+                            </button>                        
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% include 'especialistas_ajax_list.html' %}
+
+</div>
+
+
+<div id="diagedit">
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="card border-secondary">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">R.U.T.</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                                    </div>
+                                    <input type="text" name="rut" id="rut" placeholder="R.U.T." size="20" maxlength="12" class="form-control w-50 ucword text8l" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Usuario</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <input type="hidden" name="idusuario" id="idusuario" />
+                                    <input type="hidden" name="idpersona" id="idpersona" />
+                                    <input type="hidden" name="idespecialista" id="idespecialista" />
+                                    <input type="text" name="username" id="username"  size="20"  readonly class="form-control w-75 ucword text8l"  />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mx-auto">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Nombre</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                    </div>
+                                    <input type="text" name="nombre" id="nombre" readonly size="100" class="form-control w-75 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Correo Electrónico</label>
+                                <div class="input-group">
+                                     <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                    </div>
+                                    <input type="text" name="email" id="email" readonly size="100" class="form-control w-75 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Descripción</label>
+                                <div class="input-group">
+                                     <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-comment"></i></span>
+                                    </div>
+                                    <input type="text" name="descripcion" id="descripcion" size="100" maxlength="100"  class="form-control w-75 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Registro Especialista</label>
+                                <div class="input-group">
+                                     <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-university"></i></span>
+                                    </div>
+                                    <input type="text" name="reg_especialista" id="reg_especialista"  size="100" maxlength="100"  class="form-control w-75 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Duración Consulta</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-clock"></i></span>
+                                    </div>
+                                    <input type="text" name="tiempo_consulta" id="tiempo_consulta" size="5"  maxlength="3"  class="form-control w-25 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Rubro</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                    </div>
+                                    <div id="divrubros" name="divrubros">
+                                        <input type="hidden" name="mirubro" id="mirubro"  value="{{mirubro}}" />
+                                        <select required="required" class="form-control w-auto" name="rubro" id="rubro" style="font-size:11px;">
+                                            {% for rubro in rubros %}
+                                                {% if rubro.id == mirubro %} 
+                                                    <option value="{{rubro.id}}" selected class="text8l">{{rubro.nombre}}</option>
+                                                {% else %}
+                                                    <option value="{{rubro.id}}" class="text8l">{{rubro.nombre}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>                    
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Categoría</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                    </div>
+                                    <div id="divcategorias" name="divcategorias">
+                                        {% include 'varios/categorias_ajax_select.html' %}
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">SubCategoría</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                    </div>
+                                    <div id="divsubcategorias" name="divsubcategorias">
+                                        {% include 'varios/subcategorias_ajax_select.html' %}
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="titform12">Administrador</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-secondary">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3 mx-auto">
+                                    <div class="form-group">
+                                        <label class="tit10lb">Revisión Registro Especialista</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                            </div>
+                                            <select required="required" class="form-control w-auto" name="ctr_altadctos" id="ctr_altadctos" style="font-size:11px;">
+                                                {% for estado, descripcion in EstadosDocumentos.ESTADOS_DOCUMENTOS %}
+                                                    <option value="{{ estado }}">{{ descripcion }}</option>
+                                                {% endfor %}
+                                            </select>                    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mx-auto">
+                                    <div class="form-group">
+                                        <label class="tit10lb">Estado Suscripción</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                            </div>
+                                            <select required="required" class="form-control w-auto" name="estado_suscripcion" id="estado_suscripcion" style="font-size:11px;">
+                                                {% for estado, descripcion in EstadosSuscripcion.ESTADOS_SUSCRIPCION %}
+                                                    <option value="{{ estado }}">{{ descripcion }}</option>
+                                                {% endfor %}
+                                            </select>                    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mx-auto">
+                                    <div class="form-group">
+                                        <label class="tit10lb">Estado Usuario</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-bars"></i></span>
+                                            </div>
+                                            <input type="text" name="estado_persona" id="estado_persona" readonly size="10" class="form-control w-25 text8l" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mx-auto">
+                                    <div class="form-group">
+                                        <label class="tit10lb">Evaluación</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-bar-chart"></i></span>
+                                            </div>
+                                            <input type="text" name="promedio_evaluacion" id="promedio_evaluacion" readonly size="6" class="form-control w-25 text8l" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

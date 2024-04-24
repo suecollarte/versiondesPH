@@ -6,13 +6,13 @@
                 <td width="30%" class="tdtit10">SubCategoría</td>
                 <td width="30%" class="tdtit10">Categoría</td>
                 <td width="20%" class="tdtit10">Rubro</td>
-                <td width="10%" class="tdtit10">Accion</td>
+                <td width="10%" class="tdtit10">Acción</td>
             </tr>
         </thead>
         <tbody>
             {% for subcategoria in subcategorias %}
             <tr>
-                <td class="text8c" id="id{{subcategoria.id}}">{{subcategoria.id}}</td>
+                <td class="text8c" id="id{{subcategoria.id}}">{{subcategoria.id|stringformat:"s"}}</td>
                 <td class="text8c" id="nom{{subcategoria.id}}">{{subcategoria.nombre}}</td>
                 <td class="text8c" id="cat{{subcategoria.id}}">{{subcategoria.categoria.nombre}}</td>
                 <td class="text8c" id="cat{{subcategoria.id}}">{{subcategoria.rubro.nombre}}</td>

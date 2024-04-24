@@ -6,13 +6,16 @@
 
 const MaxNum = 999999999999;   	// 999.999.999.999
 const MaxMon = 9999999999; 		// 9.999.999.999
-const CLP = 1;     				// Id moneda pesos chilenos en tabla tbl_monedas
 const IVA = 0.19;  				// Tasa IVA
 
 const DIGITOSVENTAS = 2;
 const DIGITOSCOSTOS = 4;
 const DIGITOSCANTIDAD = 4;
 const DIGITOSPORCENTAJE = 2;
+
+const REGIONMETRO = 13
+const CIUDADSTGO = 325
+const COMUNASTGO = 13101
 
 const ELIMINAR_REG = 0;
 const AGREGAR_REG = 1;
@@ -34,18 +37,24 @@ var mesesCortos = new Array ("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Se
 
 $(document).ready(function(){
 
+// on window resize run function
+	$(window).resize(function () {
+		fluidDialog();
+		});
+
+// catch dialog if opened within a viewport smaller than the dialog width
+	$(document).on("dialogopen", ".ui-dialog", function (event, ui) {
+		fluidDialog();
+		});
 
 	$('#main-menu').smartmenus({
 		subMenusSubOffsetX: 1,
 		subMenusSubOffsetY: -8
 		});
-//		$('#main-menu').smartmenus('keyboardSetHotkey', 123, 'shiftKey');
-
 
 	$("#div-msg-wait").css({ opacity: 0.5 });	
 	$('#div-msg-wait').bind("ajaxStart", function() {$(this).show();})
-					  .bind("ajaxComplete", function() {$(this).hide();});
-      
+					  .bind("ajaxComplete", function() {$(this).hide();});   
 
 	$(".tip").tooltip();
 
@@ -67,9 +76,11 @@ $(document).ready(function(){
 		dateFormat: "dd-mm-yy",
 		changeMonth: true,
 		changeYear: true,
+		buttonText: "Seleccionar fecha",
+		maxDate: "-1d",
+		yearRange: "1900:2030",
 		dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
-		monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ]
-  
+		monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ] 
 		});
 
 	$(".uppcase").blur(function(){
@@ -96,14 +107,36 @@ $(document).ready(function(){
 //          Funciones
 // ********************************
 //
+function fluidDialog() {
+	var $visible = $(".ui-dialog:visible");
+	// each open dialog
+	$visible.each(function () {
+		var $this = $(this);
+		var dialog = $this.find(".ui-dialog-content").data("dialog");
+		// if fluid option == true
+		if (dialog.options.fluid) {
+			var wWidth = $(window).width();
+			// check window width against dialog width
+			if (wWidth < dialog.options.maxWidth + 50) {
+				// keep dialog from filling entire screen
+				$this.css("max-width", "90%");
+			} else {
+				// fix maxWidth bug
+				$this.css("max-width", dialog.options.maxWidth);
+				}
+			//reposition dialog
+			dialog.option("position", dialog.options.position);
+			}
+		});
+	}
 
 function BloquearReadonly() {
-	$(":input[type=text][readonly='readonly']").css({'background-color' : '#FFFF7D'});
-	$(":input[type=password][readonly='readonly']").css({'background-color' : '#FFFF7D'});
+	$(":input[type=text][readonly='readonly']").css({'background-color' : '#F0EAE9'});
+	$(":input[type=password][readonly='readonly']").css({'background-color' : '#F0EAE9'});
 	}
 
 function CampoEnReadOnly(id) {
-    $("#"+id).css({'background-color' : '#FFFF7D'});
+    $("#"+id).css({'background-color' : '#F0EAE9'});
     $("#"+id).attr("readonly","readonly");
 	}
 
@@ -113,7 +146,7 @@ function CampoEnReadWrite(id) {
 	}
 
 function CampoDisabled(id) {
-	$("#"+id).css({'background-color' : '#FFFF7D'});
+	$("#"+id).css({'background-color' : '#F0EAE9'});
 	$("#"+id).attr("disabled","disabled");
 	}
 
@@ -258,7 +291,7 @@ function textvalida(e,obj) {
 
 function validarRUT() {
 	var tmpstr = "", dvr = '0';
-	var crut,largo,rut1,crut,dv,suma,mul,res,dvi,rutfinal;
+	var largo,rut1,dv,suma,mul,res,dvi,rutfinal;
 	var crut = allTrim($('#rut').val());
 
 	if (crut.length < 3)	{
@@ -326,6 +359,17 @@ function validarRUT() {
 			}
 	$('#rut').val(rutfinal);
 	return true;
+	}
+
+function validarCorreo(correo) {
+	var expresion = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	
+	if (expresion.test(correo)) {
+		return true;
+		} 
+	else {
+		return false;
+		}
 	}
 
 function MensajeErrorDesconocido(p) {

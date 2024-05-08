@@ -32,6 +32,14 @@ var idGlobal2 = 0;
 var idGlobal3 = 0;
 var idGlobal4 = 0;
 
+// Models Usuarios
+var	ROOT = 0
+var ADMINISTRADOR = 1
+var ESPECIALISTA = 2
+var REGISTRADO = 3
+var INVITADO = 4
+var RELACIONADO = 5
+
 var mesesLargos = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 var mesesCortos = new Array ("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
 
@@ -360,7 +368,19 @@ function validarRUT() {
 	$('#rut').val(rutfinal);
 	return true;
 	}
+//
+// Elimina ".""  y " -"" del RUT formateado para campo usuario
+//
+function rut_a_username(rut) {
+	var tmpstr = "";
+	var crut = allTrim(rut);
 
+	for ( i=0; i <crut.length ; i++ )
+		if (crut.charAt(i) != '.' && crut.charAt(i) != '-' ) 
+			tmpstr = tmpstr + crut.charAt(i);
+	return tmpstr;
+	}
+	
 function validarCorreo(correo) {
 	var expresion = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 	

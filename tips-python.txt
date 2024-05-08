@@ -1,0 +1,317 @@
+
+
+Pasos para crear proyecto django
+
+DOS
+mkdir carpeta_del_proyecto
+cd carpeta_del_proyecto
+pip install virtualenv
+python -m virtualenv venv
+virtualenv venv
+.\venv\Scripts\activate
+pip list
+pip install django
+python.exe -m pip install --upgrade pip
+pip list
+django-admin startproject nombre_del_proyecto  .
+django-admin startapp nombre-app 
+python manage.py sqlmigrate myapp 0003
+
+
+VSCODE
+En setting.py
+1 INSTALLED_APPS = 
+   "nombre-app"
+2 Base de datos
+3 TIME_ZONE = 'America/Santiago'
+
+
+virtualenv --version
+python --version
+pip --version
+pip list
+
+cd \PPython\zerocompany
+
+Crear Entorno virtual en DOS:
+virtualenv venv
+.\venv\Scripts\activate
+python manage.py runserver 
+pip install django
+
+django-admin --version
+django-admin startproject zc .
+
+
+
+python manage.py startapp nombre-app 
+Tambien he visto django-admin startapp nombre-app 
+python manage.py --help
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser administrador
+.\venv\Scripts\activate
+python manage.py runserver (opcional puerto)
+
+
+(venv) G:\PPython\zerocompany>python manage.py createsuperuser
+Nombre de usuario (leave blank to use 'armando'): administrador
+Dirección de correo electrónico: admin@proximahora.cl
+Password: ph.2024.
+Toggle Preview - ctrl+shift+v or cmd+shift+v
+Open Preview to the Side - ctrl+k v or cmd+k v
+
+Mysql
+zerocompanyuser:zerocompanyuser.2023. zerocompanyDB
+
+ver https://www.youtube.com/watch?v=T1intZyhXDU&list=PLGKx6DM5QyNFtS5PIuPrJbxtQNVLgV_ik&index=4
+
+Queries con Django
+https://openwebinars.net/blog/empezando-hacer-queries-con-django/
+https://tech-blog.rocks/posts/primeros-pasos-con-el-orm-de-django/
+https://docs.djangoproject.com/es/4.2/ref/models/querysets/
+https://docs.djangoproject.com/en/4.2/topics/db/queries/
+
+pip
+https://es.stackoverflow.com/questions/188044/c%C3%B3mo-verificar-la-versi%C3%B3n-de-los-modulos-instalados
+
+Compilar python
+pip install pyinstaller
+pyinstaller --windowed --onefile --icon=./archivo.ico archivo.py
+
+Pep8
+https://peps.python.org/
+
+Django
+https://www.djangoproject.com/download/
+https://docs.djangoproject.com/en/4.2/
+django-admin startproject zc  .
+cd  nombredelproyecto
+python manage.py startapp nombredelaapp
+python manage.py runserver
+http://127.0.0.1:8000
+
+python ../manage.py makemigrations
+python ../manage.py migrate
+python .\manage.py createsuperuser
+
+Documentacion Django
+Models
+https://neunapp.com/contenido/tipos-de-campos-de-un-modelo-en-django-fields-in-models-18329
+Internacionalización y localización
+https://docs.djangoproject.com/es/4.2/topics/i18n/
+Model field reference
+https://docs.djangoproject.com/en/4.2/ref/models/instances/
+Models
+https://docs.djangoproject.com/en/4.2/topics/db/models/#automatic-primary-key-fields
+Model Meta options
+https://docs.djangoproject.com/en/4.2/ref/models/options/#table-names
+Model field reference
+https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BigAutoField
+Making queries
+https://docs.djangoproject.com/en/4.2/topics/db/queries/
+Working with forms
+https://docs.djangoproject.com/en/4.2/topics/forms/
+Built-in template tags and filters
+https://docs.djangoproject.com/en/4.2/ref/templates/builtins/
+Using the Django authentication system
+https://docs.djangoproject.com/en/4.2/topics/auth/default/#auth-web-requests
+Shortcuts
+https://docs.djangoproject.com/en/4.2/topics/http/shortcuts/
+Varios
+https://www.tutorialspoint.com/python/tk_text.htm
+templates
+https://docs.python.org/3/library/stdtypes.html#old-string-formatting
+https://docs.djangoproject.com/en/5.0/ref/templates/builtins/#lower
+
+La librería Matplotlib
+https://aprendeconalf.es/docencia/python/manual/matplotlib/
+
+How to manage static files
+https://docs.djangoproject.com/en/4.2/howto/static-files/
+Graphene Python
+https://graphene-python.org/
+
+Bootstrap
+https://getbootstrap.com/
+https://www.w3schools.com/django/django_add_bootstrap5.php
+https://www.w3schools.com/bootstrap5/bootstrap_tables.php
+https://bootstrap-esdocu.com/docs/5.1/components/buttons/
+https://codingpotions.com/bootstrap/
+
+
+JQUERY
+https://www.delftstack.com/es/howto/django/django-jquery/
+https://api.jqueryui.com/theming/css-framework/
+
+Formulario de contacto en Django (AJAX)
+https://programadorwebvalencia.com/django-crear-formulario-de-contacto/
+https://recursospython.com/guias-y-manuales/actualizar-contenido-via-ajax/
+https://www.youtube.com/watch?v=qgf0UYzL5BY
+
+Jinja 
+https://jinja.palletsprojects.com/en/3.1.x/
+
+FONT
+https://fontawesome.com/search?o=r&c=editing&s=thin
+https://fontawesome.com/search?p=6&o=r&m=free
+
+Librerias para interfaces graficas
+Tkinter
+https://docs.python.org/es/3/library/tk.html
+https://docs.python.org/3/library/tk.html
+https://docs.python.org/es/3/library/tkinter.html
+https://docs.hektorprofe.net/python/
+https://docs.hektorprofe.net/python/interfaces-graficas-con-tkinter/widget-label-etiqueta-de-texto/
+
+WxPython
+PyQT
+PyGTk
+https://www.youtube.com/watch?v=hTUJC8HsC2I
+https://imagen.online-convert.com/es/convertir-a-ico
+
+Dashboard
+https://github.com/app-generator/django-dashboard-kit
+https://www.freecodecamp.org/news/how-to-create-an-analytics-dashboard-in-django-app/
+https://medium.com/@appseed.us/django-dashboards-open-source-and-free-projects-1d8e64919e6d#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6ImY1ZjRiZjQ2ZTUyYjMxZDliNjI0OWY3MzA5YWQwMzM4NDAwNjgwY2QiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDM5NzM1MzIzMDgyNDQ2OTE0MzYiLCJlbWFpbCI6ImFybWFuZG9jb25sbGVkb0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNjk5NDcwNjIxLCJuYW1lIjoiQXJtYW5kbyBDb25sbGVkbyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLaU5EQ2JyRzVDNTBEb2tzbzR5THZMcVdvVURRak04Wkd1V3ZDUHBNUUg9czk2LWMiLCJnaXZlbl9uYW1lIjoiQXJtYW5kbyIsImZhbWlseV9uYW1lIjoiQ29ubGxlZG8iLCJsb2NhbGUiOiJlcyIsImlhdCI6MTY5OTQ3MDkyMSwiZXhwIjoxNjk5NDc0NTIxLCJqdGkiOiI5ZmM5MzA1MmFhYmQ4YzBkNGUxMTEyNjcxNDgwMmVhMjgwNjBjNDQzIn0.N4A_YZeJZLehEBbgpxawdzn9HM2i_0jkRnux9ZrnNmHH1kuX816kwa_xPro3aRNB26v_qjjZ8lLUvrwa5v6Nd3o-ol1YMSRHzIDTF6eboko7SSMNOcMfJPhkAwzR7wOVbbrkA76a33gU949Cq6ncD_8ZRBcGEzrTWQM2Qwj7ueCaCG1mDfCxxyRIJXp2_h6xuAPTGybfIR6tCjThbWvOp8UdsgIvvw7HxcFfBhfbdIinnuzNf6oUd1V4IJ6H2ldezCVhDJlVa_wyCJkSiF4A52CZCuvs1tKG2lPyr_4mJOb4Ua85pWzDOyrfo8EHhXcVBroddPLpfr-NBUJQABDr7A
+https://www.creative-tim.com/?AFFILIATE=128200
+
+Curso entrete
+https://www.youtube.com/watch?v=T1intZyhXDU&t=9515s
+
+Datatables
+https://datatables.net/
+https://www.youtube.com/watch?v=vNu3ZsiM2Q8
+
+Ajax
+https://www.youtube.com/watch?v=qgf0UYzL5BY
+https://pypi.org/project/django-ajax-datatable/#demo-site-and-examples
+
+https://www.arimetrics.com/glosario-digital/widget
+https://getbootstrap.com/docs/5.0/getting-started/introduction/
+https://flutter.dev/multi-platform/web
+https://www.youtube.com/watch?v=IEVbMkqB00w
+https://git-scm.com/download/win
+
+https://streamlit.io/
+https://getbootstrap.com/docs/5.0/getting-started/introduction/
+
+
+https://www.pildorasinformaticas.es/course/curso-python/
+https://www.pildorasinformaticas.es/course/curso-python-modulo-2/curriculum/
+https://www.pildorasinformaticas.es/course/django/curriculum/
+
+https://www.codecademy.com/
+https://www.udemy.com/course/python-asistido-chatgpt/?couponCode=SEPOCT23
+https://python-course.eu/tkinter/entry-widgets-in-tkinter.php
+
+https://flutter.dev/multi-platform/web
+https://docs.python.org/3/
+https://docs.python.org/es/3/library/tkinter.html
+https://docs.python.org/es/3/library/tkinter.ttk.html#label-options
+https://docs.hektorprofe.net/python/interfaces-graficas-con-tkinter/widget-label-etiqueta-de-texto/
+https://www.youtube.com/watch?v=wLw2iuUcfaI
+
+https://code.visualstudio.com/docs/languages/html
+https://stackoverflow.com/questions/30696863/vscode-not-auto-completing-html
+
+
+
+https://github.com/espinosadvlpr/django-men-dashboard
+https://themeforest.net/search/django%20dashboard?gad_source=1&gclid=Cj0KCQiAgK2qBhCHARIsAGACuzkwW9Bz1Vd7pqz1n2NT7Otp5oIqzl65PJvYzQD-ZyaHA2NiSNsg-a4aAlWnEALw_wcB
+https://www.datasource.ai/es/data-science-articles/construye-un-dashboard-de-datos-en-la-web-en-solo-minutos-con-python
+https://www.cursosgis.com/librerias-de-python-para-crear-un-dashboard/
+https://flask.palletsprojects.com/en/2.1.x/
+https://werkzeug.palletsprojects.com/en/3.0.x/
+https://wsgi.readthedocs.io/en/latest/
+Machine Learning
+https://www.datacademy.dev/home/articulos-data-science
+
+Sitios Interesantes (OJO)
+https://djangopackages.org/
+https://python.plainenglish.io/the-best-python-packages-for-developers-to-use-in-2023-067cd61ac223
+https://numpy.org/
+https://www.tensorflow.org/?hl=es-419
+https://themeselection.com/item/sneat-bootstrap-django-admin-template/
+https://seaborn.pydata.org/
+https://docs.python-requests.org/en/latest/
+https://pytorch.org/
+https://pandas.pydata.org/
+https://matplotlib.org/
+https://scrapy.org/
+https://en.wikipedia.org/wiki/Web_scraping
+https://scipy.org/
+https://www.anaconda.com/download/
+colab.research.google.com
+https://www.mrcoder701.com/
+https://www.mrcoder701.com/2024/03/19/how-to-optimize-django-orm-queries/
+https://www.mrcoder701.com/2024/03/19/mastering-django-models-exploring-fields-meta-options-and-methods/
+
+
+https://docs.python.org/es/3/howto/regex.html
+https://developer.mozilla.org/es/docs/Learn/Server-side/Django/Authentication
+https://es.stackoverflow.com/questions/43899/crear-un-modelo-propio-de-usuarios-y-autenticar-el-ingreso
+https://learndjango.com/tutorials/django-login-and-logout-tutorial
+
+from django.contrib.auth.decorators import login_required
+
+https://uniwebsidad.com/libros/django-1-0/capitulo-4/etiquetas-basicas-de-plantillas-y-filtros
+https://docs.djangoproject.com/en/4.2/ref/templates/builtins/
+https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-THOUSAND_SEPARATOR
+
+Crispy Forms
+https://django-crispy-forms.readthedocs.io/en/latest/
+https://es.stackoverflow.com/questions/489847/c%C3%B3mo-puedo-editar-un-crispy-form-en-django
+
+https://mdbootstrap.com/docs/standard/extended/login/
+https://mdbootstrap.com/docs/standard/tools/design/gradients/
+https://bbbootstrap.com/snippets/bootstrap-5-login-form-using-neomorphism-89456141
+https://freefrontend.com/bootstrap-login-forms/
+
+
+BS4
+https://tedboy.github.io/bs4_doc/6_searching_the_tree.html#searching-the-tree
+
+Cambio de usuarios
+https://coffeebytes.dev/como-personalizar-el-modelo-user-en-django/
+https://cosasdedevs.com/posts/login-con-email-en-django/
+https://pythonguia.com/sistema-de-inicio-de-sesion-en-python-django/
+
+Bases de datos
+https://coffeebytes.dev/por-que-deberias-usar-django-framework/
+https://www.sqlalchemy.org/
+https://coffeebytes.dev/busquedas-con-solr-con-django-haystack
+
+Autocomplete con cache
+https://jqueryui.com/autocomplete/#remote-with-cache
+https://stackoverflow.com/questions/14130676/how-to-reuse-jquery-ui-autocomplete-cached-results-when-appending-search-term
+
+Bootstarp5
+https://www.w3schools.com/django/django_add_bootstrap5.php
+
+SBIF
+https://api.sbif.cl/documentacion/index.html
+
+varios
+https://book.diveintopython.org/es/
+https://www.genbeta.com/desarrollo/usar-plantillas-con-google-app-egine-python
+
+Eclipse
+https://ics.uci.edu/~pattis/common/handouts/pythoneclipsejava/eclipsepython.html
+https://marketplace.eclipse.org/content/pydev-python-ide-eclipse
+https://www.ibm.com/docs/es/guardium/11.3?topic=sdk-jinja2-templates
+
+
+https://recursospython.com/guias-y-manuales/python-db-api-que-es-y-como-funciona/
+https://docs.djangoproject.com/es/5.0/topics/http/urls/
+http://django-marcador.keimlink.de/es/frontend_login.html
+
+
+Usar plantillas con Google App Egine (Python) 
+https://www.genbeta.com/desarrollo/usar-plantillas-con-google-app-egine-python
+
+Interpretes Python
+https://www.ochobitshacenunbyte.com/2022/10/17/6-interpretes-de-python-para-probar-en-2022/
+
+Deploy Django en Ubuntu
+https://www.youtube.com/watch?v=bQjDNuYvUZo

@@ -26,9 +26,9 @@
     <link rel='stylesheet' href="{% static 'css/checkpassword.css' %}" type='text/css'>
    <!-- Custom CSS -->
    <link rel='stylesheet' href="{% static 'css/system.css' %}" type='text/css'>
+   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- jQuery JS --> 
     <script type="text/javascript" src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
     <!-- jQueryUI JS -->
@@ -44,135 +44,206 @@
     <!-- SmartMenus JS -->
     <script type="text/javascript" src="{% static 'jquery/jquery.smartmenus.min.js' %}"></script> 
 
-
 </head>
+
 <body>
-    <!-- NavBar --> 
-    <ul id="main-menu" class="sm sm-blue">
+    <div class="wrapper">
+        <aside id="sidebar "  >
+            <div class="h-100 ">
+                <div class="sidebar-logo ">
+                    <a class="navbar-brand" href="/"> <img src="{% static 'img/proximahora1.png' %}" alt="logo sitio"></a>
+                </div>
+                <div class="py-2"></div>
+                <!-- Sidebar Navigation -->
+                <ul class="sidebar-nav menuadmin px-3 ">
+                    <!--  <li class="sidebar-header">
+                        
+                    </li> -->
+                    <li class="sidebar-item">
+                        <a href="#" class="siderbar-link">
+                            <i class="fa-solid fa-house "></i>
+                            Inicio                           
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="siderbar-link">
+                            <i class="fa-regular fa-circle-check"></i>
+                            Confirmacion
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="siderbar-link">
+                            <i class="fa-solid fa-dollar-sign"></i>
+                            Pagos
+                                 
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="siderbar-link">
+                            <i class="fa-solid fa-xmark"></i>
+                            Bloqueos
+                                
+                            
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="siderbar-link">
+                            <i class="fa-regular fa-calendar-check"></i>
+                            Agenda
+                                
+                            
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="siderbar-link">
+                            <i class="fa-regular fa-calendar"></i>
+                            Calendario General
+                                
+                            
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="siderbar-link">
+                            <i class="fa-solid fa-tag"></i>
+                            Codigo Descuentos
+                                
+                            
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="siderbar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages" aria-expanded="false" aria-controls="pages">
+                            <i class="fa-solid fa-sliders pe-2"></i>Usuarios   
+                        </a>
+                        <ul id="pages"  class="sidebar-dropdown list-unstyled collapse"  data-bs-parent="#sidebar"> 
+                            <li class="sidebar-item"> <a class="sidebar-link" href="/usuarios/personas_listar">Usuarios</a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link" href="/usuarios/personas_agendas">Agendas</a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link" href="/usuarios/personas_evaluaciones">Evaluaciones</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="siderbar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages" aria-expanded="false" aria-controls="pages">
+                            <i class="fa-solid fa-file-lines pe-2"></i>Especialistas        
+                        </a>
+                        <ul id="sidebar"  class="sidebar-dropdown list-unstyled collapse"  data-bs-parent="#sidebar"> 
+                            <li class="sidebar-item"> <a class="sidebar-link" href="/especialistas/especialistas_listar">Usuarios</a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link" href="/especialistas/especialistas_agendas">Agendas</a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link" href="/especialistas/especialistas_evaluaciones">Evaluaciones</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="siderbar-link collapsed" data-bs-toggle="collapse" data-bs-target="#mantenedores" aria-expanded="false" aria-controls="mantenedores">
+                            <i class="fa-solid fa-file-lines pe-2"></i>Mantenedores            
+                        </a>
+                        <ul id="mantenedores"  class="sidebar-dropdown list-unstyled collapse"  data-bs-parent="#sidebar"> 
+                            
+                            <li class="sidebar-item">    
+                                <a class="sidebar-link" href="/tablas/rubros">Rubros</a>
+                            </li>
+                            <li class="sidebar-item">    
+                                <a class="sidebar-link" href="/tablas/categorias">Especialidades</a>
+                            </li>
+                            <li class="sidebar-item">    
+                                <a class="sidebar-link" href="/tablas/subcategorias">SubEspecialidades</a>
+                            </li>
+                            <li class="sidebar-item">    
+                                <a class="sidebar-link" href="/tablas/formapagogral">F.Pago General</a>
+                            </li>
+                            <li class="sidebar-item">    
+                                <a class="sidebar-link" href="/tablas/formapagosalud">F.Pago Salud</a>
+                            </li>
+                            <li class="sidebar-item">    
+                                <a class="sidebar-link" href="/tablas/tipoprevision">Tipo Previsión</a>
+                            </li>
+                            <li class="sidebar-item">    
+                                <a class="sidebar-link" href="/tablas/modalidadatencion">Modalidad Atención</a>
+                            </li>
+                            <li class="sidebar-item">    
+                                <a class="sidebar-link" href="/tablas/promociones">Promociones</a>
+                            </li>                
+                            <li class="sidebar-item">    
+                                <a class="sidebar-link" href="/tablas/regiones">Regiones</a>
+                            </li>
+                            <li class="sidebar-item">    
+                                <a class="sidebar-link" href="/tablas/ciudades">Ciudades</a>
+                            </li>
+                            <li class="sidebar-item">    
+                                <a class="sidebar-link" href="/tablas/comunas">Comunas</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+<!-- Main componentes-->
+        <div class="main"> 
+            
+            <nav class="navbar navbar-expand px-3 border-bottom bg-body-tertiary">
+                                            
+                <button class="btn" type="button" data-toggle="collapse" data-target="#navbarAdmin" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        <li class="nav-item" >
-            <a class="navbar-brand" href="#" title='DashBoard'><i class="fa-solid fa-bars"></i></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="/" role="button"><i class="fa-solid fa-house"></i></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button">Usuarios</a>
-            <ul class="dropdown-menu ">
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/usuarios/personas_listar">Usuarios</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/usuarios/personas_agendas">Agendas</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/usuarios/personas_evaluaciones">Evaluaciones</a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button">Especialistas</a>
-            <ul class="dropdown-menu ">
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/usuarios/especialistas_listar">Especialistas</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/usuarios/especialistas_agendas">Agendas</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/usuarios/especialistas_evaluaciones">Evaluaciones</a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" >Tablas</a>
-            <ul class="dropdown-menu ">
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/tablas/rubros">Rubros</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/tablas/categorias">Categorías</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/tablas/subcategorias">SubCategorías</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/tablas/formapagogral">F.Pago General</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/tablas/formapagosalud">F.Pago Salud</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/tablas/tipoprevision">Tipo Previsión</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/tablas/modalidadatencion">Modalidad Atención</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/tablas/promociones">Promociones</a>
-                </li>                
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/tablas/regiones">Regiones</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/tablas/ciudades">Ciudades</a>
-                </li>
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/tablas/comunas">Comunas</a>
-                </li>
-            </ul>
-        </li>
+            </nav> 
+            <main class="content-lg px-3 py-2">
 
 
-        <li class="nav-item">
-            <a class="nav-link" href="#" role="button" >Ayuda</a>
-            <ul class="dropdown-menu ">
-                <li class="nav-item">    
-                    <a class="dropdown-item" href="/users/userlogout">Salir</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link link-light" href="/ayuda">Ayuda</a>
-                </li> 
-                <li class="nav-item">
-                    <a class="nav-link link-light" href="/about">Acerca de</a>
-                </li> 
-            </ul>
-        </li>
+                <div class="container-fluid">
 
-
-    </ul>
+                    <div class="mb-12">
+                        <h4>   Bienvenido Area de Administrador</h4>
+                    </div>
+                    <hr>
 
 {% block content %}
 {% endblock %}
 
-<br /><br />
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary text-white">
-    <div class="container-fluid">
-        <table   width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-                <td align="left" valign="top" class="footer_texto">
-                        <strong>ProximaHora<n/strong><br>
-                        <strong>Centro de atenci&oacute;n:</strong>&nbsp;+56 9 9999 9999<br>
-                        <strong>Web:&nbsp;</strong><a class="importante" href="https://proximahora.cl/">https://proximahora.cl/</a>
-                </td>
-                <td width="400" align="left" valign="top" class="footer_texto">
-                        <strong>PROXIMAHORA@ Sistema de Gestion de Horas Especialistas</strong> vs 1.1.0
-                        <br />Copyright &copy; 2024 Derechos Reservados. ProximaHora @  Vilco
-                        <br /><strong>Desarrollado por:&nbsp;</strong><a class="importante" href="http://www.vilco.cl">Vilco SpA</a>
-                </td>
-            </tr>
-        </table>
-
-        <div id="div-msg-wait">
-            <div id="load-div" class="ui-corner-all" >
-                <img style="height:80px;margin:30px;" src="{% static 'imagenes/ajax-loader.gif' %}" alt="Cargando..."/>
-                <h3 style="color:gray;font-weight:normal;">Por Favor Espere....</h3>
-            </div>
+  
+                </div>                
+           </main>
         </div>
     </div>
-</nav>
+
+<!-- FOOTER COMUN-->
+<section class="container-fluid justify-content-center py-4" >
+    <div class="container footerhome">
+        <div class="row py-4" style="background-image: url('/static/img/desktop.png')">
+            <div class="col-2 col-lg-2 col-sm-3" >
+                <img src="{% static 'img/proximahora1.png' %}">
+            </div>
+            <div class="col-10 " >
+                <div class="row"></div>
+                <div class="row ">
+                    <div class="col-2"></div>
+                    <div class="col-2"><a href="">Pagos</a></div>
+                    <div class="col-2"><a href="">Registro</a>  </div>
+                    <div class="col-2"><a href="">Contacto</a></div>
+                    <div class="col-3"><a href="">Politicas de Privacidad</a></div>
+                    <div class="col-1"><a href="">AdChoice</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col  text-center" >
+                <p style="color: var(--Foundation-Grises-grises-400, #939393);font-size: 16px;font-style: normal; font-weight: 400;line-height: 150%; /* 24px */">
+                Todos los derechos y representación legal de Próxima Hora corresponden a CRUVAL®</p>
+            </div>
+        </div>
+    </div>  
+</section>
+
+<div id="div-msg-wait">
+    <div id="load-div" class="ui-corner-all" >
+        <img style="height:80px;margin:30px;" src="{% static 'imagenes/ajax-loader.gif' %}" alt="Cargando..."/>
+        <h3 style="color:gray;font-weight:normal;">Por Favor Espere....</h3>
+    </div>
+</div>
+
+ <!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
+
+<script src="{% static 'js/menuadmin.js' %}"></script>
 </body>
+
 </html>

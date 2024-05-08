@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from tablas.models import *
+  
 
 class EstadosUsuarios:
     BLOQUEADO = '0'
@@ -30,21 +31,6 @@ class PerfilesUsuarios:
         (RELACIONADO, 'Relacionado'),
         ]
 
-class EstadosSuscripcion:
-    BLOQUEADA = '0'
-    VIGENTE = '1'
-    ESTADOS_SUSCRIPCION = [
-        (BLOQUEADA, 'Bloqueada'),
-        (VIGENTE, 'Vigente'),
-        ]
-
-class EstadosDocumentos:
-    PENDIENTE = '0'
-    VIGENTE = '1'
-    ESTADOS_DOCUMENTOS = [
-        (PENDIENTE, 'Pendiente'),
-        (VIGENTE, 'Revisado'),
-        ]
               
 class UsuariosPersonas(models.Model):
     '''
@@ -75,6 +61,22 @@ class UsuariosPersonas(models.Model):
 #        return f"{numero_formateado}-{digito}"
 
 
+class EstadosSuscripcion:
+    BLOQUEADA = '0'
+    VIGENTE = '1'
+    ESTADOS_SUSCRIPCION = [
+        (BLOQUEADA, 'Bloqueada'),
+        (VIGENTE, 'Vigente'),
+        ]
+
+class EstadosDocumentos:
+    PENDIENTE = '0'
+    VIGENTE = '1'
+    ESTADOS_DOCUMENTOS = [
+        (PENDIENTE, 'Pendiente'),
+        (VIGENTE, 'Revisados'),
+        ]
+    
 class UsuariosEspecialistas(models.Model):
     '''
     (21) Tabla de registro de los especialistas que han contratado servicios de la plataforma y que por medio de ésta ofrecen sus propios servicios
@@ -83,19 +85,19 @@ class UsuariosEspecialistas(models.Model):
     foto = models.ImageField('Foto para tu perfil', upload_to='fotos/', blank=True, null=True)
     descripcion = models.CharField(max_length=250)
     estado_suscripcion = models.CharField(max_length=1,choices=EstadosSuscripcion.ESTADOS_SUSCRIPCION)
-    promedio_evaluacion = models.DecimalField(max_digits=4, decimal_places=2)
+    promedio_evaluacion = models.DecimalField(max_digits=4, decimal_places=2,blank=True,null=True)
     tiempo_consulta = models.PositiveSmallIntegerField()   
     reg_especialista = models.CharField(max_length=120)
     ctr_altadctos = models.CharField(max_length=1,choices=EstadosDocumentos.ESTADOS_DOCUMENTOS)
     categoria = models.ForeignKey(Categorias, on_delete=models.SET_NULL,blank=True,null=True)                
     subcategoria = models.ForeignKey(SubCategorias,on_delete=models.SET_NULL,blank=True,null=True)                
     rubro = models.ForeignKey(Rubros, on_delete=models.SET_NULL,blank=True,null=True)           
-    usuario = models.OneToOneField(UsuariosPersonas, on_delete=models.CASCADE)
+    persona = models.OneToOneField(UsuariosPersonas, on_delete=models.CASCADE)
     
     class Meta:
         db_table = "usuarios_especialistas"      
         ordering = ['foto','descripcion','estado_suscripcion','promedio_evaluacion','tiempo_consulta','reg_especialista',
-                    'ctr_altadctos','categoria','subcategoria','rubro','usuario']       
+                    'ctr_altadctos','categoria','subcategoria','rubro','persona']       
         
              
 class UsuariosEvaluacion(models.Model):
@@ -112,4 +114,67 @@ class UsuariosEvaluacion(models.Model):
         db_table = "usuarios_evaluaciones"       
         ordering = ['fecha','mensaje','evaluacion','usuario','especialista']
     
-     
+'''
+
+def upload_location(instance, filename):
+    return f"{instance.upload_to}/{filename}"
+
+class UsuariosDocumentos(models.Model):
+
+    (23) Tabla de registro de documentos de los especialistas.
+      
+    fecha = models.DateTimeField(auto_now_add=True)    
+    titulo = models.CharField(max_length=100)
+    archivo = models.FileField(upload_to=upload_location)
+    upload_to = models.CharField(max_length=120)
+    usuario = models.ForeignKey(UsuariosPersonas,on_delete=models.CASCADE)
+    especialista = models.ForeignKey(UsuariosEspecialistas,on_delete=models.CASCADE)
+    
+    db_table = "usuarios_documentos"       
+    ordering = ['fecha','titulo','archivo','upload_to','usuario','especialista']
+         
+    def __str__(self):
+        return self.titulo if hasattr(self, 'titulo') else 'Documento sin título'
+
+
+class UsuariosImagenes(models.Model):
+
+    (24) Tabla de registro de imagenes de los especialistas.
+      
+    fecha = models.DateTimeField(auto_now_add=True)    
+    titulo = models.CharField(max_length=100)
+    archivo = models.ImageField(upload_to=upload_location)
+    upload_to = models.CharField(max_length=120)
+    usuario = models.ForeignKey(UsuariosPersonas,on_delete=models.CASCADE)
+    especialista = models.ForeignKey(UsuariosEspecialistas,on_delete=models.CASCADE)
+
+    db_table = "usuarios_imagenes"       
+    ordering = ['fecha','titulo','archivo','upload_to','usuario','especialista']
+         
+    def __str__(self):
+        return self.titulo if hasattr(self, 'titulo') else 'Imagen sin título'
+
+
+
+class YourModel(models.Model):
+    # Añade tu otro campos de modelo aquí, por ejemplo:
+    # title = models.CharField(max_length=100)
+    
+    # Define el campo de archivo con upload_to como un campo opcional
+    archivo = models.FileField(upload_to=upload_location, null=True, blank=True)
+
+    # Define un campo adicional para almacenar la ubicación de carga
+    upload_to = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title if hasattr(self, 'title') else 'Modelo sin título'
+    
+# Crear una instancia con la ubicación de carga "archivos"
+obj = YourModel(upload_to="archivos")
+obj.save()
+
+# Asignar un archivo a la instancia
+obj.archivo = "archivo.pdf"
+obj.save()
+
+'''

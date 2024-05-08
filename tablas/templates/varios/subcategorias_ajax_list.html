@@ -3,8 +3,8 @@
         <thead >
             <tr>
                 <td width="10%" class="tdtit10">ID</td>
-                <td width="30%" class="tdtit10">SubCategoría</td>
-                <td width="30%" class="tdtit10">Categoría</td>
+                <td width="30%" class="tdtit10">SubEspecialidad</td>
+                <td width="30%" class="tdtit10">Especialidad</td>
                 <td width="20%" class="tdtit10">Rubro</td>
                 <td width="10%" class="tdtit10">Acción</td>
             </tr>
@@ -17,10 +17,10 @@
                 <td class="text8c" id="cat{{subcategoria.id}}">{{subcategoria.categoria.nombre}}</td>
                 <td class="text8c" id="cat{{subcategoria.id}}">{{subcategoria.rubro.nombre}}</td>
                 <td class="text8c"> 
-                    <button class='btn btn-sm btn-primary tip' title='Editar SubCategoría' onClick='EditarRegistro({{subcategoria.id}})'>
+                    <button class='btn btn-sm btn-primary tip' title='Editar SubEspecialidad' onClick='EditarRegistro({{subcategoria.id}})'>
                         <i class='fa-solid fa-pencil'></i>
                     </button>
-                    <button class='btn btn-sm btn-danger tip' title='Eliminar SubCategoría' onClick='BorrarRegistro({{subcategoria.id}})'>
+                    <button class='btn btn-sm btn-danger tip' title='Eliminar SubEspecialidad' onClick='BorrarRegistro({{subcategoria.id}})'>
                         <i class='fa-solid fa-trash-can'></i>
                     </button>
                 </td>

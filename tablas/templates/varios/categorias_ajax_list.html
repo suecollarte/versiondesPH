@@ -3,7 +3,7 @@
         <thead >
             <tr>
                 <td width="10%" class="tdtit10">ID</td>
-                <td width="40%" class="tdtit10">Categoría</td>
+                <td width="40%" class="tdtit10">Especialidad</td>
                 <td width="40%" class="tdtit10">Rubro</td>
                 <td width="10%" class="tdtit10">Acción</td>
             </tr>
@@ -15,10 +15,10 @@
                 <td class="text8c" id="nom{{categoria.id}}">{{categoria.nombre}}</td>
                 <td class="text8c" id="rub{{categoria.id}}">{{categoria.rubro.nombre}}</td>
                 <td class="text8c"> 
-                    <button class='btn btn-sm btn-primary tip' title='Editar Categoría' onClick='EditarRegistro({{categoria.id}})'>
+                    <button class='btn btn-sm btn-primary tip' title='Editar Especialidad' onClick='EditarRegistro({{categoria.id}})'>
                         <i class='fa-solid fa-pencil'></i>
                     </button>
-                    <button class='btn btn-sm btn-danger tip' title='Eliminar Categoría' onClick='BorrarRegistro({{categoria.id}})'>
+                    <button class='btn btn-sm btn-danger tip' title='Eliminar Especialidad' onClick='BorrarRegistro({{categoria.id}})'>
                         <i class='fa-solid fa-trash-can'></i>
                     </button>
                 </td>

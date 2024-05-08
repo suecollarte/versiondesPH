@@ -60,7 +60,7 @@ function PrepararRegistro(id){
 function CamposValidos(){
     var nombre = allTrim($('#nombre').val());
     if (nombre == "") 	{
-        mostrarMensaje("Debe indicar Nombre de la SubCategoría",MSG_STOP);
+        mostrarMensaje("Debe indicar Nombre de la SubEspecialidad",MSG_STOP);
         return false;
         }
     return true;
@@ -72,7 +72,7 @@ function EditarRegistro(id){
     CampoEnReadWrite("nombre");   
     CampoEnabled("categoria");
     $("#diagedit").dialog({
-        title: "Editar SubCategoría",
+        title: "Editar SubEspecialidad",
         buttons: [
             {
                 text: "Grabar",
@@ -102,7 +102,7 @@ function AgregarRegistro(){
     CampoEnReadWrite("nombre");  
     CampoEnabled("categoria");
     $("#diagedit").dialog({
-        title: "Agregar SubCategoría",
+        title: "Agregar SubEspecialidad",
         buttons: [
             {
                 text: "Grabar",
@@ -133,13 +133,13 @@ function BorrarRegistro(id){
     CampoEnReadOnly("nombre");
     CampoDisabled("categoria");
     $("#diagedit").dialog({
-        title: "Eliminar SubCategoría",
+        title: "Eliminar SubEspecialidad",
         buttons: [
             {
                 text: "Eliminar",
                 click: function() {
                     $( this ).dialog("close");
-                    confirmarMensaje("SubCategoría será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
+                    confirmarMensaje("SubEspecialidad será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
                     },
                 class:"ui-corner-all", style:"color:Red" 
             },
@@ -183,7 +183,7 @@ function EnviaPeticionAjax(accion,id){
 function Crear_DataTable() {
 
     $('#tablaregs').DataTable({
-        language: {url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-CL.json'	},
+        language: {url: '/static/jquery/datatables.es-CL.json'},
         pagingType: 'full_numbers',
         bJQueryUI: 'true',
         iDisplayLength: '25',
@@ -193,5 +193,6 @@ function Crear_DataTable() {
             { searchable: false, targets: [0,4] }
             ]
         });
-    }
+    $(".tip").tooltip();
+    };
     

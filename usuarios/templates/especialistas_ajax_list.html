@@ -3,25 +3,27 @@
         <thead >
             <tr>
                 <td width="10%" class="tdtit10">R.U.T.</td>
-                <td width="30%" class="tdtit10">Nombre</td>
+                <td width="20%" class="tdtit10">Nombre</td>
                 <td width="15%" class="tdtit10">Correo</td>                
-                <td width="10%" class="tdtit10">Rubro</td>
-                <td width="10%" class="tdtit10">Categoria</td>
-                <td width="10%" class="tdtit10">Subcategoria</td>
+                <td width="10%" class="tdtit10">Categoría</td>
+                <td width="10%" class="tdtit10">SubCategoría</td>
+                <td width="10%" class="tdtit10">Revisión<br />Documentos</td>
+                <td width="10%" class="tdtit10">Estado<br />Suscripción</td>
                 <td width="15%" class="tdtit10">Accion</td>
             </tr>
         </thead>
         <tbody>
             {% for especialista in especialistas %}
             <tr>
-                <td class="text8c" id="rut{{persona.id}}">{{especialista.persona.rut}}
-                    <input type="hidden" name="id{{especialista.id}}" id="id{{especialista.id}}" />
+                <td class="text8c" id="rutx{{especialista.id}}">{{especialista.persona.rut}}
+                    <input type="hidden" name="rut{{especialista.id}}" id="rut{{especialista.id}}" value="{{especialista.persona.rut}}" />
                 </td>
                 <td class="text8c" id="nom{{especialista.id}}">{{especialista.persona.usuario.last_name}} , {{especialista.persona.usuario.first_name}} </td>
-                <td class="text8c" id="ema{{especialista.id}}">{{especialista.persona.usuario.email}}</td>
-                <td class="text8c" id="rub{{especialista.id}}">{{especialista.rubro.nombre}}</td>
-                <td class="text8c" id="cat{{especialista.id}}">{{especialista.categoria.nombre}}</td>
-                <td class="text8c" id="scat{{especialista.id}}">>{{especialista.subcategoria.nombre}}</td>
+                <td class="text8c" id="ema{{especialista.id}}">{{especialista.persona.usuario.email}} </td>
+                <td class="text8c" id="cat{{especialista.id}}">{{especialista.categoria.nombre}} </td>
+                <td class="text8c" id="scat{{especialista.id}}">{{especialista.subcategoria.nombre}} </td>
+                <td class="text8c" id="sus{{especialista.id}}">{{especialista.get_ctr_altadctos_display}} </td>
+                <td class="text8c" id="rub{{especialista.id}}">{{especialista.get_estado_suscripcion_display}} </td>
                 <td class="text8c"> 
                     <button class='btn btn-sm btn-success tip' title='Ver Especialista' onClick='VerRegistro({{especialista.id}})'>
                         <i class='fa fa-search'></i>
@@ -29,16 +31,18 @@
                     <button class='btn btn-sm btn-primary tip' title='Editar Especialista' onClick='EditarRegistro({{especialista.id}})'>
                         <i class='fa fa-pencil'></i>
                     </button>
-                    <button class='btn btn-sm btn-warning tip' title='Cambiar Password' onClick='CambiarClave({{especialista.id}})'>
-                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                    </button>
-                    {% if especialista.persona.usuario.is_active %}
-                        <button class='btn btn-sm btn-danger tip' title='Bloquear Especialista' onClick='BloquearRegistro({{especialista.id}})'>
-                            <i class='fa fa-lock'></i>
+                    {% if especialista.ctr_altadctos == '0' %}
+                        <button class='btn btn-sm btn-warning tip' title='Documentos Revisados' onClick='EstadosDocumentos({{especialista.id}})'>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </button>
+                    {% endif %}
+                    {% if especialista.estado_suscripcion == '0' %}
+                        <button class='btn btn-sm btn-danger tip' title='DesBloquear Suscripción' onClick='DesBloquearRegistro({{especialista.id}})'>
+                            <i class='fa fa-unlock aria-hidden="true"'></i>
                         </button>
                     {% else %}
-                        <button class='btn btn-sm btn-danger tip' title='DesBloquear Especialista' onClick='DesBloquearRegistro({{especialista.id}})'>
-                            <i class='fa fa-unlock aria-hidden="true"'></i>
+                        <button class='btn btn-sm btn-danger tip' title='Bloquear Suscripción' onClick='BloquearRegistro({{especialista.id}})'>
+                            <i class='fa fa-lock'></i>
                         </button>
                     {% endif %}
                 </td>

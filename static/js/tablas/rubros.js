@@ -174,7 +174,7 @@ function EnviaPeticionAjax(accion,id){
 function Crear_DataTable() {
 
     $('#tablaregs').DataTable({
-        language: {url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-CL.json'	},
+        language: {url: '/static/jquery/datatables.es-CL.json'},
         pagingType: 'full_numbers',
         bJQueryUI: 'true',
         iDisplayLength: '25',
@@ -184,4 +184,5 @@ function Crear_DataTable() {
             { searchable: false, targets: [0,3] }
             ]
         });
-    }
+    $(".tip").tooltip();
+    };

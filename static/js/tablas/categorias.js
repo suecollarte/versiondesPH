@@ -56,7 +56,7 @@ function PrepararRegistro(id){
 function CamposValidos(){
     var nombre = allTrim($('#nombre').val());
     if (nombre == "") 	{
-        mostrarMensaje("Debe indicar Nombre de la Categoría",MSG_STOP);
+        mostrarMensaje("Debe indicar Nombre de la Especialidad",MSG_STOP);
         return false;
         }
     return true;
@@ -69,7 +69,7 @@ function EditarRegistro(id){
     PrepararRegistro(id);
 
     $("#diagedit").dialog({
-        title: "Editar Categoría",
+        title: "Editar Especialidad",
         buttons: [
             {
                 text: "Grabar",
@@ -101,7 +101,7 @@ function AgregarRegistro(){
     $('#id').val('');
 
     $("#diagedit").dialog({
-        title: "Agregar Categoría",
+        title: "Agregar Especialidad",
         buttons: [
             {
                 text: "Grabar",
@@ -139,7 +139,7 @@ function BorrarRegistro(id){
                 text: "Eliminar",
                 click: function() {
                     $( this ).dialog("close");
-                    confirmarMensaje("La Categoría será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
+                    confirmarMensaje("La Especialidad será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
                     },
                 class:"ui-corner-all", style:"color:Red" 
             },
@@ -183,7 +183,7 @@ function EnviaPeticionAjax(accion,id){
 function Crear_DataTable() {
 
     $('#tablaregs').DataTable({
-        language: {url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-CL.json'	},
+        language: {url: '/static/jquery/datatables.es-CL.json'},
         pagingType: 'full_numbers',
         bJQueryUI: 'true',
         iDisplayLength: '25',
@@ -193,4 +193,5 @@ function Crear_DataTable() {
             { searchable: false, targets: [0,3] }
             ]
         });
+    $(".tip").tooltip();
     }

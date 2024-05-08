@@ -1,29 +1,21 @@
 $(document).ready(function(){
 
-	var f100 = new LiveValidation('nombre');
-	f100.add(Validate.Presence);
-	var f101 = new LiveValidation('apellido');
-	f101.add(Validate.Presence);
-	var f102 = new LiveValidation('email');
-	f102.add(Validate.Presence);
-	var f103 = new LiveValidation('telefono');
-	f103.add(Validate.Presence);
-	var f104 = new LiveValidation('rut');
-	f104.add(Validate.Presence);
-
-	$('#rut').blur(function(){
-		if (validarRUT())
-			$('#username').val(rut_a_username())
-		else {
-			$('#username').val('');
-			$('#username').focus();
-			}
-		});
-
-	$('#region').change(function(){
-		Cargar_Comunas();
-		Cargar_Ciudades();
-		});	
+	try{
+		var f100 = new LiveValidation('nombre');
+		f100.add(Validate.Presence);
+		} catch (e) {};
+	try{
+		var f102 = new LiveValidation('email');
+		f102.add(Validate.Presence);
+		} catch (e) {};	
+	try{
+		var f103 = new LiveValidation('telefono');
+		f103.add(Validate.Presence);
+		} catch (e) {};
+	try{
+		var f104 = new LiveValidation('rut');
+		f104.add(Validate.Presence);
+		} catch (e) {};
 //
 // Dialogo para Modificar Registro.
 //	
@@ -31,7 +23,7 @@ $(document).ready(function(){
 		autoOpen: false,	 
 		position: { my: "center", at: "center", of: window },
 		height:500,
-		width: 800,
+		width: 1040,
 		resizable: false,
 		modal: true,  
 		show: {
@@ -52,16 +44,18 @@ $(document).ready(function(){
 			$("#fnacimiento").val('');
 			$("#email").val('');
 			$("#telefono").val('');
+			$('#msgverrut').html('');
+			$('#msgverrut').removeClass();
 			}
-	})
+	});
 //
 // Dialogo para Modificar Password.
 //	
 	$("#passwdedit").dialog({
 		autoOpen: false,	 
 		position: { my: "center", at: "center", of: window },
-		height: 320,
-		width: 400,
+		height: 350,
+		width: 450,
 		resizable: false,
 		modal: true,  
 		show: {
@@ -73,20 +67,53 @@ $(document).ready(function(){
 			duration: 1000
 		  	},
 		open: function() {
+			if(ACCION == AGREGAR_REG)
+				VerificarRut();
 			},
 		close: function() {
 			$("#txtPassword").val('');
 			$("#txtConfirmPassword").val('');
 			}
 	});	
+//
+// Validacion de RUT.
+//	
+	ACCION = VER_REG;
+
+	$('#rut').blur(function(){
+		if (validarRUT()) {
+			$('#rut').val(allTrim($('#rut').val()));
+			$('#username').val(rut_a_username($('#rut').val()));
+			if (ACCION == AGREGAR_REG) {
+				VerSiExisteRut();
+				}
+			}
+		else {
+			$('#rut').focus();
+			$('#username').val('');
+			}
+		});
+//
+// Al cambiar Region adecuar Comunas y Ciudades de RUT.
+//
+	$('#region').change(function(){
+		Cargar_Comunas();
+		Cargar_Ciudades();
+		});	
 
 	Crear_DataTable(); 
+	CampoEnReadOnly("activo");
+	CampoDisabled("estado");	
+	CampoDisabled("perfil");
+
 
 });
 //
 // ********************************
 //          Funciones
 // ********************************
+//
+// Valida Campos
 //
 function CamposValidos(){
 
@@ -95,7 +122,12 @@ function CamposValidos(){
 		mostrarMensaje("Debe indicar R.U.T. del Usuario",MSG_STOP);
 		$('#username').val('');
 		return false;
-		}	
+		}
+	txtaux = allTrim($('#username').val());
+	if (txtaux == "") 	{
+		mostrarMensaje("Verifique el R.U.T por favor",MSG_STOP);
+		return false;
+		}
 	txtaux = allTrim($('#nombre').val());
 	if (txtaux == "") 	{
 		mostrarMensaje("Debe indicar Nombre(s) del Usuario",MSG_STOP);
@@ -122,47 +154,9 @@ function CamposValidos(){
 		}
 	return true;
 };
-	
-function EditarRegistro(id){
-
-	ACCION = EDITAR_REG;
-	VerUnRegistro(id);
-	CampoEnReadOnly("rut");
-	CampoEnReadWrite("nombre");
-	CampoEnReadWrite("apellido");
-	CampoEnReadWrite("fnacimiento");
-	CampoEnReadWrite("email");
-	CampoEnReadWrite("telefono");
-	CampoEnabled("region");
-	CampoEnabled("comuna");  
-	CampoEnabled("ciudad");
-
-	$("#diagedit").dialog({
-		title: "Editar Usuario",
-		buttons: [
-			{
-				text: "Grabar",
-				click: function() {
-					if (CamposValidos()) {
-						EnviaPeticionAjax(EDITAR_REG,id);
-						$( this ).dialog("close");	
-						}
-					},
-				class:"ui-corner-all", style:"color:Green" 
-			},
-			{
-				text: "Salir",
-				click: function() {
-					$( this ).dialog("close");
-					},
-				class:"ui-corner-all", style:"color:Black" 
-			}
-			]
-	  });
-	  $("#diagedit").dialog("open");
-};
-
-	
+//
+// Abre Modal para Agregar registro de Persona (y usuario)
+//		
 function AgregarRegistro(){
 
 	ACCION = AGREGAR_REG;
@@ -172,6 +166,8 @@ function AgregarRegistro(){
 	$("#region").val(REGIONMETRO);
 	$("#comuna").val(COMUNASTGO);
 	$('#ciudad').val(CIUDADSTGO);
+	$('#perfil').val(REGISTRADO);
+	$('#activo').val('Bloqueado');
 	Cargar_Comunas();
 	Cargar_Ciudades();
 	CampoEnReadWrite("rut");
@@ -209,11 +205,56 @@ function AgregarRegistro(){
 
 	$("#diagedit").dialog("open");
 };
-	
+//
+// Abre Modal para Editar registro de Persona
+//		
+function EditarRegistro(id){
+
+	ACCION = EDITAR_REG;
+	$('#username').val($('#user'+id).val());
+	VerUnaPersona();
+	CampoEnReadOnly("rut");
+	CampoEnReadWrite("nombre");
+	CampoEnReadWrite("apellido");
+	CampoEnReadWrite("fnacimiento");
+	CampoEnReadWrite("email");
+	CampoEnReadWrite("telefono");
+	CampoEnabled("region");
+	CampoEnabled("comuna");  
+	CampoEnabled("ciudad");
+
+	$("#diagedit").dialog({
+		title: "Editar Usuario",
+		buttons: [
+			{
+				text: "Grabar",
+				click: function() {
+					if (CamposValidos()) {
+						EnviaPeticionAjax(EDITAR_REG,id);
+						$( this ).dialog("close");	
+						}
+					},
+				class:"ui-corner-all", style:"color:Green" 
+			},
+			{
+				text: "Salir",
+				click: function() {
+					$( this ).dialog("close");
+					},
+				class:"ui-corner-all", style:"color:Black" 
+			}
+			]
+	  });
+	  $("#diagedit").dialog("open");
+};
+//
+// Abre Modal para Ver detalle registro de Persona (o usuario)
+//		
 function VerRegistro(id){
 
 	ACCION = VER_REG;
-	VerUnRegistro(id);
+	$('#username').val($('#user'+id).val());
+	VerUnaPersona();
 	CampoEnReadOnly("rut");
 	CampoEnReadOnly("nombre");
 	CampoEnReadOnly("apellido");
@@ -238,48 +279,10 @@ function VerRegistro(id){
 		});	
 
 		$("#diagedit").dialog("open");
-	};
-
-
-function BorrarRegistro(id){
-
-	ACCION = ELIMINAR_REG;
-	VerUnRegistro(id);
-	CampoEnReadOnly("rut");
-	CampoEnReadOnly("nombre");
-	CampoEnReadOnly("apellido");
-	CampoEnReadOnly("fnacimiento");
-	CampoEnReadOnly("email");
-	CampoEnReadOnly("telefono");
-	CampoDisabled("region");
-	CampoDisabled("comuna");
-	CampoDisabled("ciudad");
-
-	$("#diagedit").dialog({
-		title: "Bloquear Usuario",
-		buttons: [
-			{
-				text: "Bloquear",
-				click: function() {
-					confirmarMensaje("El Usuario será Bloqueado y no podrá Ingresar.",EnviaPeticionAjax,ELIMINAR_REG,id);
-					$( this ).dialog("close");
-					},
-				class:"ui-corner-all", style:"color:Red" 
-			},
-			{
-				text: "Salir",
-				click: function() {
-					$( this ).dialog("close");
-					},
-				class:"ui-corner-all", style:"color:Green" 
-			}
-			]
-		});	
-
-		$("#diagedit").dialog("open");
-	};
-	
-	
+	};	
+//
+// Envia datos de Persona (o usuario) via ajax para un update o create
+//		
 function EnviaPeticionAjax(accion,id){
 	var username = allTrim($('#username').val());
 	var rut = allTrim($('#rut').val());
@@ -291,7 +294,7 @@ function EnviaPeticionAjax(accion,id){
     var region = $('#region option:selected').val();
 	var comuna = $('#comuna option:selected').val();
 	var ciudad = $('#ciudad option:selected').val();
-//	alert("En PeticionAjax Comuna="+comuna);
+
 	try {
 		$.ajax({
 			type: "POST",
@@ -313,30 +316,35 @@ function EnviaPeticionAjax(accion,id){
 		MensajeErrorDesconocido(error);
 		}
 	};
-
-
-function VerUnRegistro(id) {
+//
+// Carga datos de un registro desde tabla de Personas
+//	
+function VerUnaPersona() {
 
 	$("#region").unbind("change");
+
 	$.ajax({
-		url: "/usuarios/personas_verregistro/",
+		url: "/usuarios/especialistas_verpersona/",
 		type: 'GET',
 		dataType: 'json',
-		data: {id: id},
+		data: {username: $('#username').val()},
 		success: function( data ) {
 			$.each(data, function(index, element) {
-//				alert("En VerUnRegistro Region="+element.region+" Ciudad="+element.ciudad+" Comuna="+element.comuna)
-				$("#id").val(id);
+//				alert("En VerUnaPersona Region="+element.region+" Ciudad="+element.ciudad+" Comuna="+element.comuna);
+				$("#id").val(element.id);
 				$("#username").val(element.username);
 				$("#rut").val(element.rut);
 				$("#nombre").val(element.nombre);
 				$("#apellido").val(element.apellido);
-				$("#fnacimiento").val(element.fnacimiento);
 				$("#email").val(element.email);
 				$("#telefono").val(element.telefono);
+				$("#fnacimiento").val(element.fnacimiento);
 				$("#miregion").val(element.region);
 				$("#micomuna").val(element.comuna);
 				$("#miciudad").val(element.ciudad);
+				$("#activo").val(element.activo);
+				$("#estado").val(element.estado);
+				$("#perfil").val(element.perfil);
 				});
 			$("#region").val($("#miregion").val());
 			Cargar_Comunas();
@@ -350,9 +358,10 @@ function VerUnRegistro(id) {
 		Cargar_Comunas();
 		Cargar_Ciudades();
 		});
-	}
-
-
+	};
+//
+// Actualiza lista de Comunas, dependiendo de la region elegida
+//
 function Cargar_Comunas() {
 	var region, comuna;
 	try {
@@ -387,8 +396,10 @@ function Cargar_Comunas() {
 			MensajeErrorDesconocido('Hubo un problema(1) con la solicitud:', textStatus, errorThrown);
 			}
 		}); 
-}
-
+	};
+//
+// Actualiza lista de Ciudades, dependiendo de la region elegida
+//	
 function Cargar_Ciudades() {
 	var region, ciudad;
 	try {
@@ -423,18 +434,24 @@ function Cargar_Ciudades() {
 			MensajeErrorDesconocido('Hubo un problema(2) con la solicitud:', textStatus, errorThrown);
 			}
 		});
-};
-
-function BloquearRegistro(id){
-	confirmarMensaje("El Usuario será Bloqueado y no podrá Ingresar al Sistema.",CambiarEstadoPersona,id,0);
 	};
-
-
+//
+// Envia mensaje para confirmar cambio de estado a Bloqueadp. Si el usuario confirma se ira a funcion CambiarEstadoPersona()
+//	
+function BloquearRegistro(id){
+	confirmarMensaje("El Usuario será Bloqueado y NO podrá Ingresar al Sistema.",CambiarEstadoPersona,id,0);
+	};
+//
+// Envia mensaje para confirmar cambio de estado a Desbloqueado. Si el usuario confirma se ira a funcion CambiarEstadoPersona()
+//	
 function DesBloquearRegistro(id){
 	confirmarMensaje("El Usuario será DesBloqueado y podrá Ingresar al Sistema.",CambiarEstadoPersona,id,1);
 	};
-	
+//
+// Actualiza via ajax el estado de la persona (usuario)
+//	
 function CambiarEstadoPersona(id,estado){
+
 	try {
 		$.ajax({
 			type: "POST",
@@ -454,9 +471,14 @@ function CambiarEstadoPersona(id,estado){
 	} catch (error) {
 		MensajeErrorDesconocido(error);
 		}
-};				
-
+	};				
+//
+// Abre modal para cambio de password
+//	
 function CambiarClave(id){
+
+	$('#strengthMessage').html('');
+	$('#strengthMessage').removeClass();
 
 	$("#passwdedit").dialog({
 		title: "Cambiar Password de Usuario",
@@ -481,9 +503,10 @@ function CambiarClave(id){
 			]
 		});
 	$("#passwdedit").dialog("open");
-};
-
-
+	};
+//
+// Envia via ajax nueva password del usuario
+//
 function EnviarPassword(id){
 
 	try {
@@ -501,23 +524,36 @@ function EnviarPassword(id){
 	} catch (error) {
 		MensajeErrorDesconocido(error);
 		}
-};
+	};
+//
+//  Verificar si RUT ya existe en Base de Datos
+//	
+function VerSiExisteRut(){
+	var rut = $('#rut').val();
 
-function rut_a_username() {
-	var tmpstr = "";
-	var crut = allTrim($('#rut').val());
-
-	for ( i=0; i <crut.length ; i++ )
-		if (crut.charAt(i) != '.' && crut.charAt(i) != '-' ) 
-			tmpstr = tmpstr + crut.charAt(i);
-	return tmpstr;
-	}
-
-
+	try {
+		$.ajax({
+			type: "POST",
+			url: "/usuarios/personas_verificarut/",
+			data: {rut: rut, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
+			success: function( id ) {
+				if (id != "0") {
+					$('#username').val('');
+					mostrarMensaje("R.U.T. Ya se encuentra Ingresado como Usuario",MSG_STOP);
+					}
+				}
+			});
+	} catch (error) {
+		MensajeErrorDesconocido(error);
+		}
+	};
+//
+// Crea DataTable para una lista de registros a recibir via ajax
+//
 function Crear_DataTable() {
 
 	$('#tablaregs').DataTable({
-		language: {url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-CL.json'	},
+        language: {url: '/static/jquery/datatables.es-CL.json'},
 		pagingType: 'full_numbers',
 		bJQueryUI: 'true',
 		iDisplayLength: '25',
@@ -527,4 +563,6 @@ function Crear_DataTable() {
 			{ searchable: false, targets: [6] }
 			]
 		});
-};
+	$(".tip").tooltip();
+	};
+

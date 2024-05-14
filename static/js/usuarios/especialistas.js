@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-	
 	try{
 		var f100 = new LiveValidation('rut');
 		f100.add(Validate.Presence);
@@ -14,14 +13,20 @@ $(document).ready(function(){
 		f102.add(Validate.Presence);
 	} catch (e) {};
 //
+// Cambia Rubro Seleccionado
+//
+	$('#rubro').on("change", function(){
+		Cargar_Especialidad();
+	});	
+//
 // Dialogo para Modificar Registro.
 //	
 	$("#diagedit").dialog({
 		autoOpen: false,	 
 		position: { my: "center", at: "center", of: window },
 		height: 650,
-		width: 1120,
-		resizable: false,
+		width: 1200,
+		resizable: true,
 		modal: true,  
 		show: {
 			effect: "blind",
@@ -59,13 +64,6 @@ $(document).ready(function(){
 			}
 		});
 
-		$('#rubro').change(function(){
-			Cargar_Categorias();
-			});	
-	
-		$('#categoria').change(function(){
-			Cargar_SubCategorias();
-			});	
 
 	Crear_DataTable(); 
 
@@ -108,15 +106,16 @@ function CamposValidos(){
 function AgregarRegistro(){
 
 	ACCION = AGREGAR_REG;
-	$("#mirubro").val('1');
-	$("#micategoria").val('1');
-	$('#misubcategoria').val('1');
-	$("#rubro").val('1');
-	$("#categoria option:not([disabled])").first().attr('selected','selected');
-	$("#subcategoria option:not([disabled])").first().attr('selected','selected');
-	$("#ctr_altadctos option:not([disabled])").first().attr('selected','selected');
-	$("#estado_suscripcion option:not([disabled])").first().attr('selected','selected');
-	Cargar_Categorias();
+	idGlobal1 = 1;
+    idGlobal2 = 0;
+    idGlobal3 = 0;
+
+	$("#rubro").prop("selectedIndex", 0);
+	Cargar_Especialidad();
+//	$("#rubro").first().attr('selected','selected');
+	$("#ctr_altadctos").prop("selectedIndex", 0);
+	$("#estado_suscripcion").prop("selectedIndex", 0);
+
 	CampoEnReadWrite("rut");
 	CampoEnReadWrite("descripcion");
 	CampoEnReadWrite("reg_especialista"); 
@@ -265,185 +264,6 @@ function EnviaPeticionAjax(accion,id){
 		}
 	};
 //
-// Carga datos de un registro desde tabla de Especialistas
-//	
-function VerUnEspecialista(id) {
-
-	$("#rubro").unbind("change");
-	$('#rut').val($('#rut'+id).val());
-	$('#username').val(rut_a_username($('#rut').val()));
-
-	$.ajax({
-		url: "/usuarios/especialistas_verespecialista/",
-		type: 'GET',
-		dataType: 'json',
-		data: {id: id},
-		success: function( data ) {
-			$.each(data, function(index, element) {
-				$("#idespecialista").val(element.id);
-				$("#idpersona").val(element.idpersona);
-				$("#idusuario").val(element.idusuario);
-				$("#nombre").val(element.nombre);
-				$("#email").val(element.email);
-				$("#descripcion").val(element.descripcion);
-				$("#reg_especialista").val(element.reg_especialista);
-				$("#tiempo_consulta").val(element.tiempo_consulta);
-				$("#ctr_altadctos").val(element.fnacimiento);
-				$("#mirubro").val(element.rubro);
-				$("#micategoria").val(element.categoria);
-				$("#categoria").val(element.categoria);
-				$("#misubcategoria").val(element.subcategoria);
-				$("#subcategoria").val(element.subcategoria);
-				$("#ctr_altadctos").val(element.ctr_altadctos);
-				$("#estado_suscripcion").val(element.estado_suscripcion);
-				$("#estado_persona").val(element.estado_persona);
-				$("#promedio_evaluacion").val(element.promedio_evaluacion);
-//				alert("Categoria="+element.categoria+" SubCategoria="+element.subcategoria);
-				});
-			$("#rubro").val($("#mirubro").val());
-//			Cargar_Persona();
-			Cargar_Categorias();	
-			},
-		error: function(jqXHR, textStatus, errorThrown) {
-			reject(errorThrown);
-			}
-	});
-	$('#rubro').change(function(){
-		Cargar_Categorias();
-		});
-	}
-//
-// Lee via ajax datos de la tabla personas (y usuario)
-//
-function Cargar_Persona() {
-
-	$('#username').val(rut_a_username($('#rut').val()));
-
-	$.ajax({
-		async: false,
-		type: 'GET',
-		dataType: "json",
-		data: {username: $('#username').val()},
-		url: '/usuarios/especialistas_verpersona/',
-		success: function( data ) {
-			$.each(data, function(index, element) {
-				if (element.idpersona == "") {
-					$("#idpersona").val('');
-					$("#idusuario").val('');
-					$('#username').val('');
-					$("#nombre").val('');
-					$('#email').val('');
-					$('#descripcion').val('');
-					$('#reg_especialista').val('');
-					$('#tiempo_consulta').val('');
-					$('#estado_persona').val('');
-					$('#promedio_evaluacion').val('');
-					mostrarMensaje("Usuario indicado no existe",MSG_STOP);
-					}
-				else{
-					$("#idpersona").val(element.idpersona);
-					$("#idusuario").val(element.idusuario);
-					$("#nombre").val(element.apellido+' , '+element.nombre);
-					$("#email").val(element.email);
-					$("#estado_persona").val(element.estado_persona);
-					}
-				});
-			return true;
-			},
-		error: function(jqXHR, textStatus, errorThrown) {
-			$('#username').val('');
-			mostrarMensaje("Usuario indicado no existe",MSG_STOP);
-			return false;
-			}
-		}); 
-};
-//
-// Actualiza lista de Categorias, dependiendo del rubro elegido
-//	
-function Cargar_Categorias() {
-	var rubro, categoria;
-	try {
-//		rubro = $('#rubro option:selected').val();
-//		categoria = $('#categoria option:selected').val();
-		rubro = $('#mirubro').val();
-		categoria = $('#micategoria').val();
-		} 
-	catch (e) {
-		rubro = 1;
-		categoria = 1;
-		}
-//	alert("En Cargar_Categorias rubro="+rubro+" Categoria="+categoria)
-	$.ajax({
-		url: "/tablas/selectcategorias",
-		data: {rubro: rubro, categoria: categoria},
-		type: 'GET',
-		dataType: 'html',
-		success: function(response) {
-			$("#categoria").unbind("change");
-			$('#divcategorias').html(response);
-			$('#categoria option:first').prop('selected', true);
-			$("#categoria option").each(function(){
-				if ($(this).val() === categoria) {
-					$('#categoria option:first').prop('selected', false);
-					$(this).attr("selected", "selected");
-					}
-				});
-			if ((ACCION == ELIMINAR_REG) || (ACCION == VER_REG))
-				CampoDisabled("categoria");
-			else
-				CampoEnabled("categoria");
-			Cargar_SubCategorias();		
-			$('#categoria').change(function(){
-				Cargar_SubCategorias();
-				});
-			},
-		error: function(jqXHR, textStatus, errorThrown) {
-			MensajeErrorDesconocido('Hubo un problema (Categoria) con la solicitud:', textStatus, errorThrown);
-			}
-		}); 
-};
-//
-// Actualiza lista de SubCategorias, dependiendo del rubro y/o Categoria elegido(a)
-//		
-function Cargar_SubCategorias() {
-	var categoria, subcategoria;
-
-	try {
-//		categoria = $('#categoria option:selected').val();
-//		subcategoria = $('#subcategoria option:selected').val();
-		categoria = $('#micategoria').val();
-		subcategoria = $('#misubcategoria').val();
-		} 
-	catch (e) {
-		categoria = 1;
-		subcategoria = 1;
-		}
-//	alert("En Cargar_SubCategorias categoria="+categoria+" subcategoria="+subcategoria)
-	$.ajax({
-		url: "/tablas/selectsubcategorias",
-		data: {categoria: categoria, subcategoria: subcategoria},
-		type: 'GET',
-		dataType: 'html',
-		success: function(response) {
-			$('#divsubcategorias').html(response);
-			$('#subcategoria option:first').prop('selected', true);
-			$("#subcategoria option").each(function(){
-				if ($(this).val()===subcategoria) {
-					$('#subcategoria option:first').prop('selected', false);
-					$(this).attr("selected", "selected");
-					}
-				});
-			if ((ACCION == ELIMINAR_REG) || (ACCION == VER_REG))
-				CampoDisabled("subcategoria");
-			else
-				CampoEnabled("subcategoria");
-			},
-		error: function(jqXHR, textStatus, errorThrown) {
-			MensajeErrorDesconocido('Hubo un problema (SubCategoria) con la solicitud:', textStatus, errorThrown);
-			}
-		});
-};
-//
 // Lee via ajax datos de la tabla personas (y usuario)
 //
 function Cargar_Persona() {
@@ -496,20 +316,34 @@ function VerSiExisteRut(){
 
 	try {
 		$.ajax({
-			type: "POST",
+			type: "GET",
 			url: "/usuarios/especialistas_verificarut/",
 			data: {rut: rut, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
-			success: function( id ) {
-				if (id == -1) {
-					$('#username').val('');
-					mostrarMensaje("R.U.T. No ha sido ingresado como Usuario",MSG_STOP);
-					}
-				else {
-					if (id != 0) {
+			success: function( data ) {
+				$.each(data, function(index, element) {
+					if (element.res == "-1") {
 						$('#username').val('');
-						mostrarMensaje("R.U.T. Ya se encuentra Ingresado como Especialista",MSG_STOP);
+						$("#idusuario").val('');
+						$("#idpersona").val('');
+						$("#idespecialista").val('');
+						$("#nombre").val('');
+						$("#email").val('');
+						$("#estado_persona").val('');
+						mostrarMensaje("R.U.T. No ha sido ingresado como Usuario",MSG_STOP);
 						}
-					}
+					else{
+						$("#idusuario").val(element.idusuario);
+						$("#idpersona").val(element.idpersona);
+						$("#idespecialista").val(element.idespecialista);
+						$("#nombre").val(element.nombre);
+						$("#email").val(element.email);
+						$("#estado_persona").val(element.estado);
+						if (element.res == "1") {
+							$('#username').val('');
+							mostrarMensaje("R.U.T. Ya se encuentra Ingresado como Especialista",MSG_STOP);
+							}
+						}
+					});
 				}
 			});
 	} catch (error) {
@@ -572,4 +406,149 @@ function Crear_DataTable() {
 	$(".tip").tooltip();
 
 };
+
+async function Cargar_Especialidad() {
+//	alert("En Cargar_Especialidad");
+    await EnviarAjaxEspecialidad()
+        .then(function(data) {
+            $("#divcategorias").html(''); 
+            $("#divcategorias").append(data); 
+            if ($('#categoria option[value="'+idGlobal1+'"]').length > 0)
+                $("#categoria").val(idGlobal1);   
+            else
+                $("#categoria").prop("selectedIndex", 0);
+			if ((ACCION == ELIMINAR_REG) || (ACCION == VER_REG)){
+//				$('#categoria option[value="'+idGlobal1+'"]').prop('selected', true);
+				CampoDisabled("categoria");
+				}
+			else {
+//				$('#subcategoria option:first').prop('selected', true);
+				CampoEnabled("categoria");
+				}
+			Cargar_SubEspecialidad();
+            })
+        .catch(function(error) {
+            MensajeErrorDesconocido(error);
+            });
+    }; 
+
+function EnviarAjaxEspecialidad() {
+    return new Promise(function(resolve, reject) {
+            var rubro;
+            try {
+                rubro = $('#rubro option:selected').val();
+            } catch (e) {
+                rubro = 0;
+                }
+            $.ajax({
+                method: "POST",
+                dataType:"html",
+                url: "/tablas/selectcategorias",
+                data: {rubro: rubro, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
+                success: function(data) {
+                    resolve(data);
+                    },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    reject(errorThrown);
+                }
+            });
+        });
+    } 
+
+async function Cargar_SubEspecialidad() {
+
+    await EnviarAjaxSubEspecialidad()
+        .then(function(data) {
+            $("#divsubcategorias").html(''); 
+            $("#divsubcategorias").append(data); 
+			if ($('#subcategoria option[value="'+idGlobal2+'"]').length > 0)
+                $("#subcategoria").val(idGlobal2);   
+            else
+                $("#subcategoria").prop("selectedIndex", 0);
+			if ((ACCION == ELIMINAR_REG) || (ACCION == VER_REG)){
+//				$('#subcategoria option[value="'+idGlobal2+'"]').prop('selected', true);
+				CampoDisabled("subcategoria");
+				}
+			else {
+//				$('#subcategoria option:first').prop('selected', true);
+				CampoEnabled("subcategoria");
+				}
+			$('#categoria').on("change", function(){
+				Cargar_SubEspecialidad();
+				})
+            })
+        .catch(function(error) {
+            MensajeErrorDesconocido(error);
+            });
+    }
+
+function EnviarAjaxSubEspecialidad() {
+    return new Promise(function(resolve, reject) {
+            var categoria;
+            try {
+                categoria = $('#categoria option:selected').val();
+            } catch (e) {
+                categoria = 0;
+                }
+            $.ajax({
+                method: "POST",
+                dataType:"html",
+                url: "/tablas/selectsubcategorias",
+                data: {categoria: categoria, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
+                success: function(data) {
+                    resolve(data);
+                    },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    reject(errorThrown);
+                }
+            });
+        });
+    }
+//
+// Carga datos de un registro desde tabla de Especialistas
+//	
+function VerUnEspecialista(id) {
+
+//	$("#rubro").unbind("change");
+//	$("#categoria").unbind("change");
+	$('#rut').val($('#rut'+id).val());
+	$('#username').val(rut_a_username($('#rut').val()));
+
+	$.ajax({
+		url: "/usuarios/especialistas_verespecialista/",
+		type: 'GET',
+		dataType: 'json',
+		data: {id: id},
+		success: function( data ) {
+			$.each(data, function(index, element) {
+				$("#idespecialista").val(element.id);
+				$("#idpersona").val(element.idpersona);
+				$("#idusuario").val(element.idusuario);
+				$("#nombre").val(element.nombre);
+				$("#email").val(element.email);
+				$("#descripcion").val(element.descripcion);
+				$("#reg_especialista").val(element.reg_especialista);
+				$("#tiempo_consulta").val(element.tiempo_consulta);
+				$("#ctr_altadctos").val(element.fnacimiento);
+				$('#rubro').removeAttr('selected');
+				$("#rubro option[value="+element.rubro+"]").attr("selected",true);
+//				alert ("En VerUnEspecialista Rubro="+element.rubro+" Categoria="+element.categoria+" SubCategoria="+element.subcategoria);
+				$("#categoria").val(element.categoria);
+				idGlobal1 = element.categoria;
+				$("#subcategoria").val(element.subcategoria);
+				idGlobal2 = element.subcategoria;
+				$("#ctr_altadctos").val(element.ctr_altadctos);
+				$("#estado_suscripcion").val(element.estado_suscripcion);
+				$("#estado_persona").val(element.estado_persona);
+				$("#promedio_evaluacion").val(element.promedio_evaluacion);
+				Cargar_Especialidad();
+//				alert("Categoria="+element.categoria+" SubCategoria="+element.subcategoria);
+				});
+			},
+		error: function(jqXHR, textStatus, errorThrown) {
+			reject(errorThrown);
+			}
+		});
+
+	}
 

@@ -9,3 +9,4 @@ Favor revisa lo siguiente:
 Pero ahora no me sirven
 Eso por ahora
 El base.html que va ahora es el tuyo para que puedas probar
+Y lo ultimo hay un archivo .sql que es la ultima version de la bQjDNuYvUZo

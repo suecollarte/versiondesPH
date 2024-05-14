@@ -31,7 +31,7 @@ class PerfilesUsuarios:
         (RELACIONADO, 'Relacionado'),
         ]
 
-              
+
 class UsuariosPersonas(models.Model):
     '''
     (20.b) Tabla de registro de usuarios del sistema. 
@@ -76,7 +76,9 @@ class EstadosDocumentos:
         (PENDIENTE, 'Pendiente'),
         (VIGENTE, 'Revisados'),
         ]
-    
+   
+
+             
 class UsuariosEspecialistas(models.Model):
     '''
     (21) Tabla de registro de los especialistas que han contratado servicios de la plataforma y que por medio de ésta ofrecen sus propios servicios

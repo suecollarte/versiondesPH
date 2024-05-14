@@ -45,12 +45,10 @@ var mesesCortos = new Array ("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Se
 
 $(document).ready(function(){
 
-// on window resize run function
 	$(window).resize(function () {
 		fluidDialog();
 		});
 
-// catch dialog if opened within a viewport smaller than the dialog width
 	$(document).on("dialogopen", ".ui-dialog", function (event, ui) {
 		fluidDialog();
 		});
@@ -85,8 +83,10 @@ $(document).ready(function(){
 		changeMonth: true,
 		changeYear: true,
 		buttonText: "Seleccionar fecha",
-		maxDate: "-1d",
+//		maxDate: "-1d",
+		maxDate: "+2y",
 		yearRange: "1900:2030",
+		duration: "slow",
 		dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
 		monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ] 
 		});
@@ -161,6 +161,21 @@ function CampoDisabled(id) {
 function CampoEnabled(id) {
 	$("#"+id).css({'background-color' : '#FFFFFF'});
 	$("#"+id).removeAttr("disabled");
+	}
+
+
+function validarFechas(finicio,ffin) {
+	var f1 = finicio.split("-");
+    var faux = f1[2] + "-" + f1[1] + "-" + f1[0];
+	var fechaInicio = new Date(faux);
+	f1 = ffin.split("-");
+  	faux = f1[2] + "-" + f1[1] + "-" + f1[0];
+	var fechaFin = new Date(faux);
+
+	if (fechaInicio >= fechaFin)
+		return false;
+	
+	return true;
 	}
 
 String.prototype.ucwords = function() {

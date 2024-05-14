@@ -13,7 +13,8 @@
   <!-- Styles -->
     <!-- Bootstrap.css -->   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <!-- jqueryUI.css -->
     <link rel='stylesheet' href="{% static 'css/jquery-ui.css' %}" type='text/css'>
     <link rel='stylesheet' href="{% static 'css/jquery-ui.theme.min.css' %}" type='text/css'>
@@ -31,14 +32,12 @@
    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- jQuery JS --> 
     <script type="text/javascript" src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
     <!-- jQueryUI JS -->
     <script type="text/javascript" src="{% static 'jquery/jquery-ui.min.js' %}"></script>  
     <!-- DataTable.js -->
-    <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script> 
-    
+    <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
     <!-- Custom JS -->
     <script type="text/javascript" src="{% static 'js/system.js' %}"></script>     
     <!-- LiveValidation JS -->
@@ -47,6 +46,7 @@
     <script type="text/javascript" src="{% static 'js/checkpassword.js' %}"></script>  
     <!-- SmartMenus JS -->
     <script type="text/javascript" src="{% static 'jquery/jquery.smartmenus.min.js' %}"></script> 
+
 </head>
 
 <body>
@@ -159,9 +159,9 @@
                             <i class="fa-solid fa-file-lines pe-2"></i>Especialistas        
                         </a>
                         <ul id="especialistas"  class="sidebar-dropdown list-unstyled collapse"  data-bs-parent="#sidebar"> 
-                            <li class="sidebar-item"> <a class="sidebar-link" href="/usuarios/especialistas_listar">Especialistas</a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link" href="/usuarios/especialistas_agendas">Agendas</a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link" href="/usuarios/especialistas_evaluaciones">Evaluaciones</a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link" href="/especialistas/especialistas_listar">Especialistas</a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link" href="/especialistas/especialistas_agendas">Agendas</a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link" href="/especialistas/especialistas_evaluaciones">Evaluaciones</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-item">
@@ -193,9 +193,6 @@
                             </li>
                             <li class="sidebar-item">    
                                 <a class="sidebar-link" href="/tablas/promociones">Promociones</a>
-                            </li> 
-                            <li class="sidebar-item">    
-                                <a class="sidebar-link" href="/tablas/planes">Planes</a>
                             </li>                
                             <li class="sidebar-item">    
                                 <a class="sidebar-link" href="/tablas/regiones">Regiones</a>

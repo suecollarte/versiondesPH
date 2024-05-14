@@ -1,24 +1,4 @@
-/* system.css Copyright (c) 2023 Vilco  */
-
-.rutno {
-  width: 100%;
-  background-color: #28a745;
-  margin-top: 5px;
-  height: 3px;
-  color: #28a745;
-  font-weight: 500;
-  font-size: 12px;
-}
-
-.rutsi {
-  width: 100%;
-  background-color: #dc3545;
-  margin-top: 5px;
-  height: 3px;
-  color: #dc3545;
-  font-weight: 500;
-  font-size: 12px;
-}
+/* system.css Copyright (c) 2024 proximahora  */
 
 .ui-datepicker-trigger {
   width: 40px; /* Ancho personalizado */
@@ -62,11 +42,6 @@
       margin-top: -100px;
   }
 	 
-.uploadifive-button {
-	float: left;
-	margin-right: 10px;
-}
-
 #queue {
 	border: 1px solid #E5E5E5;
 	height: 177px;
@@ -137,7 +112,6 @@ div.ui-tabs-panel{
   color: 003366;
   text-align: center;
 }
-
 	
 .rowCount-grid {
     float: right;
@@ -149,29 +123,6 @@ div.ui-tabs-panel{
 .DataTables_sort_wrapper span {
     float: right;
     }
-	
-.text10b  {
-  font-family: Verdana,Arial, Helvetica, sans-serif;
-  font-size: 10pt;
-  font-weight: bold;
-  color: black;
-  text-align: right;
-}
-
-
-.txt11pxr  {
-  font-family: Verdana,Arial, Helvetica, sans-serif;
-  font-size: 11px  !important;
-  color: black;
-  text-align: right 
-}
-
-.txt11pxl  {
-  font-family: Verdana,Arial, Helvetica, sans-serif;
-  font-size: 11px  !important;
-  color: black;
-  text-align: left
-}
 
 .text8  {
   font-family: Verdana,Arial, Helvetica, sans-serif;
@@ -207,49 +158,15 @@ div.ui-tabs-panel{
   text-align: center
 }
 
-.text7c  {
-  font-family: Verdana,Arial, Helvetica, sans-serif;
-  font-size: 7pt;
-  color: black;
-  text-align: center;
-}
-
-.text7r  {
-  font-family: Verdana,Arial, Helvetica, sans-serif;
-  font-size: 7pt;
-  color: black;
-  text-align: right;
-}
-
-.text7rred  {
-  font-family: Verdana,Arial, Helvetica, sans-serif;
-  font-size: 7pt;
-  color: red;
-  text-align: right;
-}
-
-.text7l  {
-  font-family: Verdana, Verdana,  Helvetica, sans-serif;
-  font-size: 7px;
-  color: black;
-  text-align: left;
-}
-
-.text7lb  {
-  font-family: Arial, Verdana,  Helvetica, sans-serif;
-  font-size: 7pt;
-  color: black;
+/* Usado en encabezado de tablas */
+.titform20 {
+  font-family: Arial, Verdana, Helvetica, sans-serif;
+  font-size: 20pt;
   font-weight: bold;
-  text-align: left;
+  text-align: center !important;
 }
 
-.text6l  {
-  font-family: Arial, Verdana,  Helvetica, sans-serif;
-  font-size: 6pt;
-  color: black;
-  text-align: left;
-}
-
+/* Usado en titulos de datatables */
 .tdtit10  {
   font-family: Arial, Verdana,  Helvetica, sans-serif;
   font-size: 10pt  !important;
@@ -260,79 +177,13 @@ div.ui-tabs-panel{
   vertical-align: middle !important;
 }
 
+/* Usado en modals */
 .tit10lb {
   font-family: Arial, Verdana,  Helvetica, sans-serif;
-  font-size: 10pt;
+  font-size: 10px;
   font-weight: bold;
   color: #003366;
   text-align: left;
-}
-
-.tdtit8  {
-  font-family: Arial, Verdana,  Helvetica, sans-serif;
-  font-size: 8pt;
-  font-weight: bold;
-  background-color: #DBDBDB;
-  color: #003366;
-  text-align: center;
-}
-
-.tdtit8l1  {
-  font-family: Arial, Verdana,  Helvetica, sans-serif;
-  font-size: 8pt;
-  font-weight: bold;
-  background-color: #DBDBDB;
-  color: #003366;
-  text-align: left;
-}
-
-.tdtit8l  {
-  font-family: Arial, Verdana,  Helvetica, sans-serif;
-  font-size: 8pt;
-  font-weight: bold;
-  color: #003366;
-  text-align: left;
-}
-
-.tdtit8c  {
-  font-family: Arial, Verdana,  Helvetica, sans-serif;
-  font-size: 8pt;
-  font-weight: bold;
-  color: #003366;
-  text-align: center;
-}
-
-.tdtit8c1  {
-  font-family: Arial, Verdana,  Helvetica, sans-serif;
-  font-size: 8pt;
-  font-weight: bold;
-  background-color: #DBDBDB;
-  color: #003366;
-  text-align: center;
-}
-
-.tdtit8r  {
-  font-family: Arial, Verdana, Helvetica, sans-serif;
-  font-size: 8pt;
-  font-weight: bold;
-  color: #003366;
-  text-align: right;
-}
-
-.tdtit8rn  {
-  font-family: Arial, Verdana, Helvetica, sans-serif;
-  font-size: 8pt;
-  color: #003366;
-  text-align: right;
-}
-
-.tdtit7  {
-  font-family: Arial, Verdana,  Helvetica, sans-serif;
-  font-size: 7pt;
-  font-weight: bold;
-  background-color: #DBDBDB;
-  color: #003366;
-  text-align: center;
 }
 
 .titform12 {
@@ -341,44 +192,3 @@ div.ui-tabs-panel{
   font-weight: bold;
   text-align: center !important;
 }
-
-.titform10 {
-  font-family: Arial, Verdana, Helvetica, sans-serif;
-  font-size: 10pt;
-  font-weight: bold;
-  text-align: center !important;
-}
-
-.titform20 {
-  font-family: Arial, Verdana, Helvetica, sans-serif;
-  font-size: 20pt;
-  font-weight: bold;
-  text-align: center !important;
-}
-.titform8 {
-  font-family: Arial, Verdana, Helvetica, sans-serif;
-  font-size: 8pt;
-  font-weight: bold;
-  text-align: center;
-}
-
-.titform8w {
-  font-family: Arial, Verdana, Helvetica, sans-serif;
-  font-size: 8pt;
-  font-weight: bold;
-  text-align: center;
-  color: #FFFFFF;
-}
-
-.footer_texto {
-	font-family:Verdana, Geneva, sans-serif;
-	font-size:10px;
-	color:#FFF;
-	padding:10px;
-}
-
-.importante {
-	font-family:Verdana, Geneva, sans-serif;
-	font-size:10px;
-	color:#FFF;
- }

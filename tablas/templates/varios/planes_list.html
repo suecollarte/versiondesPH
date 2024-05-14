@@ -7,7 +7,7 @@
 {% block content %}
 
     <!-- Custom JS -->
-<script type="text/javascript" src="{% static 'js/tablas/promociones.js' %}"></script>  
+<script type="text/javascript" src="{% static 'js/tablas/planes.js' %}"></script>  
 
 <div class="container mt-4">
 
@@ -18,9 +18,9 @@
             <div class="table-responsive">
                 <table style="width:100%">
                     <tr>
-                        <td width="90%" class="titform20">Promociones</td>
+                        <td width="90%" class="titform20">Planes de Suscripción</td>
                         <td width="10%" class="text8c">
-                            <button class='btn btn-sm btn-primary tip' title='Agregar Promoción' onClick='AgregarRegistro()' >
+                            <button class='btn btn-sm btn-primary tip' title='Agregar Plan' onClick='AgregarRegistro()' >
                                 <i class='fa-solid fa-plus'></i>
                             </button>                        
                         </td>
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    {% include 'varios/promociones_ajax_list.html' %}
+    {% include 'varios/planes_ajax_list.html' %}
 
 </div>
 
@@ -56,7 +56,7 @@
                     <div class="row">
                         <div class="col-lg-12 mx-auto">
                             <div class="form-group">
-                                <label class="tit10lb">Nombre de la Promoción</label>
+                                <label class="tit10lb">Nombre del Plan</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-address-card"></i></span>
@@ -66,19 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12 mx-auto">
-                            <div class="form-group">
-                                <label class="tit10lb">Palabra Clave</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                                    </div>
-                                    <input type="text" name="pclave" id="pclave" placeholder="Palabra Clave" size="50" maxlength="45" class="form-control w-50 text8l" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="row">
                         <div class="col-md-6 mx-auto">
                             <div class="form-group">
@@ -104,39 +92,43 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 mx-auto">
+                        <div class="col-lg-12 mx-auto">
                             <div class="form-group">
-                                <label class="tit10lb">Porcentaje de Descuento</label>
+                                <label class="tit10lb">Periodicidad</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-percent"></i></span>
+                                        <span class="input-group-text"><i class="fa fa-bars"></i></span>
                                     </div>
-                                    <input type="text" name="dcto_porcentaje" id="dcto_porcentaje" size="6" maxlength="2" class="form-control w-50 text8l" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mx-auto">
-                            <div class="form-group">
-                                <label class="tit10lb">O Cantidad a Descontar</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-usd"></i></span>
-                                    </div>
-                                    <input type="text" name="dcto_cantidad" id="dcto_cantidad" size="10" maxlength="10" class="form-control w-50 text8l" />
+                                    <select required="required" class="form-control w-auto" name="periodicidad" id="periodicidad" style="font-size:11px;">
+                                        {% for codigo, nombre in PeriodicidadPlanes.PERIODICIDAD_PLANES %}
+                                            <option value="{{codigo}}" class="text8l">{{nombre}}</option>
+                                        {% endfor %}
+                                    </select>                                                        
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 mx-50">
+                        <div class="col-md-6 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Valor</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-usd"></i></span>
+                                    </div>
+                                    <input type="text" name="valor" id="valor" placeholder="Valor del Plan" size="10" maxlength="10" class="form-control w-50 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mx-auto">
                             <div class="form-group">
                                 <label class="tit10lb">Estado</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-bars"></i></span>
                                     </div>
-                                    <select required="required" class="form-control w-50" name="estado" id="estado" style="font-size:11px;">
-                                        {% for codigo, nombre in EstadosPromociones.ESTADOS_PROMOCIONES %}
+                                    <select required="required" class="form-control w-auto" name="estado" id="estado" style="font-size:11px;">
+                                        {% for codigo, nombre in EstadosPlanes.ESTADOS_PLANES %}
                                             <option value="{{codigo}}" class="text8l">{{nombre}}</option>
                                         {% endfor %}
                                     </select>                                                        

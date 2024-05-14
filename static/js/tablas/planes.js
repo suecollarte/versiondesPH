@@ -2,17 +2,12 @@ $(document).ready(function(){
 
 	var f100 = new LiveValidation('nombre');
 	f100.add(Validate.Presence);
-	var f101 = new LiveValidation('pclave');
+	var f101 = new LiveValidation('valor');
 	f101.add(Validate.Presence);
 
-	$("#dcto_cantidad").blur(function(){
+	$("#valor").blur(function(){
 		$(this).val(number_format($(this).val(),0));
 		});	
-
-	$("#dcto_porcentaje").blur(function(){
-		$(this).val(number_format($(this).val(),0));
-		});	
-	
 //
 // Dialogo para Modificar Registro.
 //	
@@ -36,11 +31,11 @@ $(document).ready(function(){
 		close: function() {
 			$("#id").val('');
 			$("#nombre").val('');
-			$("#pclave").val('');
 			$("#fdesde").val('');
 			$("#fhasta").val('');
-			$("#dcto_porcentaje").val('');
-			$("#dcto_cantidad").val('');
+			$("#valor").val('');
+			$("#estado").prop("selectedIndex", 1);
+			$("#periodicidad").prop("selectedIndex", 2);
 			}
 		});
 		
@@ -55,58 +50,43 @@ $(document).ready(function(){
 function PrepararRegistro(id){
 	$('#id').val(allTrim($('#id'+id).html()));
 	$('#nombre').val(allTrim($('#nom'+id).html()));
-	$('#pclave').val(allTrim($('#pcl'+id).html()));
 	$('#fdesde').val(allTrim($('#fin'+id).html()));
 	$('#fhasta').val(allTrim($('#fte'+id).html()));
-	$('#dcto_porcentaje').val(allTrim($('#dc1'+id).html()));
-	$('#dcto_cantidad').val(allTrim($('#dc2'+id).html()));
+	$('#valor').val(allTrim($('#val'+id).html()));
+	$("#periodicidad").prop("selectedIndex", $('#perid'+id).val());
 	$("#estado").prop("selectedIndex", $('#estid'+id).val());
 	};
 
 function CamposValidos(){
 	var txtaux = allTrim($('#nombre').val());
 	if (txtaux == "") 	{
-		mostrarMensaje("Debe indicar Nombre de la Promoción",MSG_STOP);
-		return false;
-		}
-	txtaux = allTrim($('#pclave').val());
-	if (txtaux == "") 	{
-		mostrarMensaje("Debe indicar Palabra Clave de la Promoción",MSG_STOP);
+		mostrarMensaje("Debe indicar Nombre del Plan",MSG_STOP);
 		return false;
 		}
 	txtaux = allTrim($('#fdesde').val());
 	if (txtaux == "") 	{
-		mostrarMensaje("Debe indicar Fecha de Inicio de la Promoción",MSG_STOP);
+		mostrarMensaje("Debe indicar Fecha de Inicio del Plan",MSG_STOP);
 		return false;
 		}
 	txtaux = allTrim($('#fhasta').val());
 	if (txtaux == "") 	{
-		mostrarMensaje("Debe indicar Fecha de Término de la Promoción",MSG_STOP);
+		mostrarMensaje("Debe indicar Fecha de Término del Plan",MSG_STOP);
 		return false;
 		}
 	if (!validarFechas(allTrim($('#fdesde').val()),allTrim($('#fhasta').val())))	{
 		mostrarMensaje("Fecha de Término debe ser posterior a Fecha de Inicio",MSG_STOP);
 		return false;
 		}
-	var aux1 = allTrim($('#dcto_porcentaje').val());
-	var aux2 = allTrim($('#dcto_cantidad').val());
-	if ((aux1 == "") && (aux2 == "")) 	{
-		mostrarMensaje("Debe indicar Porcentaje o Cantidad a Descontar",MSG_STOP);
+	txtaux = allTrim($('#valor').val());
+	if (txtaux == "") 	{
+		mostrarMensaje("Debe indicar Valor del Plan",MSG_STOP);
 		return false;
 		}
 	else {
-		if (aux1 == "")	{
-			if (validaInputFloat("#dcto_cantidad","Cantidad a descontar")) 
-				$("#dcto_cantidad").val(number_format($("#dcto_cantidad").val(),0));
-			else
-				return false;
-			}
-		else{
-			if (validaInputFloat("#dcto_porcentaje","Porcentaje a descontar")) 
-				$("#dcto_porcentaje").val(number_format($("#dcto_porcentaje").val(),0));
-			else
-				return false;
-			}
+		if (validaInputFloat("#valor","Valor del Plan")) 
+			$("#valor").val(number_format($("#valor").val(),0));
+		else
+			return false;
 		}
 	return true;
 	};
@@ -114,11 +94,16 @@ function CamposValidos(){
 function EditarRegistro(id){
 
 	CampoEnReadWrite("nombre");
-	CampoEnReadWrite("pclave");
+	CampoEnReadWrite("fdesde");
+	CampoEnReadWrite("fhasta");
+	CampoEnReadWrite("valor");
+	CampoEnabled("periodicidad");
+	CampoEnabled("estado");
+
 	PrepararRegistro(id);
 	
 	$("#diagedit").dialog({
-		title: "Editar Promoción",
+		title: "Editar Plan",
 		buttons: [
 			{
 				text: "Grabar",
@@ -145,11 +130,17 @@ function EditarRegistro(id){
 function AgregarRegistro(){
 
 	CampoEnReadWrite("nombre");
-	CampoEnReadWrite("pclave");
+	CampoEnReadWrite("fdesde");
+	CampoEnReadWrite("fhasta");
+	CampoEnReadWrite("valor");
+	CampoEnabled("periodicidad");
+	CampoEnabled("estado");
+	$("#estado").prop("selectedIndex", 1);
+	$("#periodicidad").prop("selectedIndex", 2);
 	$('#id').val('');
 
 	$("#diagedit").dialog({
-		title: "Agregar Promoción",
+		title: "Agregar Plan",
 		buttons: [
 			{
 				text: "Grabar",
@@ -178,17 +169,23 @@ function BorrarRegistro(id){
 	
 	CampoEnReadOnly("nombre");
 	CampoEnReadOnly("pclave");
+	CampoEnReadOnly("nombre");
+	CampoEnReadOnly("fdesde");
+	CampoEnReadOnly("fhasta");
+	CampoEnReadOnly("valor");
+	CampoDisabled("periodicidad");
+	CampoDisabled("estado");
 
 	PrepararRegistro(id);
 
 	$("#diagedit").dialog({
-		title: "Eliminar Promoción",
+		title: "Eliminar Plan",
 		buttons: [
 			{
 				text: "Eliminar",
 				click: function() {
 					$( this ).dialog("close");
-					confirmarMensaje("La Promoción será eliminada de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
+					confirmarMensaje("El Plan será eliminado de la Base de Datos.",EnviaPeticionAjax,ELIMINAR_REG,id);
 					},
 				class:"ui-corner-all", style:"color:Red" 
 			},
@@ -208,16 +205,15 @@ function EnviaPeticionAjax(accion,id){
 	var nombre = allTrim($('#nombre').val());
     var fdesde = allTrim($('#fdesde').val());
     var fhasta = allTrim($('#fhasta').val());
-    var pclave = allTrim($('#pclave').val());
-    var dcto_porcentaje = allTrim($('#dcto_porcentaje').val());
-    var dcto_cantidad = allTrim($('#dcto_cantidad').val());
+    var valor = allTrim($('#valor').val());
+	var periodicidad = $('#periodicidad option:selected').val();
 	var estado = $('#estado option:selected').val();
 	try {
 		$.ajax({
 			type: "POST",
-			url: "/tablas/promociones/",
-			data: {accion: accion, id: id, nombre: nombre, fdesde: fdesde, fhasta: fhasta, pclave: pclave, dcto_porcentaje: dcto_porcentaje, 
-				   dcto_cantidad: dcto_cantidad, estado: estado, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
+			url: "/tablas/planes/",
+			data: {accion: accion, id: id, nombre: nombre, fdesde: fdesde, fhasta: fhasta, valor: valor, periodicidad: periodicidad, 
+					estado: estado, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
 			success: function( response ) {
 				if (response != ""){
 					$('#datatablediv').html('');

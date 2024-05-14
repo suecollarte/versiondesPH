@@ -21,5 +21,5 @@ urlpatterns = [
     path('tipoprevision/', views.tipoprevision, name='tipoprevision'),
     path('modalidadatencion/', views.modalidadatencion, name='modalidadatencion'),
     path('promociones/', views.promociones, name='promociones'),
-
+    path('planes/', views.planes, name='planes'),
 ]

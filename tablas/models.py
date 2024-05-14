@@ -138,6 +138,14 @@ class ModalidadAtencion(models.Model):
         return (self.nombre)   
 
 
+class EstadosPromociones:
+    TERMINADA = '0'
+    VIGENTE = '1'
+    ESTADOS_PROMOCIONES = [
+        (TERMINADA, 'Terminada'),
+        (VIGENTE, 'Vigente'),
+        ]
+
 class Promociones(models.Model):
     '''
     (11) Tabla Normalizada de Promociones
@@ -148,6 +156,7 @@ class Promociones(models.Model):
     pclave = models.CharField(max_length=45)
     dcto_porcentaje = models.DecimalField(max_digits=10, decimal_places=2)
     dcto_cantidad = models.DecimalField(max_digits=10, decimal_places=2)
+    estado = models.CharField(max_length=1,choices=EstadosPromociones.ESTADOS_PROMOCIONES,default=EstadosPromociones.VIGENTE)                
                     
     class Meta:
         ordering = ['nombre','fdesde','fhasta','pclave','dcto_porcentaje','dcto_cantidad']
@@ -155,3 +164,39 @@ class Promociones(models.Model):
     def __str__(self):
         return (self.nombre)   
 
+
+class EstadosPlanes:
+    TERMINADO = '0'
+    VIGENTE = '1'
+    ESTADOS_PLANES = [
+        (TERMINADO, 'Terminado'),
+        (VIGENTE, 'Vigente'),
+        ]
+
+class PeriodicidadPlanes:
+    TRIMESTRAL = '0'
+    SEMESTRAL = '1'
+    ANUAL = '2'
+    PERIODICIDAD_PLANES = [
+        (TRIMESTRAL, 'Trimestral'),
+        (SEMESTRAL, 'Semestral'),
+        (ANUAL, 'Anual'),
+        ]
+
+class Planes(models.Model):
+    '''
+    (16) Tabla de registro planes ofrecidos a especialistas.
+    '''  
+    fdesde = models.DateField()
+    fhasta = models.DateField()    
+    nombre = models.CharField(max_length=45)
+    estado = models.CharField(max_length=1,choices=EstadosPlanes.ESTADOS_PLANES)                
+    periodicidad = models.CharField(max_length=1,choices=PeriodicidadPlanes.PERIODICIDAD_PLANES)
+    valor = models.DecimalField(max_digits=8, decimal_places=2,blank=True,null=True)           
+             
+    class Meta:
+        db_table = "tablas_planes"       
+        ordering = ['fdesde','fhasta','nombre','estado','periodicidad','valor']
+        
+        
+        

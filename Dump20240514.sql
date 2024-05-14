@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `proximahoraDB` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `proximahoraDB`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: 172.29.1.77    Database: proximahoraDB
@@ -84,7 +82,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +91,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add user',4,'add_user'),(14,'Can change user',4,'change_user'),(15,'Can delete user',4,'delete_user'),(16,'Can view user',4,'view_user'),(17,'Can add content type',5,'add_contenttype'),(18,'Can change content type',5,'change_contenttype'),(19,'Can delete content type',5,'delete_contenttype'),(20,'Can view content type',5,'view_contenttype'),(21,'Can add session',6,'add_session'),(22,'Can change session',6,'change_session'),(23,'Can delete session',6,'delete_session'),(24,'Can view session',6,'view_session'),(25,'Can add forma pago otros',7,'add_formapagootros'),(26,'Can change forma pago otros',7,'change_formapagootros'),(27,'Can delete forma pago otros',7,'delete_formapagootros'),(28,'Can view forma pago otros',7,'view_formapagootros'),(29,'Can add forma pago salud',8,'add_formapagosalud'),(30,'Can change forma pago salud',8,'change_formapagosalud'),(31,'Can delete forma pago salud',8,'delete_formapagosalud'),(32,'Can view forma pago salud',8,'view_formapagosalud'),(33,'Can add modalidad atencion',9,'add_modalidadatencion'),(34,'Can change modalidad atencion',9,'change_modalidadatencion'),(35,'Can delete modalidad atencion',9,'delete_modalidadatencion'),(36,'Can view modalidad atencion',9,'view_modalidadatencion'),(37,'Can add promociones',10,'add_promociones'),(38,'Can change promociones',10,'change_promociones'),(39,'Can delete promociones',10,'delete_promociones'),(40,'Can view promociones',10,'view_promociones'),(41,'Can add regiones',11,'add_regiones'),(42,'Can change regiones',11,'change_regiones'),(43,'Can delete regiones',11,'delete_regiones'),(44,'Can view regiones',11,'view_regiones'),(45,'Can add rubros',12,'add_rubros'),(46,'Can change rubros',12,'change_rubros'),(47,'Can delete rubros',12,'delete_rubros'),(48,'Can view rubros',12,'view_rubros'),(49,'Can add tipo prevision',13,'add_tipoprevision'),(50,'Can change tipo prevision',13,'change_tipoprevision'),(51,'Can delete tipo prevision',13,'delete_tipoprevision'),(52,'Can view tipo prevision',13,'view_tipoprevision'),(53,'Can add comunas',14,'add_comunas'),(54,'Can change comunas',14,'change_comunas'),(55,'Can delete comunas',14,'delete_comunas'),(56,'Can view comunas',14,'view_comunas'),(57,'Can add ciudades',15,'add_ciudades'),(58,'Can change ciudades',15,'change_ciudades'),(59,'Can delete ciudades',15,'delete_ciudades'),(60,'Can view ciudades',15,'view_ciudades'),(61,'Can add categorias',16,'add_categorias'),(62,'Can change categorias',16,'change_categorias'),(63,'Can delete categorias',16,'delete_categorias'),(64,'Can view categorias',16,'view_categorias'),(65,'Can add sub categorias',17,'add_subcategorias'),(66,'Can change sub categorias',17,'change_subcategorias'),(67,'Can delete sub categorias',17,'delete_subcategorias'),(68,'Can view sub categorias',17,'view_subcategorias'),(69,'Can add forma pago gral',7,'add_formapagogral'),(70,'Can change forma pago gral',7,'change_formapagogral'),(71,'Can delete forma pago gral',7,'delete_formapagogral'),(72,'Can view forma pago gral',7,'view_formapagogral'),(73,'Can add especialistas consultas',18,'add_especialistasconsultas'),(74,'Can change especialistas consultas',18,'change_especialistasconsultas'),(75,'Can delete especialistas consultas',18,'delete_especialistasconsultas'),(76,'Can view especialistas consultas',18,'view_especialistasconsultas'),(77,'Can add especialista agendas',19,'add_especialistaagendas'),(78,'Can change especialista agendas',19,'change_especialistaagendas'),(79,'Can delete especialista agendas',19,'delete_especialistaagendas'),(80,'Can view especialista agendas',19,'view_especialistaagendas'),(81,'Can add especialista fichas',20,'add_especialistafichas'),(82,'Can change especialista fichas',20,'change_especialistafichas'),(83,'Can delete especialista fichas',20,'delete_especialistafichas'),(84,'Can view especialista fichas',20,'view_especialistafichas'),(85,'Can add especialistas planes suscripcion',21,'add_especialistasplanessuscripcion'),(86,'Can change especialistas planes suscripcion',21,'change_especialistasplanessuscripcion'),(87,'Can delete especialistas planes suscripcion',21,'delete_especialistasplanessuscripcion'),(88,'Can view especialistas planes suscripcion',21,'view_especialistasplanessuscripcion'),(89,'Can add especialistas contratos',22,'add_especialistascontratos'),(90,'Can change especialistas contratos',22,'change_especialistascontratos'),(91,'Can delete especialistas contratos',22,'delete_especialistascontratos'),(92,'Can view especialistas contratos',22,'view_especialistascontratos'),(93,'Can add especialistas pagos',23,'add_especialistaspagos'),(94,'Can change especialistas pagos',23,'change_especialistaspagos'),(95,'Can delete especialistas pagos',23,'delete_especialistaspagos'),(96,'Can view especialistas pagos',23,'view_especialistaspagos'),(97,'Can add especialistas rubro salud pagos',24,'add_especialistasrubrosaludpagos'),(98,'Can change especialistas rubro salud pagos',24,'change_especialistasrubrosaludpagos'),(99,'Can delete especialistas rubro salud pagos',24,'delete_especialistasrubrosaludpagos'),(100,'Can view especialistas rubro salud pagos',24,'view_especialistasrubrosaludpagos'),(101,'Can add especialistas horas agendadas',25,'add_especialistashorasagendadas'),(102,'Can change especialistas horas agendadas',25,'change_especialistashorasagendadas'),(103,'Can delete especialistas horas agendadas',25,'delete_especialistashorasagendadas'),(104,'Can view especialistas horas agendadas',25,'view_especialistashorasagendadas'),(105,'Can add usuarios personas',26,'add_usuariospersonas'),(106,'Can change usuarios personas',26,'change_usuariospersonas'),(107,'Can delete usuarios personas',26,'delete_usuariospersonas'),(108,'Can view usuarios personas',26,'view_usuariospersonas'),(109,'Can add usuarios especialistas',27,'add_usuariosespecialistas'),(110,'Can change usuarios especialistas',27,'change_usuariosespecialistas'),(111,'Can delete usuarios especialistas',27,'delete_usuariosespecialistas'),(112,'Can view usuarios especialistas',27,'view_usuariosespecialistas'),(113,'Can add usuarios evaluacion',28,'add_usuariosevaluacion'),(114,'Can change usuarios evaluacion',28,'change_usuariosevaluacion'),(115,'Can delete usuarios evaluacion',28,'delete_usuariosevaluacion'),(116,'Can view usuarios evaluacion',28,'view_usuariosevaluacion');
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add user',4,'add_user'),(14,'Can change user',4,'change_user'),(15,'Can delete user',4,'delete_user'),(16,'Can view user',4,'view_user'),(17,'Can add content type',5,'add_contenttype'),(18,'Can change content type',5,'change_contenttype'),(19,'Can delete content type',5,'delete_contenttype'),(20,'Can view content type',5,'view_contenttype'),(21,'Can add session',6,'add_session'),(22,'Can change session',6,'change_session'),(23,'Can delete session',6,'delete_session'),(24,'Can view session',6,'view_session'),(25,'Can add forma pago otros',7,'add_formapagootros'),(26,'Can change forma pago otros',7,'change_formapagootros'),(27,'Can delete forma pago otros',7,'delete_formapagootros'),(28,'Can view forma pago otros',7,'view_formapagootros'),(29,'Can add forma pago salud',8,'add_formapagosalud'),(30,'Can change forma pago salud',8,'change_formapagosalud'),(31,'Can delete forma pago salud',8,'delete_formapagosalud'),(32,'Can view forma pago salud',8,'view_formapagosalud'),(33,'Can add modalidad atencion',9,'add_modalidadatencion'),(34,'Can change modalidad atencion',9,'change_modalidadatencion'),(35,'Can delete modalidad atencion',9,'delete_modalidadatencion'),(36,'Can view modalidad atencion',9,'view_modalidadatencion'),(37,'Can add promociones',10,'add_promociones'),(38,'Can change promociones',10,'change_promociones'),(39,'Can delete promociones',10,'delete_promociones'),(40,'Can view promociones',10,'view_promociones'),(41,'Can add regiones',11,'add_regiones'),(42,'Can change regiones',11,'change_regiones'),(43,'Can delete regiones',11,'delete_regiones'),(44,'Can view regiones',11,'view_regiones'),(45,'Can add rubros',12,'add_rubros'),(46,'Can change rubros',12,'change_rubros'),(47,'Can delete rubros',12,'delete_rubros'),(48,'Can view rubros',12,'view_rubros'),(49,'Can add tipo prevision',13,'add_tipoprevision'),(50,'Can change tipo prevision',13,'change_tipoprevision'),(51,'Can delete tipo prevision',13,'delete_tipoprevision'),(52,'Can view tipo prevision',13,'view_tipoprevision'),(53,'Can add comunas',14,'add_comunas'),(54,'Can change comunas',14,'change_comunas'),(55,'Can delete comunas',14,'delete_comunas'),(56,'Can view comunas',14,'view_comunas'),(57,'Can add ciudades',15,'add_ciudades'),(58,'Can change ciudades',15,'change_ciudades'),(59,'Can delete ciudades',15,'delete_ciudades'),(60,'Can view ciudades',15,'view_ciudades'),(61,'Can add categorias',16,'add_categorias'),(62,'Can change categorias',16,'change_categorias'),(63,'Can delete categorias',16,'delete_categorias'),(64,'Can view categorias',16,'view_categorias'),(65,'Can add sub categorias',17,'add_subcategorias'),(66,'Can change sub categorias',17,'change_subcategorias'),(67,'Can delete sub categorias',17,'delete_subcategorias'),(68,'Can view sub categorias',17,'view_subcategorias'),(69,'Can add forma pago gral',7,'add_formapagogral'),(70,'Can change forma pago gral',7,'change_formapagogral'),(71,'Can delete forma pago gral',7,'delete_formapagogral'),(72,'Can view forma pago gral',7,'view_formapagogral'),(73,'Can add especialistas consultas',18,'add_especialistasconsultas'),(74,'Can change especialistas consultas',18,'change_especialistasconsultas'),(75,'Can delete especialistas consultas',18,'delete_especialistasconsultas'),(76,'Can view especialistas consultas',18,'view_especialistasconsultas'),(77,'Can add especialista agendas',19,'add_especialistaagendas'),(78,'Can change especialista agendas',19,'change_especialistaagendas'),(79,'Can delete especialista agendas',19,'delete_especialistaagendas'),(80,'Can view especialista agendas',19,'view_especialistaagendas'),(81,'Can add especialista fichas',20,'add_especialistafichas'),(82,'Can change especialista fichas',20,'change_especialistafichas'),(83,'Can delete especialista fichas',20,'delete_especialistafichas'),(84,'Can view especialista fichas',20,'view_especialistafichas'),(85,'Can add especialistas planes suscripcion',21,'add_especialistasplanessuscripcion'),(86,'Can change especialistas planes suscripcion',21,'change_especialistasplanessuscripcion'),(87,'Can delete especialistas planes suscripcion',21,'delete_especialistasplanessuscripcion'),(88,'Can view especialistas planes suscripcion',21,'view_especialistasplanessuscripcion'),(89,'Can add especialistas contratos',22,'add_especialistascontratos'),(90,'Can change especialistas contratos',22,'change_especialistascontratos'),(91,'Can delete especialistas contratos',22,'delete_especialistascontratos'),(92,'Can view especialistas contratos',22,'view_especialistascontratos'),(93,'Can add especialistas pagos',23,'add_especialistaspagos'),(94,'Can change especialistas pagos',23,'change_especialistaspagos'),(95,'Can delete especialistas pagos',23,'delete_especialistaspagos'),(96,'Can view especialistas pagos',23,'view_especialistaspagos'),(97,'Can add especialistas rubro salud pagos',24,'add_especialistasrubrosaludpagos'),(98,'Can change especialistas rubro salud pagos',24,'change_especialistasrubrosaludpagos'),(99,'Can delete especialistas rubro salud pagos',24,'delete_especialistasrubrosaludpagos'),(100,'Can view especialistas rubro salud pagos',24,'view_especialistasrubrosaludpagos'),(101,'Can add especialistas horas agendadas',25,'add_especialistashorasagendadas'),(102,'Can change especialistas horas agendadas',25,'change_especialistashorasagendadas'),(103,'Can delete especialistas horas agendadas',25,'delete_especialistashorasagendadas'),(104,'Can view especialistas horas agendadas',25,'view_especialistashorasagendadas'),(105,'Can add usuarios personas',26,'add_usuariospersonas'),(106,'Can change usuarios personas',26,'change_usuariospersonas'),(107,'Can delete usuarios personas',26,'delete_usuariospersonas'),(108,'Can view usuarios personas',26,'view_usuariospersonas'),(109,'Can add usuarios especialistas',27,'add_usuariosespecialistas'),(110,'Can change usuarios especialistas',27,'change_usuariosespecialistas'),(111,'Can delete usuarios especialistas',27,'delete_usuariosespecialistas'),(112,'Can view usuarios especialistas',27,'view_usuariosespecialistas'),(113,'Can add usuarios evaluacion',28,'add_usuariosevaluacion'),(114,'Can change usuarios evaluacion',28,'change_usuariosevaluacion'),(115,'Can delete usuarios evaluacion',28,'delete_usuariosevaluacion'),(116,'Can view usuarios evaluacion',28,'view_usuariosevaluacion'),(117,'Can add planes',29,'add_planes'),(118,'Can change planes',29,'change_planes'),(119,'Can delete planes',29,'delete_planes'),(120,'Can view planes',29,'view_planes');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +231,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,7 +240,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(19,'especialistas','especialistaagendas'),(20,'especialistas','especialistafichas'),(18,'especialistas','especialistasconsultas'),(22,'especialistas','especialistascontratos'),(25,'especialistas','especialistashorasagendadas'),(23,'especialistas','especialistaspagos'),(21,'especialistas','especialistasplanessuscripcion'),(24,'especialistas','especialistasrubrosaludpagos'),(6,'sessions','session'),(16,'tablas','categorias'),(15,'tablas','ciudades'),(14,'tablas','comunas'),(7,'tablas','formapagogral'),(8,'tablas','formapagosalud'),(9,'tablas','modalidadatencion'),(10,'tablas','promociones'),(11,'tablas','regiones'),(12,'tablas','rubros'),(17,'tablas','subcategorias'),(13,'tablas','tipoprevision'),(27,'usuarios','usuariosespecialistas'),(28,'usuarios','usuariosevaluacion'),(26,'usuarios','usuariospersonas');
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(19,'especialistas','especialistaagendas'),(20,'especialistas','especialistafichas'),(18,'especialistas','especialistasconsultas'),(22,'especialistas','especialistascontratos'),(25,'especialistas','especialistashorasagendadas'),(23,'especialistas','especialistaspagos'),(21,'especialistas','especialistasplanessuscripcion'),(24,'especialistas','especialistasrubrosaludpagos'),(6,'sessions','session'),(16,'tablas','categorias'),(15,'tablas','ciudades'),(14,'tablas','comunas'),(7,'tablas','formapagogral'),(8,'tablas','formapagosalud'),(9,'tablas','modalidadatencion'),(29,'tablas','planes'),(10,'tablas','promociones'),(11,'tablas','regiones'),(12,'tablas','rubros'),(17,'tablas','subcategorias'),(13,'tablas','tipoprevision'),(27,'usuarios','usuariosespecialistas'),(28,'usuarios','usuariosevaluacion'),(26,'usuarios','usuariospersonas');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,7 +257,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,7 +266,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2024-03-22 00:46:59.005253'),(2,'auth','0001_initial','2024-03-22 00:46:59.649960'),(3,'admin','0001_initial','2024-03-22 00:46:59.776923'),(4,'admin','0002_logentry_remove_auto_add','2024-03-22 00:46:59.784381'),(5,'admin','0003_logentry_add_action_flag_choices','2024-03-22 00:46:59.794908'),(6,'contenttypes','0002_remove_content_type_name','2024-03-22 00:46:59.911264'),(7,'auth','0002_alter_permission_name_max_length','2024-03-22 00:46:59.970044'),(8,'auth','0003_alter_user_email_max_length','2024-03-22 00:47:00.016736'),(9,'auth','0004_alter_user_username_opts','2024-03-22 00:47:00.037269'),(10,'auth','0005_alter_user_last_login_null','2024-03-22 00:47:00.098334'),(11,'auth','0006_require_contenttypes_0002','2024-03-22 00:47:00.101300'),(12,'auth','0007_alter_validators_add_error_messages','2024-03-22 00:47:00.110852'),(13,'auth','0008_alter_user_username_max_length','2024-03-22 00:47:00.151714'),(14,'auth','0009_alter_user_last_name_max_length','2024-03-22 00:47:00.190926'),(15,'auth','0010_alter_group_name_max_length','2024-03-22 00:47:00.231725'),(16,'auth','0011_update_proxy_permissions','2024-03-22 00:47:00.246407'),(17,'auth','0012_alter_user_first_name_max_length','2024-03-22 00:47:00.284535'),(18,'sessions','0001_initial','2024-03-22 00:47:00.353403'),(19,'tablas','0001_initial','2024-03-22 00:47:00.823939'),(20,'tablas','0002_rename_formapagootros_formapagogral','2024-03-27 20:21:59.300152'),(21,'usuarios','0001_initial','2024-03-28 00:28:38.557679'),(22,'especialistas','0001_initial','2024-03-28 00:28:39.065415'),(23,'especialistas','0002_initial','2024-03-28 00:28:43.102015'),(24,'tablas','0003_alter_rubros_areasalud','2024-04-02 16:32:48.182728'),(25,'especialistas','0003_alter_especialistaagendas_estado_and_more','2024-04-02 16:42:35.443694'),(26,'tablas','0004_alter_rubros_areasalud','2024-04-02 16:42:35.668514'),(27,'tablas','0005_alter_rubros_areasalud','2024-04-02 18:24:59.524702'),(28,'especialistas','0004_alter_especialistaagendas_estado_and_more','2024-04-02 18:30:53.904096'),(29,'tablas','0006_alter_categorias_options_alter_ciudades_options_and_more','2024-04-03 16:23:38.595967'),(30,'usuarios','0002_alter_usuariosespecialistas_estado_suscripcion_and_more','2024-04-04 21:43:43.684087'),(31,'usuarios','0003_usuariospersonas_perfil','2024-04-10 01:27:29.826447'),(32,'usuarios','0004_remove_usuariospersonas_dv','2024-04-12 01:02:50.152863'),(33,'usuarios','0005_alter_usuariosespecialistas_categoria_and_more','2024-04-22 23:41:08.774312'),(34,'usuarios','0006_alter_usuariosespecialistas_ctr_altadctos_and_more','2024-04-24 00:32:04.669623'),(35,'usuarios','0007_alter_usuariosespecialistas_options_and_more','2024-04-25 00:28:23.600003'),(36,'usuarios','0008_alter_usuariosespecialistas_promedio_evaluacion','2024-04-26 22:48:42.797922');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2024-03-22 00:46:59.005253'),(2,'auth','0001_initial','2024-03-22 00:46:59.649960'),(3,'admin','0001_initial','2024-03-22 00:46:59.776923'),(4,'admin','0002_logentry_remove_auto_add','2024-03-22 00:46:59.784381'),(5,'admin','0003_logentry_add_action_flag_choices','2024-03-22 00:46:59.794908'),(6,'contenttypes','0002_remove_content_type_name','2024-03-22 00:46:59.911264'),(7,'auth','0002_alter_permission_name_max_length','2024-03-22 00:46:59.970044'),(8,'auth','0003_alter_user_email_max_length','2024-03-22 00:47:00.016736'),(9,'auth','0004_alter_user_username_opts','2024-03-22 00:47:00.037269'),(10,'auth','0005_alter_user_last_login_null','2024-03-22 00:47:00.098334'),(11,'auth','0006_require_contenttypes_0002','2024-03-22 00:47:00.101300'),(12,'auth','0007_alter_validators_add_error_messages','2024-03-22 00:47:00.110852'),(13,'auth','0008_alter_user_username_max_length','2024-03-22 00:47:00.151714'),(14,'auth','0009_alter_user_last_name_max_length','2024-03-22 00:47:00.190926'),(15,'auth','0010_alter_group_name_max_length','2024-03-22 00:47:00.231725'),(16,'auth','0011_update_proxy_permissions','2024-03-22 00:47:00.246407'),(17,'auth','0012_alter_user_first_name_max_length','2024-03-22 00:47:00.284535'),(18,'sessions','0001_initial','2024-03-22 00:47:00.353403'),(19,'tablas','0001_initial','2024-03-22 00:47:00.823939'),(20,'tablas','0002_rename_formapagootros_formapagogral','2024-03-27 20:21:59.300152'),(21,'usuarios','0001_initial','2024-03-28 00:28:38.557679'),(22,'especialistas','0001_initial','2024-03-28 00:28:39.065415'),(23,'especialistas','0002_initial','2024-03-28 00:28:43.102015'),(24,'tablas','0003_alter_rubros_areasalud','2024-04-02 16:32:48.182728'),(25,'especialistas','0003_alter_especialistaagendas_estado_and_more','2024-04-02 16:42:35.443694'),(26,'tablas','0004_alter_rubros_areasalud','2024-04-02 16:42:35.668514'),(27,'tablas','0005_alter_rubros_areasalud','2024-04-02 18:24:59.524702'),(28,'especialistas','0004_alter_especialistaagendas_estado_and_more','2024-04-02 18:30:53.904096'),(29,'tablas','0006_alter_categorias_options_alter_ciudades_options_and_more','2024-04-03 16:23:38.595967'),(30,'usuarios','0002_alter_usuariosespecialistas_estado_suscripcion_and_more','2024-04-04 21:43:43.684087'),(31,'usuarios','0003_usuariospersonas_perfil','2024-04-10 01:27:29.826447'),(32,'usuarios','0004_remove_usuariospersonas_dv','2024-04-12 01:02:50.152863'),(33,'usuarios','0005_alter_usuariosespecialistas_categoria_and_more','2024-04-22 23:41:08.774312'),(34,'usuarios','0006_alter_usuariosespecialistas_ctr_altadctos_and_more','2024-04-24 00:32:04.669623'),(35,'usuarios','0007_alter_usuariosespecialistas_options_and_more','2024-04-25 00:28:23.600003'),(36,'usuarios','0008_alter_usuariosespecialistas_promedio_evaluacion','2024-04-26 22:48:42.797922'),(37,'usuarios','0009_alter_usuariosespecialistas_ctr_altadctos','2024-05-13 23:47:12.735483'),(38,'tablas','0007_planes','2024-05-13 23:47:21.719047'),(39,'tablas','0008_promociones_estado','2024-05-14 01:21:26.287809');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -595,7 +593,7 @@ CREATE TABLE `tablas_categorias` (
   PRIMARY KEY (`id`),
   KEY `tablas_categorias_rubro_id_4e0f0ccf_fk_tablas_rubros_id` (`rubro_id`),
   CONSTRAINT `tablas_categorias_rubro_id_4e0f0ccf_fk_tablas_rubros_id` FOREIGN KEY (`rubro_id`) REFERENCES `tablas_rubros` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -604,7 +602,7 @@ CREATE TABLE `tablas_categorias` (
 
 LOCK TABLES `tablas_categorias` WRITE;
 /*!40000 ALTER TABLE `tablas_categorias` DISABLE KEYS */;
-INSERT INTO `tablas_categorias` VALUES (1,'Médico Cirujano',1),(2,'Enfermera',2),(3,'Arquitecto',3),(4,'Ingeniero Aeronautico',4),(5,'Ingeniero Hidraulico',4),(6,'Paisajista',3),(7,'Médico Internista',1),(8,'Ingeniero Informatico',4);
+INSERT INTO `tablas_categorias` VALUES (1,'Medicina',1),(2,'Odontologia',1),(3,'Enfermeria',1),(4,'Kinesiologia',1),(5,'Matrona',1),(6,'Nutricion',1),(7,'Fonoaudiologia',1),(8,'Podologia',1),(9,'Terapia Ocupacional',1),(10,'Psicologia',1),(11,'Tecnico En Enfermeria',1),(12,'Abogado Penalista',2),(13,'Abogado Civil',2),(14,'Abogado De Familia',2),(15,'Abogado Inmobiliario',2),(16,'Abogado Laboral',2),(17,'Abogado Administrativo',2),(18,'Abogado Mercantil',2),(19,'Abogado Tributario',2),(20,'Abogado Ambiental',2),(21,'Contabilidad Financiera',3),(22,'Contabilidad De Gestion',3),(23,'Contabilidad Administrativa',3),(24,'Contabilidad De Costos',3),(25,'Contabilidad Tributaria',3),(26,'Contabilidad Fiscal',3),(27,'Contabilidad Publica',3),(28,'Contabilidad De Servicios',3),(29,'Contabilidad Por Actividad',3),(30,'Finanzas',4),(31,'Administracion',4),(32,'Planificacion Estrategica',4),(33,'Paisajismo',4),(34,'Administracion De Redes Y Sistemas',5),(35,'Desarrollo Web Y De Aplicaciones Moviles',5),(36,'Ingenieria De Datos',5),(37,'Administracion De Base De Datos',5),(38,'Gestion De Redes Sociales',6),(39,'Optimizacion De Motores De Busqueda (seo)',6),(40,'Campañas De Anuncios',6),(41,'Gestion De Marca O De Marca Personal',6),(42,'Copywriting Y Redaccion De Contenidos',6),(43,'Traduccion',7),(44,'Doblaje',7),(45,'Ilustracion',8),(46,'Diseño De Empaque',8),(47,'Identidad Corporativa',8),(48,'Tipografia',8),(49,'Diseño Multimedia',8),(50,'Diseño Web',8),(51,'Diseño Editorial',8),(52,'Diseño Instruccional',8),(53,'Diseño Industrial',8),(54,'Diseño 3d Y Cad',9),(55,'Interiorismo',9),(56,'Remodelaciones',9),(57,'Diseño De Planos',9),(58,'Creador De Contenidos Audiovisuales',10),(59,'Edicion De Video',10),(60,'Redaccion De Contenidos',10),(61,'Locucion De Podcast',10),(62,'Consultor De Publicidad',10),(63,'Fotografia',11),(64,'Video',11),(65,'Eventos',11),(66,'Idiomas',12),(67,'Matematicas',12),(68,'Leguaje',12),(69,'Fisica',12),(70,'Historia',12),(71,'Quimica',12),(72,'Paes',12),(73,'Guia Turistico',13),(74,'Entrenador Personal',14),(75,'Asesor De Imagen',15),(76,'Bricolaje',16),(77,'Equipos / Computadoras',16),(78,'Linea Blanca',16),(79,'Calefaccion',16),(80,'Calefon',16),(81,'Carpinteria',16),(82,'Plomeria',16),(83,'Veterinario',17),(84,'Entrenador Canino',17),(85,'Entrenador De Mascotas',17),(86,'Cuidador De Mascotas',17),(87,'Revision Tecnica',18),(88,'Mantencion',18),(89,'Escaner',18),(90,'Grua',18),(91,'Desabollador Y Pintura',18);
 /*!40000 ALTER TABLE `tablas_categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -735,6 +733,35 @@ INSERT INTO `tablas_modalidadatencion` VALUES (1,'Presencial'),(2,'Virtual'),(3,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tablas_planes`
+--
+
+DROP TABLE IF EXISTS `tablas_planes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tablas_planes` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `fdesde` date NOT NULL,
+  `fhasta` date NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `estado` varchar(1) NOT NULL,
+  `periodicidad` varchar(1) NOT NULL,
+  `valor` decimal(8,2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tablas_planes`
+--
+
+LOCK TABLES `tablas_planes` WRITE;
+/*!40000 ALTER TABLE `tablas_planes` DISABLE KEYS */;
+INSERT INTO `tablas_planes` VALUES (1,'2024-01-01','2024-12-31','Plan Anual 2024','1','2',60000.00);
+/*!40000 ALTER TABLE `tablas_planes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tablas_promociones`
 --
 
@@ -749,8 +776,9 @@ CREATE TABLE `tablas_promociones` (
   `pclave` varchar(45) NOT NULL,
   `dcto_porcentaje` decimal(10,2) NOT NULL,
   `dcto_cantidad` decimal(10,2) NOT NULL,
+  `estado` varchar(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -759,7 +787,7 @@ CREATE TABLE `tablas_promociones` (
 
 LOCK TABLES `tablas_promociones` WRITE;
 /*!40000 ALTER TABLE `tablas_promociones` DISABLE KEYS */;
-INSERT INTO `tablas_promociones` VALUES (1,'Promocion Invierno','2024-04-03','2024-05-31','clave1',10.00,2000.00);
+INSERT INTO `tablas_promociones` VALUES (1,'Promocion Invierno','2024-04-03','2024-05-31','clave1',10.00,2000.00,'1'),(2,'Promo Mes Del Mar','2024-05-01','2024-05-31','21demayo',10.00,1000.00,'1');
 /*!40000 ALTER TABLE `tablas_promociones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -800,7 +828,7 @@ CREATE TABLE `tablas_rubros` (
   `nombre` varchar(45) NOT NULL,
   `areasalud` varchar(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -809,7 +837,7 @@ CREATE TABLE `tablas_rubros` (
 
 LOCK TABLES `tablas_rubros` WRITE;
 /*!40000 ALTER TABLE `tablas_rubros` DISABLE KEYS */;
-INSERT INTO `tablas_rubros` VALUES (1,'Medicina','1'),(2,'Enfermería','1'),(3,'Arquitectura','0'),(4,'Ingeniería','0');
+INSERT INTO `tablas_rubros` VALUES (1,'Salud','1'),(2,'Derecho','0'),(3,'Contabilidad','0'),(4,'Asesoria','0'),(5,'Ingenieria En Sistemas / Ti','0'),(6,'Mercadotecnia','0'),(7,'Idiomas','0'),(8,'Diseño Grafico','0'),(9,'Arquitectura','0'),(10,'Comunicaciones','0'),(11,'Fotografia Y Video','0'),(12,'Refuerzo Academico','0'),(13,'Guia Turistico','0'),(14,'Entrenador Personal','0'),(15,'Asesor De Imagen','0'),(16,'Mantenimiento / Reparacion','0'),(17,'Mascotas','0'),(18,'Automovil','0');
 /*!40000 ALTER TABLE `tablas_rubros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -830,7 +858,7 @@ CREATE TABLE `tablas_subcategorias` (
   KEY `tablas_subcategorias_rubro_id_a174d7a8_fk_tablas_rubros_id` (`rubro_id`),
   CONSTRAINT `tablas_subcategorias_categoria_id_93bcc9bf_fk_tablas_ca` FOREIGN KEY (`categoria_id`) REFERENCES `tablas_categorias` (`id`),
   CONSTRAINT `tablas_subcategorias_rubro_id_a174d7a8_fk_tablas_rubros_id` FOREIGN KEY (`rubro_id`) REFERENCES `tablas_rubros` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -839,7 +867,7 @@ CREATE TABLE `tablas_subcategorias` (
 
 LOCK TABLES `tablas_subcategorias` WRITE;
 /*!40000 ALTER TABLE `tablas_subcategorias` DISABLE KEYS */;
-INSERT INTO `tablas_subcategorias` VALUES (1,'Cirujano General',1,1),(2,'Cirujano Infantil',1,1),(3,'Enfermera Uci',2,2),(4,'Enfermera Infantil',2,2),(5,'Enfermera Geriatrica',2,2),(6,'Medico Geriatra',1,1),(7,'Dibujante',6,3),(8,'Cardiólogo',7,1),(9,'Redes Y Comunicaciones',8,4);
+INSERT INTO `tablas_subcategorias` VALUES (1,'Anestesiologia',1,1),(2,'Cardiologia',1,1),(3,'Cirugia Cardiovascular',1,1),(4,'Cirugia General',1,1),(5,'Cirugia De Cabeza Y Cuello Y Maxilofacial',1,1),(6,'Cirugia Plastica Y Reparadora',1,1),(7,'Cirugia De Torax',1,1),(8,'Cirugia Vascular Periferica',1,1),(9,'Coloproctologia',1,1),(10,'Dermatologia',1,1),(11,'Diabetologia',1,1),(12,'Endocrinologia',1,1),(13,'Enfermedades Respiratorias',1,1),(14,'Fisiatria',1,1),(15,'Gastroenterologia',1,1),(16,'Geriatria',1,1),(17,'Genetica Clinica',1,1),(18,'Ginecologia',1,1),(19,'Hematologia',1,1),(20,'Infectologia',1,1),(21,'Inmunologia Y Alergologia',1,1),(22,'Medicina Familiar',1,1),(23,'Medicina General',1,1),(24,'Medicina Interna',1,1),(25,'Medicina Materno Fetal',1,1),(26,'Medicina Paliativa',1,1),(27,'Nefrologia',1,1),(28,'Neonatologia',1,1),(29,'Neurocirugia',1,1),(30,'Neurologia',1,1),(31,'Nutriologia',1,1),(32,'Oncologia',1,1),(33,'Oftalmologia',1,1),(34,'Otorrinolaringologia',1,1),(35,'Reumatologia',1,1),(36,'Pediatria',1,1),(37,'Psiquiatria',1,1),(38,'Traumatologia',1,1),(39,'Urologia',1,1),(40,'Cirugia Bucal Y Maxilofacial',2,1),(41,'Implantologia',2,1),(42,'General',2,1),(43,'Ortodoncia',2,1),(44,'Endodoncia',2,1),(45,'Odontopediatria',2,1),(46,'Periodoncia',2,1),(47,'Rehabilitacion Oral',2,1),(48,'Trastornos Temporomandibulares',2,1),(49,'Radiologia',2,1),(50,'Restauradora Estetica',2,1),(51,'Inyeccion',3,1),(52,'Cuidado Adulto Mayor',3,1),(53,'Cuidado Paciente',3,1),(54,'Cuidado Recien Nacido',3,1),(55,'Curaciones',3,1),(56,'Administracion Medicamentos Endovenosos',3,1),(57,'Instalacion De Sondas',3,1),(58,'Manejo Y Cuidado Colostomia',3,1),(59,'Cuidado Salud Mental',3,1),(60,'Asesoria Lactancia',3,1),(61,'Asesoria Lactancia',5,1),(62,'Neuropsicologia',10,1),(63,'Clinica',10,1),(64,'Inyeccion',11,1),(65,'Cuidado Adulto Mayor',11,1),(66,'Cuidado Paciente',11,1),(67,'Curaciones',11,1),(68,'Accidentes De Transito',12,2),(69,'Delitos Y Faltas',12,2),(70,'Estafa',12,2),(71,'Hurto',12,2),(72,'Deudas',13,2),(73,'Deuda Tag',13,2),(74,'Herencia De Deudas',13,2),(75,'Tercerias',13,2),(76,'Divorcios Y Separaciones',14,2),(77,'Pension Alimenticia',14,2),(78,'Herencias',14,2),(79,'Cambio De Nombre',14,2),(80,'Embargos',15,2),(81,'Arriendos',15,2),(82,'Terrenos',15,2),(83,'Compraventa',15,2),(84,'Renuncia',16,2),(85,'Despido',16,2),(86,'Contratos',16,2),(87,'Fueros Maternales',16,2),(88,'Registro De Marca',17,2),(89,'Alzas',17,2),(90,'Alzas De Isapres',17,2),(91,'Abogado Sociedades',17,2),(92,'Impuestos',19,2),(93,'Medio Ambiente',20,2),(94,'Grandes Empresas',25,3),(95,'Pymes',25,3),(96,'Personas',25,3),(97,'Traduccion',43,7),(98,'Interprete',43,7),(99,'Traduccion Tecnica',43,7),(100,'Ingles',44,7),(101,'Frances',44,7),(102,'Otros Idiomas',44,7),(103,'Drones',64,11),(104,'Estandar',64,11);
 /*!40000 ALTER TABLE `tablas_subcategorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -896,7 +924,7 @@ CREATE TABLE `usuarios_especialistas` (
   CONSTRAINT `usuarios_especialist_persona_id_3ae23979_fk_usuarios_` FOREIGN KEY (`persona_id`) REFERENCES `usuarios_personas` (`id`),
   CONSTRAINT `usuarios_especialist_subcategoria_id_dc2edc5b_fk_tablas_su` FOREIGN KEY (`subcategoria_id`) REFERENCES `tablas_subcategorias` (`id`),
   CONSTRAINT `usuarios_especialistas_rubro_id_17f4a9d5_fk_tablas_rubros_id` FOREIGN KEY (`rubro_id`) REFERENCES `tablas_rubros` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -905,7 +933,7 @@ CREATE TABLE `usuarios_especialistas` (
 
 LOCK TABLES `usuarios_especialistas` WRITE;
 /*!40000 ALTER TABLE `usuarios_especialistas` DISABLE KEYS */;
-INSERT INTO `usuarios_especialistas` VALUES (3,'','Mi descripcion','1',1.00,24,'Mi registro especialista','0',8,4,9,2);
+INSERT INTO `usuarios_especialistas` VALUES (4,'','Mi descripcion','0',NULL,60,'','0',25,3,94,2);
 /*!40000 ALTER TABLE `usuarios_especialistas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -976,7 +1004,7 @@ CREATE TABLE `usuarios_personas` (
 
 LOCK TABLES `usuarios_personas` WRITE;
 /*!40000 ALTER TABLE `usuarios_personas` DISABLE KEYS */;
-INSERT INTO `usuarios_personas` VALUES (1,'8.300.166-6','2','1962-04-17','999999',320,5109,5,7,'3'),(2,'7.451.087-6','2','1958-01-15','56 9 9 8280299',347,5604,5,8,'3');
+INSERT INTO `usuarios_personas` VALUES (1,'8.300.166-6','2','1962-04-17','999999',320,5109,5,7,'3'),(2,'7.451.087-6','2','1958-01-15','56 9 9 8280299',320,5109,5,8,'3');
 /*!40000 ALTER TABLE `usuarios_personas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -989,4 +1017,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-02 13:29:25
+-- Dump completed on 2024-05-14 16:41:21

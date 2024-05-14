@@ -910,9 +910,9 @@ body .ui-tooltip {
 }
 .ui-widget-header {
 	border: 1px solid #e3a1a1;
-	background: #D7F0FF url("images/ui-bg_highlight-soft_15_cc0000_1x100.png") 50% 50% repeat-x; 
-	color: #D7F0FF;
-	/* font-weight: bold; */
+	background: #cc0000 url("images/ui-bg_highlight-soft_15_cc0000_1x100.png") 50% 50% repeat-x;
+	color: #ffffff;
+	font-weight: bold;
 }
 .ui-widget-header a {
 	color: #ffffff;
@@ -930,7 +930,7 @@ works properly when clicked or hovered */
 html .ui-button.ui-state-disabled:hover,
 html .ui-button.ui-state-disabled:active {
 	border: 1px solid #d8dcdf;
-	/* background: #eeeeee url("images/ui-bg_highlight-hard_100_eeeeee_1x100.png") 50% 50% repeat-x; */
+	background: #eeeeee url("images/ui-bg_highlight-hard_100_eeeeee_1x100.png") 50% 50% repeat-x;
 	font-weight: bold;
 	color: #004276;
 }
@@ -953,7 +953,7 @@ a:visited.ui-button,
 .ui-button:hover,
 .ui-button:focus {
 	border: 1px solid #cdd5da;
-	/* background: #f6f6f6 url("images/ui-bg_highlight-hard_100_f6f6f6_1x100.png") 50% 50% repeat-x; */
+	background: #f6f6f6 url("images/ui-bg_highlight-hard_100_f6f6f6_1x100.png") 50% 50% repeat-x;
 	font-weight: bold;
 	color: #111111;
 }
@@ -983,17 +983,17 @@ a.ui-button:active,
 	border: 1px solid #eeeeee;
 	background: #ffffff;
 	font-weight: bold;
-	color: #F1F1F1;
+	color: #cc0000;
 }
 .ui-icon-background,
 .ui-state-active .ui-icon-background {
 	border: #eeeeee;
-	background-color: #F1F1F1;
+	background-color: #cc0000;
 }
 .ui-state-active a,
 .ui-state-active a:link,
 .ui-state-active a:visited {
-	color: #F1F1F1;
+	color: #cc0000;
 	text-decoration: none;
 }
 
@@ -1003,7 +1003,7 @@ a.ui-button:active,
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
 	border: 1px solid #fcd3a1;
-	/* background: #fbf8ee url("images/ui-bg_glass_55_fbf8ee_1x400.png") 50% 50% repeat-x; */
+	background: #fbf8ee url("images/ui-bg_glass_55_fbf8ee_1x400.png") 50% 50% repeat-x;
 	color: #444444;
 }
 .ui-state-checked {
@@ -1018,8 +1018,8 @@ a.ui-button:active,
 .ui-state-error,
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
-	border: 1px solid #F1F1F1;
-	/* background: #f3d8d8 url("images/ui-bg_diagonals-thick_75_f3d8d8_40x40.png") 50% 50% repeat; */
+	border: 1px solid #cc0000;
+	background: #f3d8d8 url("images/ui-bg_diagonals-thick_75_f3d8d8_40x40.png") 50% 50% repeat;
 	color: #2e2e2e;
 }
 .ui-state-error a,

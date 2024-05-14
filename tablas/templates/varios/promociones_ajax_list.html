@@ -7,12 +7,13 @@
         <thead >
             <tr>
                 <td width="10%" class="tdtit10">ID</td>
-                <td width="30%" class="tdtit10">Nombre</td>
+                <td width="25%" class="tdtit10">Nombre</td>
                 <td width="10%" class="tdtit10">F.Inicio</td>
                 <td width="10%" class="tdtit10">F.Término</td>
                 <td width="10%" class="tdtit10">P.Clave</td>                
                 <td width="10%" class="tdtit10">Dcto. %</td>
                 <td width="10%" class="tdtit10">Dcto. Valor</td>
+                <td width="10%" class="tdtit10">Estado</td>
                 <td width="10%" class="tdtit10">Acción</td>
             </tr>
         </thead>
@@ -26,6 +27,9 @@
                 <td class="text8c" id="pcl{{promocion.id}}">{{promocion.pclave}}</td>
                 <td class="text8c" id="dc1{{promocion.id}}">{{promocion.dcto_porcentaje|floatformat:2|intcomma}}</td>
                 <td class="text8c" id="dc2{{promocion.id}}">{{promocion.dcto_cantidad|floatformat:"0u"|intcomma}}</td>
+                <td class="text8c" id="est{{promocion.id}}">{{promocion.get_estado_display}}
+                    <input type="hidden" name="estid{{promocion.id}}" id="estid{{promocion.id}}" value="{{promocion.estado}}" />
+                </td>
                 <td class="text8c"> 
                     <button class='btn btn-sm btn-primary tip' title='Editar Promoción' onClick='EditarRegistro({{promocion.id}})'>
                         <i class='fa-solid fa-pencil'></i>

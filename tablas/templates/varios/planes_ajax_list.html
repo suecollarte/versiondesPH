@@ -1,0 +1,45 @@
+{% load humanize %}
+{% load i18n %}
+{% load l10n %}
+
+<div id="datatablediv">
+    <table id="tablaregs" class="cell-border compact stripe hover order-column" style="width:100%">
+        <thead >
+            <tr>
+                <td width="10%" class="tdtit10">ID</td>
+                <td width="30%" class="tdtit10">Nombre</td>
+                <td width="10%" class="tdtit10">F.Inicio</td>
+                <td width="10%" class="tdtit10">F.Término</td>
+                <td width="10%" class="tdtit10">Periodicidad</td>                
+                <td width="10%" class="tdtit10">Valor</td>
+                <td width="10%" class="tdtit10">Estado</td>
+                <td width="10%" class="tdtit10">Acción</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plan in planes %}
+            <tr>
+                <td class="text8c" id="id{{plan.id}}">{{plan.id|stringformat:"s"}}</td>
+                <td class="text8c" id="nom{{plan.id}}">{{plan.nombre}}</td>
+                <td class="text8c" id="fin{{plan.id}}">{{plan.fdesde|date:"d-m-Y"}}</td>
+                <td class="text8c" id="fte{{plan.id}}">{{plan.fhasta|date:"d-m-Y"}}</td>
+                <td class="text8c" id="per{{plan.id}}">{{plan.get_periodicidad_display}}
+                    <input type="hidden" name="perid{{plan.id}}" id="perid{{plan.id}}" value="{{plan.periodicidad}}" />
+                </td>
+                <td class="text8c" id="val{{plan.id}}">{{plan.valor|floatformat:2|intcomma}}</td>
+                <td class="text8c" id="est{{plan.id}}">{{plan.get_estado_display}}
+                    <input type="hidden" name="estid{{plan.id}}" id="estid{{plan.id}}" value="{{plan.estado}}" />
+                </td>
+                <td class="text8c"> 
+                    <button class='btn btn-sm btn-primary tip' title='Editar Plan' onClick='EditarRegistro({{plan.id}})'>
+                        <i class='fa-solid fa-pencil'></i>
+                    </button>
+                    <button class='btn btn-sm btn-danger tip' title='Eliminar Plan' onClick='BorrarRegistro({{plan.id}})'>
+                        <i class='fa-solid fa-trash-can'></i>
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>   
+</div>

@@ -15,9 +15,10 @@
         <tbody>
             {% for especialista in especialistas %}
             <tr>
-                <td class="text8c" id="rutx{{especialista.id}}">{{especialista.persona.rut}}
+                <td class="text8c" id="rutx{{especialista.id}}">
+                    <a href='/usuarios/especialistas_detalle?id={{especialista.id}}' class='tip' title='Detalle Especialista'>{{especialista.persona.rut}}</a>
                     <input type="hidden" name="rut{{especialista.id}}" id="rut{{especialista.id}}" value="{{especialista.persona.rut}}" />
-                </td>
+                </td>sub
                 <td class="text8c" id="nom{{especialista.id}}">{{especialista.persona.usuario.last_name}} , {{especialista.persona.usuario.first_name}} </td>
                 <td class="text8c" id="ema{{especialista.id}}">{{especialista.persona.usuario.email}} </td>
                 <td class="text8c" id="cat{{especialista.id}}">{{especialista.categoria.nombre}} </td>

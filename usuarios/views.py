@@ -155,8 +155,10 @@ def especialistas_listar(request):
     especialistas = UsuariosEspecialistas.objects.all()
     if (request.method == 'GET'):
         rubros = Rubros.objects.order_by('nombre')
-        categorias = Categorias.objects.filter(rubro_id=Constantes.MEDICINA).order_by('nombre')
-        subcategorias = SubCategorias.objects.filter(categoria_id=Constantes.MEDICOCIRUJANO).order_by('nombre')
+        rubro_id = rubros.first().id
+        categorias = Categorias.objects.filter(rubro_id=rubro_id).order_by('nombre')
+        categoria_id = categorias.first().id
+        subcategorias = SubCategorias.objects.filter(categoria_id=categoria_id).order_by('nombre')
         return render(request, 'especialistas_list.html', {'especialistas': especialistas,'rubros': rubros,'mirubro': Constantes.MEDICINA,'categorias': categorias,'micategoria': Constantes.MEDICOCIRUJANO,
                                                            'subcategorias': subcategorias,'misubcategoria': Constantes.CIRUJANOGRAL,
                                                            'EstadosSuscripcion': EstadosSuscripcion,'EstadosDocumentos': EstadosDocumentos})
@@ -235,18 +237,47 @@ def especialistas_cambiarestado(request):
     else:
         return HttpResponse('Petición Inválida!!!')
     
-def especialistas_verificarut(request):
 
-    if (request.method == 'POST'):
-        rut = request.POST.get('rut')
-        try:
-            persona = UsuariosPersonas.objects.get(rut=rut)
+@method_decorator(csrf_exempt, name='dispatch')
+class especialistas_verificarut(View):
+    
+    def get(self, request):
+        rut = request.GET.get('rut')
+        if rut is not None:
             try:
-                especialista = UsuariosEspecialistas.objects.get(persona_id=persona.id)
-                return HttpResponse(especialista.id)  
-            except Exception as e:
-                return HttpResponse(0)     
+                persona = UsuariosPersonas.objects.get(rut=rut)
+                nombre = persona.usuario.last_name+", "+ persona.usuario.first_name
+                try:
+                    especialista = UsuariosEspecialistas.objects.get(persona_id=persona.id)
+                    data = [{'res': '1', 'idusuario': persona.usuario.id,'idpersona': persona.id,'idespecialista': especialista.id,'nombre': nombre,
+                             'email': persona.usuario.email,'estado': EstadosUsuarios.ESTADOS_USUARIOS[int(persona.estado)][1]}]
+                except Exception as e:      
+                     data = [{'res': '0', 'idusuario': persona.usuario.id,'idpersona': persona.id,'idespecialista': '0','nombre': nombre,
+                             'email': persona.usuario.email,'estado': EstadosUsuarios.ESTADOS_USUARIOS[int(persona.estado)][1]}]
+            except:
+                data = [{'res': '-1', 'id': '','nombre': '','email': '','estado': ''}]
+        else:
+            data = [{'res': '-2','nombre': 'Se requiere un RUT válido'}]
+        return JsonResponse(data, safe=False)
+    
+    
+def especialistas_detalle(request):
+
+    if (request.method == 'GET'):
+        id = request.GET.get('id')
+        try:
+            especialista = UsuariosEspecialistas.objects.get(id=id)
+            persona = UsuariosPersonas.objects.get(id=especialista.persona_id)
+            rubros = Rubros.objects.all().order_by('nombre')
+            categorias = Categorias.objects.filter(rubro_id=especialista.categoria_id).order_by('nombre')
+            subcategorias = SubCategorias.objects.filter(categoria_id=especialista.subcategoria_id).order_by('nombre')
+            regiones = Regiones.objects.all().order_by('nombre')
+            ciudades = Ciudades.objects.filter(region_id=persona.region_id).order_by('nombre')
+            comunas = Categorias.objects.filter(rubro_id=persona.region_id).order_by('nombre')
+            return render(request, 'especialistas_detalle.html', {'especialista': especialista,'persona': persona,'rubros': rubros,'categorias': categorias,
+                                                                  'subcategorias': subcategorias,'regiones': regiones,'comunas': comunas,'ciudades': ciudades})
         except Exception as e:
-            return HttpResponse(-1)    
+            return HttpResponse('ERROR En Consulta de Especialista' + ' Error= '+str(e)) 
     else:
-        return HttpResponse('Petición Inválida!!!')    
+        return HttpResponse('Petición Inválida!!!')
+    

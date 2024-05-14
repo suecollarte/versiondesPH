@@ -163,15 +163,10 @@ def categorias(request):
 
     
 def selectcategorias(request):
-    if (request.method == 'GET'):
-        rubro = request.GET.get('rubro')
-        categoria = request.GET.get('categoria')
-        if (rubro == 0):
-            categorias = Categorias.objects.order_by('nombre')
-            categoria = categorias.first().id
-        else:        
-            categorias = Categorias.objects.filter(rubro_id=rubro).order_by('nombre')
-        return render(request,'varios/categorias_ajax_select.html', {'categorias': categorias, 'micategoria': categoria})
+    if (request.method == 'POST'):
+        rubro = request.POST.get('rubro')       
+        categorias = Categorias.objects.filter(rubro_id=rubro).order_by('nombre')
+        return render(request,'varios/categorias_ajax_select.html', {'categorias': categorias})
     else:
         return HttpResponse('Petición inválida') 
     
@@ -212,12 +207,11 @@ def subcategorias(request):
     
     
 def selectsubcategorias(request):
-    if (request.method == 'GET'):
-        categoria = request.GET.get('categoria')
-        subcategoria = request.GET.get('subcategoria')    
+    if (request.method == 'POST'):
+        categoria = request.POST.get('categoria')
         subcategorias = SubCategorias.objects.filter(categoria_id=categoria).order_by('nombre')
 
-        return render(request,'varios/subcategorias_ajax_select.html', {'subcategorias': subcategorias, 'misubcategoria': subcategoria})
+        return render(request,'varios/subcategorias_ajax_select.html', {'subcategorias': subcategorias})
     else:
         return HttpResponse('Petición inválida') 
     
@@ -362,7 +356,7 @@ def modalidadatencion(request):
 def promociones(request):
     promociones = Promociones.objects.all()
     if (request.method == 'GET'):
-        return render(request, 'varios/promociones_list.html', {'promociones': promociones})
+        return render(request, 'varios/promociones_list.html', {'promociones': promociones,'EstadosPromociones': EstadosPromociones})
     else:
         accion = request.POST.get('accion')
         id = request.POST.get('id')
@@ -372,6 +366,7 @@ def promociones(request):
         pclave = request.POST.get('pclave')
         dcto_porcentaje = number_unformat(request.POST.get('dcto_porcentaje'))
         dcto_cantidad = number_unformat(request.POST.get('dcto_cantidad'))
+        estado = request.POST.get('estado')
         if (accion == FuncionesAjax.ELIMINAR):
             try:
                 Promociones.objects.filter(id=id).delete()
@@ -379,13 +374,45 @@ def promociones(request):
                 print('Accion= ' + accion + ' Error= '+str(e))
         elif (accion == FuncionesAjax.CREAR):
             try:
-                Promociones.objects.create(nombre=nombre,fdesde=fdesde,fhasta=fhasta,pclave=pclave,dcto_porcentaje=dcto_porcentaje,dcto_cantidad=dcto_cantidad)
+                Promociones.objects.create(nombre=nombre,fdesde=fdesde,fhasta=fhasta,pclave=pclave,dcto_porcentaje=dcto_porcentaje,dcto_cantidad=dcto_cantidad,estado=estado)
             except Exception as e:
                 print('Accion= ' + accion + ' Error= '+str(e))
         else:
             try:
-                Promociones.objects.filter(id=id).update(nombre=nombre,fdesde=fdesde,fhasta=fhasta,pclave=pclave,dcto_porcentaje=dcto_porcentaje,dcto_cantidad=dcto_cantidad)
+                Promociones.objects.filter(id=id).update(nombre=nombre,fdesde=fdesde,fhasta=fhasta,pclave=pclave,dcto_porcentaje=dcto_porcentaje,dcto_cantidad=dcto_cantidad,estado=estado)
             except Exception as e:
                 print('Accion= ' + accion + ' Error= '+str(e))
         return render(request, 'varios/promociones_ajax_list.html', {'promociones': promociones})    
 
+# @login_required(login_url='/users/userlogin')
+def planes(request):
+    planes = Planes.objects.all()
+    if (request.method == 'GET'):
+        return render(request, 'varios/planes_list.html', {'planes': planes,'EstadosPlanes': EstadosPlanes,'PeriodicidadPlanes': PeriodicidadPlanes})
+    else:
+        accion = request.POST.get('accion')
+        id = request.POST.get('id')
+        fdesde = fecha_str_to_sql(request.POST.get('fdesde'))
+        fhasta = fecha_str_to_sql(request.POST.get('fhasta'))
+        nombre = request.POST.get('nombre')
+        periodicidad = request.POST.get('periodicidad')
+        estado = request.POST.get('estado')
+        valor = number_unformat(request.POST.get('valor'))
+        if (accion == FuncionesAjax.ELIMINAR):
+            try:
+                Planes.objects.filter(id=id).delete()
+            except Exception as e:
+                print('Accion= ' + accion + ' Error= '+str(e))
+        elif (accion == FuncionesAjax.CREAR):
+            try:
+                Planes.objects.create(nombre=nombre,fdesde=fdesde,fhasta=fhasta,periodicidad=periodicidad,estado=estado,valor=valor)
+            except Exception as e:
+                print('Accion= ' + accion + ' Error= '+str(e))
+        else:
+            try:
+                Planes.objects.filter(id=id).update(nombre=nombre,fdesde=fdesde,fhasta=fhasta,periodicidad=periodicidad,estado=estado,valor=valor)
+            except Exception as e:
+                print('Accion= ' + accion + ' Error= '+str(e))
+        return render(request, 'varios/planes_ajax_list.html', {'planes': planes})   
+    
+    

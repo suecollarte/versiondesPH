@@ -324,7 +324,7 @@ function VerUnaPersona() {
 	$("#region").unbind("change");
 
 	$.ajax({
-		url: "/usuarios/especialistas_verpersona/",
+		url: "/usuarios/personas_verpersona/",
 		type: 'GET',
 		dataType: 'json',
 		data: {username: $('#username').val()},

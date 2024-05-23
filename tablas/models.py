@@ -199,4 +199,3 @@ class Planes(models.Model):
         ordering = ['fdesde','fhasta','nombre','estado','periodicidad','valor']
         
         
-        

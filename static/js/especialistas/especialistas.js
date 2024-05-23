@@ -244,7 +244,7 @@ function EnviaPeticionAjax(accion,id){
 	try {
 		$.ajax({
 			type: "POST",
-			url: "/usuarios/especialistas_listar/",
+			url: "/especialistas/especialistas_listar/",
 			data: {accion: accion, id: id, idpersona: idpersona, descripcion: descripcion, reg_especialista: reg_especialista, 
 					tiempo_consulta: tiempo_consulta, estado_suscripcion: estado_suscripcion, rubro: rubro, categoria: categoria, 
 					subcategoria: subcategoria, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
@@ -275,7 +275,7 @@ function Cargar_Persona() {
 		type: 'GET',
 		dataType: "json",
 		data: {username: $('#username').val()},
-		url: '/usuarios/especialistas_verpersona/',
+		url: '/usuarios/personas_verpersona/',
 		success: function( data ) {
 			$.each(data, function(index, element) {
 				if (element.idpersona == "") {
@@ -317,7 +317,7 @@ function VerSiExisteRut(){
 	try {
 		$.ajax({
 			type: "GET",
-			url: "/usuarios/especialistas_verificarut/",
+			url: "/especialistas/especialistas_verificarut/",
 			data: {rut: rut, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
 			success: function( data ) {
 				$.each(data, function(index, element) {
@@ -370,7 +370,7 @@ function CambiarEstadoEspecialista(id,estado){
 	try {
 		$.ajax({
 			type: "POST",
-			url: "/usuarios/especialistas_cambiarestado/",
+			url: "/especialistas/especialistas_cambiarestado/",
 			data: {id: id, estado: estado, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
 			success: function( response ) {
 				if (response != ""){
@@ -515,7 +515,7 @@ function VerUnEspecialista(id) {
 	$('#username').val(rut_a_username($('#rut').val()));
 
 	$.ajax({
-		url: "/usuarios/especialistas_verespecialista/",
+		url: "/especialistas/especialistas_verespecialista/",
 		type: 'GET',
 		dataType: 'json',
 		data: {id: id},

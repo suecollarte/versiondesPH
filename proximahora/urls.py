@@ -26,4 +26,5 @@ urlpatterns = [
     path('ayuda/', views.ayuda),
     path('tablas/', include ('tablas.urls')),
     path('usuarios/', include ('usuarios.urls')),
+    path('especialistas/', include ('especialistas.urls')),
 ]

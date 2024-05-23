@@ -6,7 +6,7 @@
 - [Directorio](Directorio)
 ***  
 ## Descripcion
-**Proxima Hora** es un proyecto etc..
+**Proxima Hora** es una plataforma web en la cual se inscriben especialistas para que otros usuarios agenden horas por sus servicios.
  
 ***
 ## Requisitos
@@ -46,261 +46,260 @@
 ## Directorio
 La estructura de directorio es la siguiente
 
-📜.git
-📦especialistas
- ┣ 📂migrations
- ┣ 📂templates
- ┃ ┣ 📜especialistas_ajax_list.html
- ┃ ┣ 📜especialistas_detalle.html
- ┃ ┗ 📜especialistas_list.html
- ┣ 📜admin.py
- ┣ 📜apps.py
- ┣ 📜models.py
- ┣ 📜tests.py
- ┣ 📜urls.py
- ┣ 📜views.py
- ┗ 📜__init__.py
- 📦imagenes
- ┣ 📂documentos
- ┃ ┣ 📂rut_especialista1
- ┃ ┃ ┣ 📂rut_usuario1
- ┃ ┃ ┣ 📂rut_usuario2
- ┃ ┃ ┣ 📂rut_usuario3
- ┃ ┃ ┣ 📂rut_usuario4
- ┃ ┃ ┗ 📂rut_usuario.....
- ┃ ┣ 📂rut_especialista2
- ┃ ┃ ┣ 📂rut_usuario1
- ┃ ┃ ┣ 📂rut_usuario2
- ┃ ┃ ┣ 📂rut_usuario3
- ┃ ┃ ┣ 📂rut_usuario4
- ┃ ┃ ┗ 📂rut_usuario.....
- ┃ ┣ 📂rut_especialista3
- ┃ ┃ ┣ 📂rut_usuario1
- ┃ ┃ ┣ 📂rut_usuario2
- ┃ ┃ ┣ 📂rut_usuario3
- ┃ ┃ ┣ 📂rut_usuario4
- ┃ ┃ ┗ 📂rut_usuario.....
- ┃ ┣ 📂rut_especialista4
- ┃ ┃ ┣ 📂rut_usuario1
- ┃ ┃ ┣ 📂rut_usuario2
- ┃ ┃ ┣ 📂rut_usuario3
- ┃ ┃ ┣ 📂rut_usuario4
- ┃ ┃ ┗ 📂rut_usuario.....
- ┃ ┗ 📂rut_especialista.....
- ┃ ┃ ┣ 📂rut_usuario1
- ┃ ┃ ┣ 📂rut_usuario2
- ┃ ┃ ┣ 📂rut_usuario3
- ┃ ┃ ┣ 📂rut_usuario4
- ┃ ┃ ┗ 📂rut_usuario.....
- ┗ 📂fotos
- ┃ ┣ 📜rut1.png
- ┃ ┣ 📜rut2.png
- ┃ ┣ 📜rut3.png
- ┃ ┣ 📜rut4.png
- ┃ ┣ 📜rut5.png
- ┃ ┣ 📜rut6.png
- ┃ ┣ 📜rut7.png
- ┃ ┣ 📜rut8.png
- ┃ ┣ 📜rut9.png
- ┃ ┗ 📜rut_nn.png
- 📦proximahora
- ┣ 📂__pycache__
- ┣ 📜asgi.py
- ┣ 📜funciones.py
- ┣ 📜proximahora.code-workspace
- ┣ 📜settings.py
- ┣ 📜urls.py
- ┣ 📜views.py
- ┣ 📜wsgi.py
- ┗ 📜__init__.py
-📦sql
-📦static
- ┣ 📂css
- ┃ ┣ 📂images
- ┃ ┃ ┣ 📜sort_asc.png
- ┃ ┃ ┣ 📜.......png
- ┃ ┣ 📜buttons.dataTables.min.css
- ┃ ┣ 📜buttons.jqueryui.min.css
- ┃ ┣ 📜checkpassword.css
- ┃ ┣ 📜dataTables.jqueryui.min.css
- ┃ ┣ 📜dataTables.min.css
- ┃ ┣ 📜jquery-ui-nativo.css
- ┃ ┣ 📜jquery-ui.css
- ┃ ┣ 📜jquery-ui.min.css
- ┃ ┣ 📜jquery-ui.structure.css
- ┃ ┣ 📜jquery-ui.structure.min.css
- ┃ ┣ 📜jquery-ui.theme.css
- ┃ ┣ 📜jquery-ui.theme.min.css
- ┃ ┣ 📜jquery.dataTables.min.css
- ┃ ┣ 📜jquery.smartmenus.bootstrap-4.css
- ┃ ┣ 📜sm-blue.css
- ┃ ┣ 📜sm-clean.css
- ┃ ┣ 📜sm-core-css.css
- ┃ ┣ 📜sm-mint.css
- ┃ ┣ 📜style.css
- ┃ ┣ 📜system copy.css
- ┃ ┗ 📜system.css
- ┣ 📂imagenes
- ┃ ┣ 📜ajax-loader.gif
- ┃ ┣ 📜ajax-loader1.gif
- ┃ ┣ 📜ajax-loader2.gif
- ┃ ┣ 📜ajax-loader3.gif
- ┃ ┣ 📜header_bkgr3.jpg
- ┃ ┣ 📜icon_calendar.png
- ┃ ┣ 📜logo.png
- ┃ ┣ 📜logo.svg
- ┃ ┣ 📜logow.svg
- ┃ ┗ 📜month16.png
- ┣ 📂img
- ┃ ┣ 📂footer
- ┃ ┃ ┗ 📜footer.png
- ┃ ┣ 📜access.svg
- ┃ ┣ 📜booking.svg
- ┃ ┣ 📜CardHome.png
- ┃ ┣ 📜desktop.png
- ┃ ┣ 📜doctor.svg
- ┃ ┣ 📜Dropdown.svg
- ┃ ┣ 📜Ellipse.svg
- ┃ ┣ 📜image57.png
- ┃ ┣ 📜lupa.png
- ┃ ┣ 📜Megaphone.png
- ┃ ┣ 📜money.svg
- ┃ ┣ 📜nosotros.jpg
- ┃ ┣ 📜noticia1.png
- ┃ ┣ 📜noticia2.png
- ┃ ┣ 📜noticiasbutton.jpg
- ┃ ┣ 📜plumber-with-his-arms-crossed.jpg
- ┃ ┣ 📜proximahora1.png
- ┃ ┣ 📜register.svg
- ┃ ┣ 📜register.svg.png
- ┃ ┣ 📜security.svg
- ┃ ┣ 📜Star-1.png
- ┃ ┣ 📜Star-2.png
- ┃ ┣ 📜Star-3.png
- ┃ ┣ 📜Star-4.png
- ┃ ┣ 📜Star.png
- ┃ ┣ 📜tax.svg
- ┃ ┗ 📜ubication.svg
- ┣ 📂jquery
- ┃ ┣ 📂external
- ┃ ┃ ┗ 📂jquery
- ┃ ┃ ┃ ┗ 📜jquery.js
- ┃ ┣ 📂images
- ┃ ┃ ┣ 📜sort_asc.png
- ┃ ┃ ┣ 📜sort_asc_disabled.png
- ┃ ┃ ┣ 📜sort_both.png
- ┃ ┃ ┣ 📜sort_desc.png
- ┃ ┃ ┣ 📜sort_desc_disabled.png
- ┃ ┃ ┣ 📜ui-......
- ┃ ┣ 📜datatables.es-CL.json
- ┃ ┣ 📜jquery-3.7.1.min.js
- ┃ ┣ 📜jquery-ui.css
- ┃ ┣ 📜jquery-ui.js
- ┃ ┣ 📜jquery-ui.min.css
- ┃ ┣ 📜jquery-ui.min.js
- ┃ ┣ 📜jquery-ui.structure.css
- ┃ ┣ 📜jquery-ui.structure.min.css
- ┃ ┣ 📜jquery-ui.theme.css
- ┃ ┣ 📜jquery-ui.theme.min.css
- ┃ ┣ 📜jquery.dataTables.min.js
- ┃ ┣ 📜jquery.smartmenus.bootstrap-4.min.js
- ┃ ┣ 📜jquery.smartmenus.min.js
- ┃ ┗ 📜package.json
+📜.git<br />
+📦especialistas<br />
+ ┣ 📂migrations<br />
+ ┣ 📂templates<br />
+ ┃ ┣ 📜especialistas_ajax_list.html<br />
+ ┃ ┣ 📜especialistas_detalle.html<br />
+ ┃ ┗ 📜especialistas_list.html<br />
+ ┣ 📜admin.py<br />
+ ┣ 📜apps.py<br />
+ ┣ 📜models.py<br />
+ ┣ 📜tests.py<br />
+ ┣ 📜urls.py<br />
+ ┣ 📜views.py<br />
+ ┗ 📜__init__.py<br />
+ 📦imagenes<br />
+ ┣ 📂documentos<br />
+ ┃ ┣ 📂rut_especialista1<br />
+ ┃ ┃ ┣ 📂rut_usuario1<br />
+ ┃ ┃ ┣ 📂rut_usuario2<br />
+ ┃ ┃ ┣ 📂rut_usuario3<br />
+ ┃ ┃ ┣ 📂rut_usuario4<br />
+ ┃ ┃ ┗ 📂rut_usuario.....<br />
+ ┃ ┣ 📂rut_especialista2<br />
+ ┃ ┃ ┣ 📂rut_usuario1<br />
+ ┃ ┃ ┣ 📂rut_usuario2<br />
+ ┃ ┃ ┣ 📂rut_usuario3<br />
+ ┃ ┃ ┣ 📂rut_usuario4<br />
+ ┃ ┃ ┗ 📂rut_usuario.....<br />
+ ┃ ┣ 📂rut_especialista3<br />
+ ┃ ┃ ┣ 📂rut_usuario1<br />
+ ┃ ┃ ┣ 📂rut_usuario2<br />
+ ┃ ┃ ┣ 📂rut_usuario3<br />
+ ┃ ┃ ┣ 📂rut_usuario4<br />
+ ┃ ┃ ┗ 📂rut_usuario.....<br />
+ ┃ ┣ 📂rut_especialista4<br />
+ ┃ ┃ ┣ 📂rut_usuario1<br />
+ ┃ ┃ ┣ 📂rut_usuario2<br />
+ ┃ ┃ ┣ 📂rut_usuario3<br />
+ ┃ ┃ ┣ 📂rut_usuario4<br />
+ ┃ ┃ ┗ 📂rut_usuario.....<br />
+ ┃ ┗ 📂rut_especialista.....<br />
+ ┃ ┃ ┣ 📂rut_usuario1<br />
+ ┃ ┃ ┣ 📂rut_usuario2<br />
+ ┃ ┃ ┣ 📂rut_usuario3<br />
+ ┃ ┃ ┣ 📂rut_usuario4<br />
+ ┃ ┃ ┗ 📂rut_usuario.....<br />
+ ┗ 📂fotos<br />
+ ┃ ┣ 📜rut1.png<br />
+ ┃ ┣ 📜rut2.png<br />
+ ┃ ┣ 📜rut3.png<br />
+ ┃ ┣ 📜rut4.png<br />
+ ┃ ┣ 📜rut5.png<br />
+ ┃ ┣ 📜rut6.png<br />
+ ┃ ┣ 📜rut7.png<br />
+ ┃ ┣ 📜rut8.png<br />
+ ┃ ┣ 📜rut9.png<br />
+ ┃ ┗ 📜rut_nn.png<br />
+ 📦proximahora<br />
+ ┣ 📂__pycache__<br />
+ ┣ 📜asgi.py<br />
+ ┣ 📜funciones.py<br />
+ ┣ 📜proximahora.code-workspace<br />
+ ┣ 📜settings.py<br />
+ ┣ 📜urls.py<br />
+ ┣ 📜views.py<br />
+ ┣ 📜wsgi.py<br />
+ ┗ 📜__init__.py<br />
+📦sql<br />
+📦static<br />
+ ┣ 📂css<br />
+ ┃ ┣ 📂images<br />
+ ┃ ┃ ┣ 📜sort_asc.png<br />
+ ┃ ┃ ┣ 📜.......png<br />
+ ┃ ┣ 📜buttons.dataTables.min.css<br />
+ ┃ ┣ 📜buttons.jqueryui.min.css<br />
+ ┃ ┣ 📜checkpassword.css<br />
+ ┃ ┣ 📜dataTables.jqueryui.min.css<br />
+ ┃ ┣ 📜dataTables.min.css<br />
+ ┃ ┣ 📜jquery-ui-nativo.css<br />
+ ┃ ┣ 📜jquery-ui.css<br />
+ ┃ ┣ 📜jquery-ui.min.css<br />
+ ┃ ┣ 📜jquery-ui.structure.css<br />
+ ┃ ┣ 📜jquery-ui.structure.min.css<br />
+ ┃ ┣ 📜jquery-ui.theme.css<br />
+ ┃ ┣ 📜jquery-ui.theme.min.css<br />
+ ┃ ┣ 📜jquery.dataTables.min.css<br />
+ ┃ ┣ 📜jquery.smartmenus.bootstrap-4.css<br />
+ ┃ ┣ 📜sm-blue.css<br />
+ ┃ ┣ 📜sm-clean.css<br />
+ ┃ ┣ 📜sm-core-css.css<br />
+ ┃ ┣ 📜sm-mint.css<br />
+ ┃ ┣ 📜style.css<br />
+ ┃ ┣ 📜system copy.css<br />
+ ┃ ┗ 📜system.css<br />
+ ┣ 📂imagenes<br />
+ ┃ ┣ 📜ajax-loader.gif<br />
+ ┃ ┣ 📜ajax-loader1.gif<br />
+ ┃ ┣ 📜ajax-loader2.gif<br />
+ ┃ ┣ 📜ajax-loader3.gif<br />
+ ┃ ┣ 📜header_bkgr3.jpg<br />
+ ┃ ┣ 📜icon_calendar.png<br />
+ ┃ ┣ 📜logo.png<br />
+ ┃ ┣ 📜logo.svg<br />
+ ┃ ┣ 📜logow.svg<br />
+ ┃ ┗ 📜month16.png<br />
+ ┣ 📂img<br />
+ ┃ ┣ 📂footer<br />
+ ┃ ┃ ┗ 📜footer.png<br />
+ ┃ ┣ 📜access.svg<br />
+ ┃ ┣ 📜booking.svg<br />
+ ┃ ┣ 📜CardHome.png<br />
+ ┃ ┣ 📜desktop.png<br />
+ ┃ ┣ 📜doctor.svg<br />
+ ┃ ┣ 📜Dropdown.svg<br />
+ ┃ ┣ 📜Ellipse.svg<br />
+ ┃ ┣ 📜image57.png<br />
+ ┃ ┣ 📜lupa.png<br />
+ ┃ ┣ 📜Megaphone.png<br />
+ ┃ ┣ 📜money.svg<br />
+ ┃ ┣ 📜nosotros.jpg<br />
+ ┃ ┣ 📜noticia1.png<br />
+ ┃ ┣ 📜noticia2.png<br />
+ ┃ ┣ 📜noticiasbutton.jpg<br />
+ ┃ ┣ 📜plumber-with-his-arms-crossed.jpg<br />
+ ┃ ┣ 📜proximahora1.png<br />
+ ┃ ┣ 📜register.svg<br />
+ ┃ ┣ 📜register.svg.png<br />
+ ┃ ┣ 📜security.svg<br />
+ ┃ ┣ 📜Star-1.png<br />
+ ┃ ┣ 📜Star-2.png<br />
+ ┃ ┣ 📜Star-3.png<br />
+ ┃ ┣ 📜Star-4.png<br />
+ ┃ ┣ 📜Star.png<br />
+ ┃ ┣ 📜tax.svg<br />
+ ┃ ┗ 📜ubication.svg<br />
+ ┣ 📂jquery<br />
+ ┃ ┣ 📂external<br />
+ ┃ ┃ ┗ 📂jquery<br />
+ ┃ ┃ ┃ ┗ 📜jquery.js<br />
+ ┃ ┣ 📂images<br />
+ ┃ ┃ ┣ 📜sort_asc.png<br />
+ ┃ ┃ ┣ 📜sort_asc_disabled.png<br />
+ ┃ ┃ ┣ 📜sort_both.png<br />
+ ┃ ┃ ┣ 📜sort_desc.png<br />
+ ┃ ┃ ┣ 📜sort_desc_disabled.png<br />
+ ┃ ┃ ┣ 📜ui-......<br />
+ ┃ ┣ 📜datatables.es-CL.json<br />
+ ┃ ┣ 📜jquery-3.7.1.min.js<br />
+ ┃ ┣ 📜jquery-ui.css<br />
+ ┃ ┣ 📜jquery-ui.js<br />
+ ┃ ┣ 📜jquery-ui.min.css<br />
+ ┃ ┣ 📜jquery-ui.min.js<br />
+ ┃ ┣ 📜jquery-ui.structure.css<br />
+ ┃ ┣ 📜jquery-ui.structure.min.css<br />
+ ┃ ┣ 📜jquery-ui.theme.css<br />
+ ┃ ┣ 📜jquery-ui.theme.min.css<br />
+ ┃ ┣ 📜jquery.dataTables.min.js<br />
+ ┃ ┣ 📜jquery.smartmenus.bootstrap-4.min.js<br />
+ ┃ ┣ 📜jquery.smartmenus.min.js<br />
+ ┃ ┗ 📜package.json<br />
  ┗ 📂js
- ┃ ┣ 📂especialistas
- ┃ ┃ ┣ 📜especialistas.js
- ┃ ┃ ┗ 📜especialistas_det.js
- ┃ ┣ 📂tablas
- ┃ ┃ ┣ 📜categorias.js
- ┃ ┃ ┣ 📜ciudades.js
- ┃ ┃ ┣ 📜comunas.js
- ┃ ┃ ┣ 📜formapagogral.js
- ┃ ┃ ┣ 📜formapagosalud.js
- ┃ ┃ ┣ 📜modalidadatencion.js
- ┃ ┃ ┣ 📜planes.js
- ┃ ┃ ┣ 📜promociones.js
- ┃ ┃ ┣ 📜regiones.js
- ┃ ┃ ┣ 📜rubros.js
- ┃ ┃ ┣ 📜subcategorias.js
- ┃ ┃ ┗ 📜tipoprevision.js
- ┃ ┣ 📂usuarios
- ┃ ┃ ┗ 📜personas.js
- ┃ ┣ 📜buttons.dataTables.min.js
- ┃ ┣ 📜buttons.jqueryui.min.js
- ┃ ┣ 📜checkpassword.js
- ┃ ┣ 📜datatables.min.js
- ┃ ┣ 📜icon_calendar.png
- ┃ ┣ 📜livevalidation.js
- ┃ ┣ 📜livevalidation.min.js
- ┃ ┣ 📜popper.min.js
- ┃ ┗ 📜system.js
+ ┃ ┣ 📂especialistas<br />
+ ┃ ┃ ┣ 📜especialistas.js<br />
+ ┃ ┃ ┗ 📜especialistas_det.js<br />
+ ┃ ┣ 📂tablas<br />
+ ┃ ┃ ┣ 📜categorias.js<br />
+ ┃ ┃ ┣ 📜ciudades.js<br />
+ ┃ ┃ ┣ 📜comunas.js<br />
+ ┃ ┃ ┣ 📜formapagogral.js<br />
+ ┃ ┃ ┣ 📜formapagosalud.js<br />
+ ┃ ┃ ┣ 📜modalidadatencion.js<br />
+ ┃ ┃ ┣ 📜planes.js<br />
+ ┃ ┃ ┣ 📜promociones.js<br />
+ ┃ ┃ ┣ 📜regiones.js<br />
+ ┃ ┃ ┣ 📜rubros.js<br />
+ ┃ ┃ ┣ 📜subcategorias.js<br />
+ ┃ ┃ ┗ 📜tipoprevision.js<br />
+ ┃ ┣ 📂usuarios<br />
+ ┃ ┃ ┗ 📜personas.js<br />
+ ┃ ┣ 📜buttons.dataTables.min.js<br />
+ ┃ ┣ 📜buttons.jqueryui.min.js<br />
+ ┃ ┣ 📜checkpassword.js<br />
+ ┃ ┣ 📜datatables.min.js<br />
+ ┃ ┣ 📜icon_calendar.png<br />
+ ┃ ┣ 📜livevalidation.js<br />
+ ┃ ┣ 📜livevalidation.min.js<br />
+ ┃ ┣ 📜popper.min.js<br />
+ ┃ ┗ 📜system.js<br />
 📦tablas
- ┣ 📂migrations
- ┣ 📂templates
- ┃ ┣ 📂ciudades
- ┃ ┃ ┣ 📜ciudades_ajax_list.html
- ┃ ┃ ┣ 📜ciudades_ajax_select.html
- ┃ ┃ ┗ 📜ciudades_list.html
- ┃ ┣ 📂comunas
- ┃ ┃ ┣ 📜comunas_ajax_list.html
- ┃ ┃ ┣ 📜comunas_ajax_select.html
- ┃ ┃ ┗ 📜comunas_list.html
- ┃ ┣ 📂regiones
- ┃ ┃ ┣ 📜regiones_ajax_list.html
- ┃ ┃ ┗ 📜regiones_list.html
- ┃ ┗ 📂varios
- ┃ ┃ ┣ 📜categorias_ajax_list.html
- ┃ ┃ ┣ 📜categorias_ajax_select.html
- ┃ ┃ ┣ 📜categorias_list.html
- ┃ ┃ ┣ 📜formapagogral_ajax_list.html
- ┃ ┃ ┣ 📜formapagogral_list.html
- ┃ ┃ ┣ 📜formapagosalud_ajax_list.html
- ┃ ┃ ┣ 📜formapagosalud_list.html
- ┃ ┃ ┣ 📜modalidadatencion_ajax_list.html
- ┃ ┃ ┣ 📜modalidadatencion_list.html
- ┃ ┃ ┣ 📜planes_ajax_list.html
- ┃ ┃ ┣ 📜planes_list.html
- ┃ ┃ ┣ 📜promociones_ajax_list.html
- ┃ ┃ ┣ 📜promociones_list.html
- ┃ ┃ ┣ 📜rubros_ajax_list.html
- ┃ ┃ ┣ 📜rubros_list.html
- ┃ ┃ ┣ 📜subcategorias_ajax_list.html
- ┃ ┃ ┣ 📜subcategorias_ajax_select.html
- ┃ ┃ ┣ 📜subcategorias_list.html
- ┃ ┃ ┣ 📜tipoprevision_ajax_list.html
- ┃ ┃ ┗ 📜tipoprevision_list.html
- ┣ 📂__pycache__
- ┣ 📜admin.py
- ┣ 📜apps.py
- ┣ 📜models.py
- ┣ 📜tests.py
- ┣ 📜urls.py
- ┣ 📜views.py
- ┗ 📜__init__.py
-📦templates
- ┣ 📜about.html
- ┣ 📜ayuda.html
- ┣ 📜base-adm3.html
- ┣ 📜base.html
- ┣ 📜base_ace.html
- ┗ 📜index.html
-📦usuarios
- ┣ 📂migrations
- ┣ 📂templates
- ┃ ┣ 📜personas_ajax_list.html
- ┃ ┗ 📜personas_list.html
- ┣ 📂__pycache__
- ┣ 📜admin.py
- ┣ 📜apps.py
- ┣ 📜models.py
- ┣ 📜tests.py
- ┣ 📜urls.py
- ┣ 📜views.py
- ┗ 📜__init__.py
-📦venv
-📜gitignore
-📜manage.py
-📜README.md
-📜requirements.txt
+ ┣ 📂migrations<br />
+ ┣ 📂templates<br />
+ ┃ ┣ 📂ciudades<br />
+ ┃ ┃ ┣ 📜ciudades_ajax_list.html<br />
+ ┃ ┃ ┣ 📜ciudades_ajax_select.html<br />
+ ┃ ┃ ┗ 📜ciudades_list.html<br />
+ ┃ ┣ 📂comunas<br />
+ ┃ ┃ ┣ 📜comunas_ajax_list.html<br />
+ ┃ ┃ ┣ 📜comunas_ajax_select.html<br />
+ ┃ ┃ ┗ 📜comunas_list.html<br />
+ ┃ ┣ 📂regiones<br />
+ ┃ ┃ ┣ 📜regiones_ajax_list.html<br />
+ ┃ ┃ ┗ 📜regiones_list.html<br />
+ ┃ ┗ 📂varios<br />
+ ┃ ┃ ┣ 📜categorias_ajax_list.html<br />
+ ┃ ┃ ┣ 📜categorias_ajax_select.html<br />
+ ┃ ┃ ┣ 📜categorias_list.html<br />
+ ┃ ┃ ┣ 📜formapagogral_ajax_list.html<br />
+ ┃ ┃ ┣ 📜formapagogral_list.html<br />
+ ┃ ┃ ┣ 📜formapagosalud_ajax_list.html<br />
+ ┃ ┃ ┣ 📜formapagosalud_list.html<br />
+ ┃ ┃ ┣ 📜modalidadatencion_ajax_list.html<br />
+ ┃ ┃ ┣ 📜modalidadatencion_list.html<br />
+ ┃ ┃ ┣ 📜planes_ajax_list.html<br />
+ ┃ ┃ ┣ 📜planes_list.html<br />
+ ┃ ┃ ┣ 📜promociones_ajax_list.html<br />
+ ┃ ┃ ┣ 📜promociones_list.html<br />
+ ┃ ┃ ┣ 📜rubros_ajax_list.html<br />
+ ┃ ┃ ┣ 📜rubros_list.html<br />
+ ┃ ┃ ┣ 📜subcategorias_ajax_list.html<br />
+ ┃ ┃ ┣ 📜subcategorias_ajax_select.html<br />
+ ┃ ┃ ┣ 📜subcategorias_list.html<br />
+ ┃ ┃ ┣ 📜tipoprevision_ajax_list.html<br />
+ ┃ ┃ ┗ 📜tipoprevision_list.html<br />
+ ┣ 📂__pycache__<br />
+ ┣ 📜admin.py<br />
+ ┣ 📜apps.py<br />
+ ┣ 📜models.py<br />
+ ┣ 📜tests.py<br />
+ ┣ 📜urls.py<br />
+ ┣ 📜views.py<br />
+ ┗ 📜__init__.py<br />
+📦templates<br />
+ ┣ 📜about.html<br />
+ ┣ 📜ayuda.html<br />
+ ┣ 📜base-adm3.html<br />
+ ┣ 📜base.html<br />
+ ┣ 📜base_ace.html<br />
+ ┗ 📜index.html<br />
+📦usuarios<br />
+ ┣ 📂migrations<br />
+ ┣ 📂templates<br />
+ ┃ ┣ 📜personas_ajax_list.html<br />
+ ┃ ┗ 📜personas_list.html<br />
+ ┣ 📂__pycache__<br />
+ ┣ 📜admin.py<br />
+ ┣ 📜apps.py<br />
+ ┣ 📜models.py<br />
+ ┣ 📜tests.py<br />
+ ┣ 📜urls.py<br />
+ ┣ 📜views.py<br />
+ ┗ 📜__init__.py<br />
+📦venv<br />
+📜gitignore<br />
+📜manage.py<br />
+📜README.md<br />
+📜requirements.txt<br />
 ***
-

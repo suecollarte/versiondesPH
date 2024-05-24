@@ -114,6 +114,12 @@ La estructura de directorio es la siguiente
  ┣ 📜wsgi.py<br />
  ┗ 📜__init__.py<br />
 📦sql<br />
+ ┣ 📜Dump20240514.sql<br />
+ ┣ 📜Dump20240521.sql<br />
+ ┣ 📜Dump20240522 - copia (2).sql<br />
+ ┣ 📜Dump20240522 - copia (3).sql<br />
+ ┣ 📜Dump20240522 - copia.sql<br />
+ ┗ 📜Dump20240522.sql<br />
 📦static<br />
  ┣ 📂css<br />
  ┃ ┣ 📂images<br />

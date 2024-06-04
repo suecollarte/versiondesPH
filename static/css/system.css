@@ -1,5 +1,10 @@
 /* system.css Copyright (c) 2024 proximahora  */
 
+.foto-especialista {
+  width: 50px;
+  height: 50px;
+}
+
 .ui-datepicker-trigger {
   width: 40px; /* Ancho personalizado */
   height: 40px; /* Altura personalizada */
@@ -19,7 +24,7 @@
   right: 0px; /* Ajusta el valor según sea necesario */
   transform: translateY(-50%);
 }
-
+  
 #div-msg-wait {
     display:none;
     position:fixed;
@@ -54,8 +59,8 @@
 
 .LV_validation_message{
 	font-size : 10px;
-    font-weight:bold;
-    margin:0 0 0 2px;
+  font-weight:bold;
+  margin:0 0 0 2px;
 }
 
 .LV_valid {

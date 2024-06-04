@@ -81,7 +81,7 @@ $(document).ready(function(){
 	ACCION = VER_REG;
 
 	$('#rut').blur(function(){
-		if (validarRUT()) {
+		if (validarRUT('rut')) {
 			$('#rut').val(allTrim($('#rut').val()));
 			$('#username').val(rut_a_username($('#rut').val()));
 			if (ACCION == AGREGAR_REG) {
@@ -102,6 +102,8 @@ $(document).ready(function(){
 		});	
 
 	Crear_DataTable(); 
+	        
+    CampoEnReadOnly("id");    
 	CampoEnReadOnly("activo");
 	CampoDisabled("estado");	
 	CampoDisabled("perfil");
@@ -552,6 +554,19 @@ function VerSiExisteRut(){
 //
 function Crear_DataTable() {
 
+	new DataTable ('#tablaregs',{
+        language: {url: '/static/jquery/datatables.es-CL.json'},
+        pagingType: 'full_numbers',
+        bJQueryUI: 'true',
+        iDisplayLength: '25',
+        order: [[2, 'asc']],
+        columnDefs: [
+			{ orderable: false, targets: [0,6] },
+			{ searchable: false, targets: [6] }
+            ]
+        });
+/*		
+
 	$('#tablaregs').DataTable({
         language: {url: '/static/jquery/datatables.es-CL.json'},
 		pagingType: 'full_numbers',
@@ -563,6 +578,8 @@ function Crear_DataTable() {
 			{ searchable: false, targets: [6] }
 			]
 		});
+*/
 	$(".tip").tooltip();
+
 	};
 

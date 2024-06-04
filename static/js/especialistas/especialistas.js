@@ -63,11 +63,12 @@ $(document).ready(function(){
 			$('#username').val('');
 			}
 		});
-
-
+     
+	CampoEnReadOnly("id");    
+ 
 	Crear_DataTable(); 
 
-});
+	});
 //
 // ********************************
 //          Funciones
@@ -112,7 +113,6 @@ function AgregarRegistro(){
 
 	$("#rubro").prop("selectedIndex", 0);
 	Cargar_Especialidad();
-//	$("#rubro").first().attr('selected','selected');
 	$("#ctr_altadctos").prop("selectedIndex", 0);
 	$("#estado_suscripcion").prop("selectedIndex", 0);
 
@@ -387,25 +387,6 @@ function CambiarEstadoEspecialista(id,estado){
 		MensajeErrorDesconocido(error);
 		}
 	};	
-//
-// Crea DataTable para una lista de registros a recibir via ajax
-//
-function Crear_DataTable() {
-
-	$('#tablaregs').DataTable({
-        language: {url: '/static/jquery/datatables.es-CL.json'},
-		pagingType: 'full_numbers',
-		bJQueryUI: 'true',
-		iDisplayLength: '25',
-		order: [[1, 'asc']],
-		columnDefs: [
-			{ orderable: false, targets: [0,7] },
-			{ searchable: false, targets: [7] }
-			]
-		});
-	$(".tip").tooltip();
-
-};
 
 async function Cargar_Especialidad() {
 //	alert("En Cargar_Especialidad");
@@ -552,3 +533,36 @@ function VerUnEspecialista(id) {
 
 	}
 
+//
+// Crea DataTable para una lista de registros a recibir via ajax
+//
+function Crear_DataTable() {
+
+	new DataTable ('#tablaregs',{
+        language: {url: '/static/jquery/datatables.es-CL.json'},
+        pagingType: 'full_numbers',
+        bJQueryUI: 'true',
+        iDisplayLength: '25',
+        order: [[2, 'asc']],
+//		buttons: ['copy', { extend: 'excel', text: 'Save as Excel' }],
+        columnDefs: [
+            { orderable: false, targets: [0,7] },
+            { searchable: false, targets: [7] }
+            ]
+        });
+/*		
+	$('#tablaregs').DataTable({
+        language: {url: '/static/jquery/datatables.es-CL.json'},
+		pagingType: 'full_numbers',
+		bJQueryUI: 'true',
+		iDisplayLength: '25',
+		order: [[1, 'asc']],
+		columnDefs: [
+			{ orderable: false, targets: [0,7] },
+			{ searchable: false, targets: [7] }
+			]
+		});
+*/
+	$(".tip").tooltip();
+
+	};

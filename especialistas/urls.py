@@ -3,6 +3,9 @@
 #
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
 
@@ -11,5 +14,10 @@ urlpatterns = [
     path('especialistas_verespecialista/', views.especialistas_verespecialista.as_view(), name='especialistas_verespecialista'),
     path('especialistas_verificarut/', views.especialistas_verificarut.as_view(), name='especialistas_verificarut'),
     path('especialistas_cambiarestado/', views.especialistas_cambiarestado, name='especialistas_cambiarestado'),
-    
+    path('especialista_cargarfoto/', views.especialista_cargarfoto, name='especialista_cargarfoto'),    
+    path('especialista_cargarimagen/', views.especialista_cargarimagen, name='especialista_cargarimagen'),    
+    path('especialista_cargardocumento/', views.especialista_cargardocumento, name='especialista_cargardocumento'),           
     ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

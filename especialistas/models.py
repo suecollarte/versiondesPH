@@ -1,7 +1,10 @@
+#
+# models.py especialistas
+#
 from django.db import models
 from tablas.models import *
 from usuarios.models import UsuariosEspecialistas, UsuariosPersonas
-
+from proximahora.funciones import uploaddocu_location
 
 class EstadosConsultas:
     TERMINADA = '0'
@@ -41,7 +44,6 @@ class EspecialistasAgendas(models.Model):
     '''
     (12) : Tabla con información de la agenda propuesta por el especialista, para posterior agendamiendo de usuarios
     '''
-
     fecha = models.DateField()    
     hinicio = models.DateField()    
     htermino = models.DateField()    
@@ -53,7 +55,6 @@ class EspecialistasAgendas(models.Model):
         db_table = "especialistas_programas"      
         ordering = ['fecha','hinicio','htermino','estado','consulta','especialista']     
         
-
         
 class EspecialistasFichas(models.Model):
     '''
@@ -200,7 +201,6 @@ class UsuariosAgendas(models.Model):
             Eventualmente un usuario puede tomar hora a nombre de un tercero, pero debe 
             de estar debidamente registrado
     '''
-
     fingreso = models.DateField(auto_now_add=True)    
     fecha = models.DateField()    
     hora = models.TimeField() 
@@ -214,4 +214,41 @@ class UsuariosAgendas(models.Model):
     class Meta:
         db_table = "usuarios_agendas"      
         ordering = ['fingreso','fecha','hora','mensaje','estado','usuariorel','usuario','especialista','agendaespecialista']  
- 
+
+
+class EspecialistasDocumentos(models.Model):
+    '''
+    (23) Tabla de registro de documentos guardados por los especialistas.
+    '''      
+    fecha = models.DateTimeField(auto_now_add=True)    
+    titulo = models.CharField(max_length=120)
+    archivo = models.FileField(upload_to=uploaddocu_location, null=True, blank=True)
+    especialista = models.ForeignKey(UsuariosEspecialistas,on_delete=models.CASCADE)
+    cliente = models.ForeignKey(UsuariosPersonas,on_delete=models.SET_NULL,blank=True,null=True)    
+    
+    class Meta:
+        db_table = "especialistas_documentos"       
+        ordering = ['fecha','titulo','archivo','especialista','cliente']
+         
+    def __str__(self):
+        return self.titulo if hasattr(self, 'titulo') else 'Documento sin título'
+
+    
+class EspecialistasImagenes(models.Model):
+    '''
+    (24) Tabla de registro de imagenes guardadas por los especialistas.
+    '''      
+    fecha = models.DateTimeField(auto_now_add=True)    
+    titulo = models.CharField(max_length=120)
+    imagen = models.ImageField(upload_to=uploaddocu_location, null=True, blank=True)
+    especialista = models.ForeignKey(UsuariosEspecialistas,on_delete=models.CASCADE)
+    cliente = models.ForeignKey(UsuariosPersonas,on_delete=models.SET_NULL,blank=True,null=True)    
+    
+    class Meta:
+        db_table = "especialistas_imagenes"       
+        ordering = ['fecha','titulo','imagen','especialista','cliente']
+         
+    def __str__(self):
+        return self.titulo if hasattr(self, 'titulo') else 'Imagen sin título'
+
+       

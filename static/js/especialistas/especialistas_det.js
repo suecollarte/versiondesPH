@@ -12,13 +12,45 @@ $(document).ready(function(){
 		var f102 = new LiveValidation('tiempo_consulta');
 		f102.add(Validate.Presence);
 	} catch (e) {};
+
+	$('#mifoto').fileinput({
+        theme: 'fa5',
+        language: 'es',
+		showPreview: true,
+        showCancel: true,
+        showUpload: true,
+		maxFileSize: 5000,
+        maxFilesNum: 1,
+        uploadUrl: '/especialistas/especialista_cargarfoto/',
+		uploadAsync: true,
+		uploadExtraData: {
+			'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
+			'idespecialista': $("#idespecialista").val(),
+        	},
+        maxFileCount: 1,
+        allowedFileTypes: ['image'], 
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        initialPreviewAsData: true,
+        previewFileType: 'any'
+		}).on('fileuploaded', function(event, data, previewId, index) {
+			var response = data.response;
+			if (response.foto_url) 
+				var timestamp = new Date().getTime();  
+				var newUrl = response.foto_url + '?t=' + timestamp;  
+				$("#foto").attr("src", newUrl); 
+			$("#fotoedit").dialog("close");
+			mostrarMensaje(response.message,MSG_SUCCESS);
+		}).on('fileuploaderror', function(event, data, msg) {
+			mostrarMensaje(response.message,MSG_STOP);
+		}).on('filebatchpreupload', function(event, data, msg) {
+//			alert("Especialista="+$("#idespecialista").val());
+		});
 //
 // Cambia Rubro Seleccionado
 //
 	$('#rubro').on("change", function(){
 		Cargar_Especialidad();
 	});	
-
 //
 // Validacion de RUT.
 //	
@@ -40,6 +72,30 @@ $(document).ready(function(){
 
 
 	$("#tabs").tabs();
+//
+// Dialogo para Modificar Registro.
+//	
+	$("#fotoedit").dialog({
+		autoOpen: false,	 
+		position: { my: "center", at: "center", of: window },
+		height: 550,
+		width: 500,
+		resizable: false,
+		modal: true,  
+		show: {
+			effect: "blind",
+			duration: 1000
+			},
+		hide: {
+			effect: "explode",
+			duration: 1000
+			},
+		open: function() {
+			},
+		close: function() {
+			$('#mifoto').val('');
+			}
+	})
 
 });
 //
@@ -73,57 +129,6 @@ function CamposValidos(){
 		return false;
 		}	
 	return true;
-};
-//
-// Abre Modal para Agregar registro de Especialista
-//		
-function AgregarRegistro(){
-
-	ACCION = AGREGAR_REG;
-	idGlobal1 = 1;
-    idGlobal2 = 0;
-    idGlobal3 = 0;
-
-	$("#rubro").prop("selectedIndex", 0);
-	Cargar_Especialidad();
-//	$("#rubro").first().attr('selected','selected');
-	$("#ctr_altadctos").prop("selectedIndex", 0);
-	$("#estado_suscripcion").prop("selectedIndex", 0);
-
-	CampoEnReadWrite("rut");
-	CampoEnReadWrite("descripcion");
-	CampoEnReadWrite("reg_especialista"); 
-	CampoEnReadWrite("tiempo_consulta");  
-	CampoEnabled("rubro");
-	CampoEnabled("categoria");
-	CampoEnabled("subcategoria");
-	CampoDisabled("ctr_altadctos");
-	CampoDisabled("estado_suscripcion");
-
-	$("#diagedit").dialog({
-		title: "Agregar Especialista",
-		buttons: [
-			{
-				text: "Grabar",
-				click: function() {
-					if (CamposValidos()) {
-						EnviaPeticionAjax(AGREGAR_REG,0);
-						$( this ).dialog("close");
-						}
-					},
-				class:"ui-corner-all", style:"color:Green" 
-			},
-			{
-				text: "Salir",
-				click: function() {
-					$( this ).dialog("close");
-					},
-				class:"ui-corner-all", style:"color:Black" 
-			}
-			]
-		});
-
-	$("#diagedit").dialog("open");
 };
 //
 // Abre Modal para Editar registro de Especialista
@@ -506,5 +511,26 @@ function VerUnEspecialista(id) {
 			}
 		});
 
-	}
+	};
 
+
+//
+// Abre Modal para Agregar registro de Especialista
+//		
+function CambiarFoto(){
+
+	$("#fotoedit").dialog({
+		title: "Cambiar Foto Especialista",
+		buttons: [
+			{
+				text: "Salir",
+				click: function() {
+					$( this ).dialog("close");
+					},
+				class:"ui-corner-all", style:"color:Black" 
+			}
+			]
+		});
+
+	$("#fotoedit").dialog("open");
+	};

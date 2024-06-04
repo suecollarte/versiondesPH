@@ -16,11 +16,12 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
+from .forms import *
 from tablas.models import *
 from proximahora.funciones import *
-from usuarios.models import EstadosUsuarios, EstadosSuscripcion,EstadosDocumentos
+from usuarios.models import EstadosUsuarios, EstadosSuscripcion, EstadosDocumentos, UsuariosEspecialistas
+import os
     
-
 def especialistas_listar(request):
 
     especialistas = UsuariosEspecialistas.objects.all()
@@ -81,11 +82,17 @@ class especialistas_verespecialista(View):
                 especialista = UsuariosEspecialistas.objects.get(id=id)
                 persona = UsuariosPersonas.objects.get(id=especialista.persona_id)
                 nombre = persona.usuario.last_name+", "+ persona.usuario.first_name
-                estado_persona = EstadosUsuarios.ESTADOS_USUARIOS[int(persona.estado)][1]               
+                estado_persona = EstadosUsuarios.ESTADOS_USUARIOS[int(persona.estado)][1]     
+                rubro = str(especialista.rubro.id)
+                categoria = str(especialista.categoria.id)    
+                if especialista.subcategoria is not None:     
+                   subcategoria = str(especialista.subcategoria.id)
+                else:
+                   subcategoria = "0"                   
                 data = [{'id': especialista.id,'idpersona': persona.id, 'idusuario': persona.usuario_id, 'nombre': nombre, 'email': persona.usuario.email, 
                          'descripcion': especialista.descripcion,'reg_especialista': especialista.reg_especialista,'tiempo_consulta': especialista.tiempo_consulta,
                          'promedio_evaluacion': especialista.promedio_evaluacion,'ctr_altadctos': especialista.ctr_altadctos,'estado_suscripcion': especialista.estado_suscripcion, 
-                         'estado_persona': estado_persona,'rubro': str(especialista.rubro.id),'categoria': str(especialista.categoria.id), 'subcategoria': str(especialista.subcategoria.id)}]
+                         'estado_persona': estado_persona,'rubro': rubro,'categoria': categoria, 'subcategoria': subcategoria}]
             except UsuariosEspecialistas.DoesNotExist:
                     data = [{'username': "", 'rut': "", 'nombre': "", 'apellido': "", 'fnacimiento': "", 'email': "",'telefono':"", 'region': str(Constantes.REGIONMETRO),
                              'comuna': str(Constantes.COMUNASTGO), 'ciudad': str(Constantes.CIUDADSTGO)}]
@@ -140,15 +147,88 @@ def especialistas_detalle(request):
             especialista = UsuariosEspecialistas.objects.get(id=id)
             persona = UsuariosPersonas.objects.get(id=especialista.persona_id)
             rubros = Rubros.objects.all().order_by('nombre')
-            categorias = Categorias.objects.filter(rubro_id=especialista.categoria_id).order_by('nombre')
-            subcategorias = SubCategorias.objects.filter(categoria_id=especialista.subcategoria_id).order_by('nombre')
+            categorias = Categorias.objects.filter(rubro_id=especialista.rubro_id).order_by('nombre')
+            subcategorias = SubCategorias.objects.filter(categoria_id=especialista.categoria_id).order_by('nombre')
             regiones = Regiones.objects.all().order_by('nombre')
             ciudades = Ciudades.objects.filter(region_id=persona.region_id).order_by('nombre')
             comunas = Categorias.objects.filter(rubro_id=persona.region_id).order_by('nombre')
             return render(request, 'especialistas_detalle.html', {'especialista': especialista,'persona': persona,'rubros': rubros,'categorias': categorias,
-                                                                  'subcategorias': subcategorias,'regiones': regiones,'comunas': comunas,'ciudades': ciudades})
+                                                                  'subcategorias': subcategorias,'micategoria': especialista.categoria_id,
+                                                                  'misubcategoria': especialista.subcategoria_id,'regiones': regiones,'comunas': comunas,'ciudades': ciudades,
+                                                                  'EstadosSuscripcion': EstadosSuscripcion,'EstadosDocumentos': EstadosDocumentos,'estado': EstadosUsuarios.ESTADOS_USUARIOS[int(persona.estado)][1]
+                                                                  })
         except Exception as e:
             return HttpResponse('ERROR En Consulta de Especialista' + ' Error= '+str(e)) 
     else:
         return HttpResponse('Petición Inválida!!!')
+            
+            
+def especialista_cargarfoto(request):
     
+    if (request.method == 'POST'):
+        idespecialista = request.POST.get('idespecialista')
+        try:
+            especialista = UsuariosEspecialistas.objects.get(id=idespecialista)    
+            archivo = especialista.foto.path
+            form = UploadPhotoForm(request.POST, request.FILES, instance=especialista)
+            if form.is_valid():
+                if os.path.exists(archivo):
+                    os.remove(archivo)
+                especialista = form.save()
+                foto_url = especialista.foto.url if especialista.foto else None
+                data = {'foto_url': foto_url, 'message': 'Foto cargada exitosamente'}
+            else:
+                data = {'foto_url': None, 'message': form.errors}
+        except UsuariosEspecialistas.DoesNotExist:
+            data = {'foto_url': None, 'message': 'Especialista no encontrado'}
+    else:
+        data = {'foto_url': None, 'message': 'Solicitud inválida'}
+    return JsonResponse(data)
+
+
+def especialista_cargardocumento(request):
+    
+    if (request.method == 'POST'):
+        idespecialista = request.POST.get('idespecialista')
+        idcliente = request.POST.get('idcliente')
+        titulo = request.POST.get('titulo')
+        try:
+            especialistadoc = EspecialistasDocumentos.objects.create(titulo=titulo,especialista_id=idespecialista,cliente_id=idcliente)
+            form = UploadFileForm(request.POST, request.FILES, instance=especialistadoc)
+            if form.is_valid():
+                archivo = especialistadoc.archivo.path
+                crear_directorios_documentos(archivo)
+                especialistadoc = form.save()
+                doc_url = especialistadoc.archivo.url if especialistadoc.archivo else None
+                data = {'doc_url': doc_url, 'message': 'Documento cargado exitosamente'}
+            else:
+                data = {'doc_url': None, 'message': form.errors}
+        except Exception as e:
+            data = {'doc_url': None, 'message': 'Documento no cargado. Error'+str(e)}
+    else:
+        data = {'doc_url': None, 'message': 'Solicitud inválida'}
+    return JsonResponse(data)
+
+
+def especialista_cargarimagen(request):
+    if request.method == 'POST':
+        idespecialista = request.POST.get('idespecialista')
+        idcliente = request.POST.get('idcliente')
+        titulo = request.POST.get('titulo')
+        try:
+            especialistaimg = EspecialistasImagenes.objects.create(titulo=titulo,especialista_id=idespecialista,cliente_id=idcliente)
+            form = UploadImageForm(request.POST, request.FILES, instance=especialistaimg)
+            if form.is_valid():
+                archivo = especialistaimg.imagen.path
+                crear_directorios_documentos(archivo)
+                especialistaimg = form.save()
+                doc_url = especialistaimg.imagen.url if especialistaimg.imagen else None
+                data = {'imagen_url': doc_url, 'message': 'Imagen cargada exitosamente'}
+            else:
+                data = {'imagen_url': None, 'message': form.errors}
+        except Exception as e:
+            data = {'imagen_url': None, 'message': 'Imagen no cargada. Error'+str(e)}
+    else:
+        data = {'imagen_url': None, 'message': 'Solicitud inválida'}
+    return JsonResponse(data)
+

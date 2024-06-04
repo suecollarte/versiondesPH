@@ -1,0 +1,89 @@
+{% extends 'base_login.html' %}
+    
+{% load static %}
+
+{% block title %}Proxima Hora Login {% endblock %}
+
+{% block content %}
+
+    <!-- Custom JS -->
+<script type="text/javascript" src="{% static 'js/applogin/login.js' %}"></script>  
+
+<div class="container-sm py-5 h-100">
+
+
+        <div class="container-fluid py-5 h-100">
+            <div class="row">
+                <div class="card border-secondary">
+                    <div class="card-body  p-4 p-lg-5 text-black myform">
+                        <div class="row">
+                            <div class="col-md-4 mx-auto">
+                                <div class="d-flex align-items-center mb-3 pb-1">
+                                    <span class="h1 fw-bold mb-0"><img src="{% static 'img/proximahora1.png' %}" /></span>
+                                </div>
+                            </div>
+                            <div class="col-md-8 mx-auto">
+                                <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Acceso a Proxima Hora</h5>
+                            </div>
+                        </div>
+                        <form id="loginform"  method="POST" action="/applogin/usercrearlogin/" onsubmit="ValidarForm()">
+                            {% csrf_token %}
+                        <div class="row g-0">
+                            <div class="col-md-4 mx-auto">
+                                <div class="form-group">
+                                    <label class="form-label">R.U.T.</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                                        </div>
+                                        <input type="text" name="rut" id="rut" placeholder="R.U.T." size="20" maxlength="12" class="form-control w-25 text8l" />
+                                        <input type="hidden" name="username" id="username" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0">
+                            <div class="col-md-4 mx-auto">
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                        </div>
+                                        <input id="txtPassword" name="txtPassword" type="Password"  placeholder="Password" size="20" maxlength="20" class="form-control w-50 text8l" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0">
+                            <div class="col-md-4 mx-auto">
+                                <div class="pt-1 mb-4">
+                                    <a class="small text-muted" href="#!">Olvido su contraseña?</a>
+                                    <a class="small text-muted" href="#!">Crear Cuenta</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0">
+                            <div class="col-md-4 mx-auto">
+                                <div class="pt-1 mb-4">
+                                    <button data-mdb-button-init data-mdb-ripple-init class="btn boton btn-lg btn-block" type="submit">Ingresar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                        <div class="row g-0">
+                            <div class="col-md-4 mx-auto">
+                                <div class="pt-1 mb-4">
+                                    <a class="small text-muted" href="#!">Necesita ayuda para conectarse?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

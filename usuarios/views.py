@@ -1,3 +1,6 @@
+#
+#   views.py Usuarios
+#
 """ Este modulo premite realizar operaciones CRUD de usuarios
     Metodo GET muestra los registros en DB via ajax
     Metodo POST recibe por ajax el CRUD a realizar y los campos a modificar
@@ -157,4 +160,3 @@ class personas_verpersona(View):
             data = {'Error': 'Se requiere un Username válido'}
         return JsonResponse(data, safe=False)
     
-        

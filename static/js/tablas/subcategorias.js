@@ -33,7 +33,9 @@ $(document).ready(function(){
         $("#btnadd").hide();
     else
         $("#btnadd").show();
-
+              
+    CampoEnReadOnly("id");    
+ 
     Crear_DataTable(); 
 
     });
@@ -182,6 +184,18 @@ function EnviaPeticionAjax(accion,id){
 
 function Crear_DataTable() {
 
+    new DataTable ('#tablaregs',{
+        language: {url: '/static/jquery/datatables.es-CL.json'},
+        pagingType: 'full_numbers',
+        bJQueryUI: 'true',
+        iDisplayLength: '25',
+        order: [[1, 'asc']],
+        columnDefs: [
+            { orderable: false, targets: [4] },
+            { searchable: false, targets: [0,4] }
+            ]
+        });
+/*		
     $('#tablaregs').DataTable({
         language: {url: '/static/jquery/datatables.es-CL.json'},
         pagingType: 'full_numbers',
@@ -193,6 +207,8 @@ function Crear_DataTable() {
             { searchable: false, targets: [0,4] }
             ]
         });
+*/
     $(".tip").tooltip();
+
     };
     

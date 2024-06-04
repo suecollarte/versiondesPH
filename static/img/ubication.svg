@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="70.815842"
-   height="96.511108"
+   width="64.648033"
+   height="69.244339"
    xml:space="preserve"
    overflow="hidden"
    version="1.1"
@@ -21,8 +21,8 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="3.9466019"
-     inkscape:cx="53.843788"
-     inkscape:cy="93.878229"
+     inkscape:cx="56.630997"
+     inkscape:cy="93.371465"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -53,7 +53,7 @@
          id="feGaussianBlur1" /></filter></defs><g
      style="fill:none;stroke-width:1.30663"
      id="g5"
-     transform="matrix(0.71567153,0,0,0.81842861,-0.61397748,74.024705)"><ellipse
+     transform="matrix(0.63372889,0,0,0.72472053,-0.54367856,49.332574)"><ellipse
        cx="50.333"
        cy="14"
        rx="40"
@@ -62,7 +62,7 @@
        fill-opacity="0.3"
        id="ellipse1"
        style="stroke-width:1.30663;filter:url(#filter0_f_2476_4033)" /></g><g
-     transform="matrix(0.6894667,0,0,0.66990428,-327.50768,-36.131704)"
+     transform="matrix(0.60296631,0,0,0.48629419,-283.61632,-26.22858)"
      id="g4"
      style="display:inline;stroke-width:1.47143"><g
        id="g3"

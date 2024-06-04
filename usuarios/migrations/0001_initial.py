@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             name='UsuariosEspecialistas',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('foto', models.ImageField(blank=True, null=True, upload_to=usuarios.models.upload_location)),
+                ('foto', models.ImageField(blank=True, null=True, upload_to=usuarios.models.uploadfoto_location)),
                 ('upload_to', models.CharField(blank=True, max_length=120, null=True)),
                 ('descripcion', models.CharField(blank=True, max_length=250, null=True)),
                 ('estado_suscripcion', models.CharField(choices=[('0', 'Bloqueada'), ('1', 'Vigente')], default='0', max_length=1)),

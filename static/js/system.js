@@ -53,10 +53,6 @@ $(document).ready(function(){
 		fluidDialog();
 		});
 
-	$('#main-menu').smartmenus({
-		subMenusSubOffsetX: 1,
-		subMenusSubOffsetY: -8
-		});
 
 	$("#div-msg-wait").css({ opacity: 0.5 });	
 	$('#div-msg-wait').bind("ajaxStart", function() {$(this).show();})
@@ -64,32 +60,28 @@ $(document).ready(function(){
 
 	$(".tip").tooltip();
 
-	$( ".myhelp" ).tooltip({
-		classes: {
-		  "ui-tooltip": "highlight"
-		}
-	  });
-
 	$('input').addClass("ui-corner-all");
 	
-	$("#menu").menu({position: {at: "left bottom"}});
-	
-	$(".fechainput").datepicker({
-		showOn: 'button',
-		buttonImageOnly: true,
-		buttonImage: "/static/imagenes/icon_calendar.png",
-		numberOfMonths: 1,
-		dateFormat: "dd-mm-yy",
-		changeMonth: true,
-		changeYear: true,
-		buttonText: "Seleccionar fecha",
-//		maxDate: "-1d",
-		maxDate: "+2y",
-		yearRange: "1900:2030",
-		duration: "slow",
-		dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
-		monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ] 
-		});
+	try{
+		$(".fechainput").datepicker({
+			showOn: 'button',
+			buttonImageOnly: true,
+			buttonImage: "/static/imagenes/icon_calendar.png",
+			numberOfMonths: 1,
+			dateFormat: "dd-mm-yy",
+			changeMonth: true,
+			changeYear: true,
+			buttonText: "Seleccionar fecha",
+	//		maxDate: "-1d",
+			maxDate: "+2y",
+			yearRange: "1900:2030",
+			duration: "slow",
+			dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
+			monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ] 
+			});
+		} catch (e) {
+			alert(e);
+	};
 
 	$(".uppcase").blur(function(){
 		if ($('#chk_upper').length) {
@@ -105,8 +97,9 @@ $(document).ready(function(){
 		});
 	
 	$(".ucword").blur(function(){
-			$(this).val($(this).val().ucwords());
-			});		
+		$(this).val($(this).val().ucwords());
+		});	
+
 	BloquearReadonly();
 	
 	});
@@ -139,12 +132,14 @@ function fluidDialog() {
 	}
 
 function BloquearReadonly() {
-	$(":input[type=text][readonly='readonly']").css({'background-color' : '#F0EAE9'});
-	$(":input[type=password][readonly='readonly']").css({'background-color' : '#F0EAE9'});
+
+//	$(":input[type=text][readonly='readonly']").css({'background-color' : '#F0EAE9'});
+//	$(":input[type=password][readonly='readonly']").css({'background-color' : '#F0EAE9'});
 	}
 
 function CampoEnReadOnly(id) {
-    $("#"+id).css({'background-color' : '#F0EAE9'});
+	$("#"+id).css({'background-color' : '#F0EAE9'});
+//    $("#"+id).css({'background-color' : '#A7DFFF'});
     $("#"+id).attr("readonly","readonly");
 	}
 
@@ -162,7 +157,6 @@ function CampoEnabled(id) {
 	$("#"+id).css({'background-color' : '#FFFFFF'});
 	$("#"+id).removeAttr("disabled");
 	}
-
 
 function validarFechas(finicio,ffin) {
 	var f1 = finicio.split("-");
@@ -312,13 +306,14 @@ function textvalida(e,obj) {
 	return (txt.length < filas);
 	}
 
-function validarRUT() {
+function validarRUT(rut,sndmsg=true) {
 	var tmpstr = "", dvr = '0';
 	var largo,rut1,dv,suma,mul,res,dvi,rutfinal;
-	var crut = allTrim($('#rut').val());
+	var crut = allTrim($('#'+rut).val());
 
-	if (crut.length < 3)	{
-		mostrarMensaje('Debe Ingresar R.U.T.',MSG_STOP)
+	if (crut.length < 3) 	{
+		if (sndmsg)
+			mostrarMensaje('Debe Ingresar R.U.T.',MSG_STOP)
 		return false;
 		}
 	for ( i=0; i <crut.length ; i++ )
@@ -333,7 +328,8 @@ function validarRUT() {
 		rut1 = crut.charAt(0);
 	dv = crut.charAt(largo-1);
 	if (rut1 == null || dv == null ) {
-		mostrarMensaje('R.U.T. Ingresado no es Correcto',MSG_STOP)
+		if (sndmsg)
+			mostrarMensaje('R.U.T. Ingresado no es Correcto',MSG_STOP)
 		return false;
 		}
 	suma = 0;
@@ -356,7 +352,8 @@ function validarRUT() {
 			dvr = dvi + "";
 			}
 	if (dvr != dv.toLowerCase()){
-		mostrarMensaje('R.U.T. Ingresado no es Correcto',MSG_STOP)
+		if (sndmsg)
+			mostrarMensaje('R.U.T. Ingresado no es Correcto',MSG_STOP)
 		return false;
 		}
 	dv = dv.toUpperCase();
@@ -380,7 +377,7 @@ function validarRUT() {
 			rutfinal = rut1+'-'+dv;
 			break;
 			}
-	$('#rut').val(rutfinal);
+	$('#'+rut).val(rutfinal);
 	return true;
 	}
 //

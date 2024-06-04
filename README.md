@@ -60,7 +60,7 @@ La estructura de directorio es la siguiente
  ┣ 📜urls.py<br />
  ┣ 📜views.py<br />
  ┗ 📜__init__.py<br />
- 📦imagenes<br />
+ 📦media<br />
  ┣ 📂documentos<br />
  ┃ ┣ 📂rut_especialista1<br />
  ┃ ┃ ┣ 📂rut_usuario1<br />

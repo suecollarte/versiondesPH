@@ -10,5 +10,5 @@ docs/
 # Ignorar todos los archivos y directorios dentro de "temp"
 temp/*
 
-# Ignorar todos los archivos y directorios dentro de "imagenes"
-imagenes/*
+# Ignorar todos los archivos y directorios dentro de "media"
+media/*

@@ -1,0 +1,39 @@
+04/06
+
+faltan archivos:
+[04/Jun/2024 16:35:44] "GET /static/css/bs-stepper.min.css HTTP/1.1" 404 1825
+[04/Jun/2024 16:35:44] "GET /static/img/registrate.png HTTP/1.1" 404 1813
+[04/Jun/2024 16:35:44] "GET /static/img/fotos/medico1.jpg HTTP/1.1" 404 1822
+[04/Jun/2024 16:35:44] "GET /static/img/Vector.svg HTTP/1.1" 404 1801
+[04/Jun/2024 16:35:44] "GET /static/img/contactanos.png HTTP/1.1" 404 1816
+[04/Jun/2024 16:35:44] "GET /static/img/Frame%20237.png HTTP/1.1" 404 1812
+[04/Jun/2024 16:35:44] "GET /static/img/fotos/medica.png HTTP/1.1" 404 1819
+[04/Jun/2024 16:35:50] "GET /static/img/fotos/foto2.jpg HTTP/1.1" 404 1816
+[04/Jun/2024 16:35:55] "GET /static/img/fotos/foto3.jpg HTTP/1.1" 404 1816
+[04/Jun/2024 16:35:59] "GET /static/css/bs-stepper.min.css HTTP/1.1" 404 1825
+[04/Jun/2024 16:35:59] "GET /static/img/registrate.png HTTP/1.1" 404 1813
+[04/Jun/2024 16:35:59] "GET /static/img/contactanos.png HTTP/1.1" 404 1816
+[04/Jun/2024 16:35:59] "GET /static/img/Vector.svg HTTP/1.1" 404 1801
+[04/Jun/2024 16:35:59] "GET /static/img/fotos/medica.png HTTP/1.1" 404 1819
+[04/Jun/2024 16:35:59] "GET /static/img/fotos/medico1.jpg HTTP/1.1" 404 1822
+[04/Jun/2024 16:36:04] "GET /static/img/fotos/foto2.jpg HTTP/1.1" 404 1816
+[04/Jun/2024 16:36:14] "GET /static/img/fotos/foto3.jpg HTTP/1.1" 404 1816
+
+El siguiente archivo tiene un blanco en su nombre
+[04/Jun/2024 16:35:59] "GET /static/img/Frame%20237.png HTTP/1.1" 404 1812
+
+El archivo base_adm.html perdio parte del encabezado (no se ven Inicio Confirmacion y Pagos)
+
+En el home el texto "Selecciona el rubro para iniciar tu búsqueda" perdio su formato
+
+En el archivo home.html encontre un error en la linea 266 (Puedes encontrarlo buscando el texto "OJO")
+Dice: (tag dev cerrado con </span>)
+                <div class="p-2">
+                    <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#Historia">
+                 <!-- OJO -->                       
+                        <dev style="font-weight:bold;color:white;">M&aacute;s...</span>
+                    </a>
+                </div>
+
+Agregue nuevos directorios pero aun son pruebas asi que no los documentare todavia
+

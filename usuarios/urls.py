@@ -11,5 +11,4 @@ urlpatterns = [
     path('personas_cambiarestado/', views.personas_cambiarestado, name='personas_cambiarestado'),
     path('personas_verificarut/', views.personas_verificarut, name='personas_verificarut'),
     path('personas_verpersona/', views.personas_verpersona.as_view(), name='personas_verpersona'),
-    
     ]

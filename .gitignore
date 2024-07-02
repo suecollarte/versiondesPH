@@ -1,11 +1,11 @@
 # Ignorar archivos txt
-*.txt
+# *.txt
 
 # Ignorar todos los archivos .pyc
 *.pyc
 
 # Ignorar el directorio "docs"
-docs/
+docs/*
 
 # Ignorar todos los archivos y directorios dentro de "temp"
 temp/*

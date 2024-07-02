@@ -1,0 +1,10 @@
+
+<select required="required" class="form-select w-auto" name="region" id="region" style="font-size:11px;">
+  {% for region in regiones %}    
+    {% if region.id == miregion %} 
+      <option value="{{region.id}}" selected class="text8l">{{region.nombre}}</option>
+    {% else %}
+      <option value="{{region.id}}" class="text8l">{{region.nombre}}</option>
+    {% endif %}
+  {% endfor %}
+</select>   

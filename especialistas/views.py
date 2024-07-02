@@ -21,6 +21,7 @@ from tablas.models import *
 from proximahora.funciones import *
 from usuarios.models import EstadosUsuarios, EstadosSuscripcion, EstadosDocumentos, UsuariosEspecialistas
 import os
+
     
 def especialistas_listar(request):
 
@@ -113,7 +114,7 @@ def especialistas_cambiarestado(request):
         except Exception as e:
             return HttpResponse('ERROR Cambio Estado Especialista' + ' Error= '+str(e)) 
     else:
-        return HttpResponse('Petición Inválida!!!')
+        return render(request, 'error.html', {'error_ph': ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]} )
     
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -160,7 +161,7 @@ def especialistas_detalle(request):
         except Exception as e:
             return HttpResponse('ERROR En Consulta de Especialista' + ' Error= '+str(e)) 
     else:
-        return HttpResponse('Petición Inválida!!!')
+        return render(request, 'error.html', {'error_ph': ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]} )
             
             
 def especialista_cargarfoto(request):
@@ -197,7 +198,7 @@ def especialista_cargardocumento(request):
             form = UploadFileForm(request.POST, request.FILES, instance=especialistadoc)
             if form.is_valid():
                 archivo = especialistadoc.archivo.path
-                crear_directorios_documentos(archivo)
+                crear_directorio_documentos(archivo)
                 especialistadoc = form.save()
                 doc_url = especialistadoc.archivo.url if especialistadoc.archivo else None
                 data = {'doc_url': doc_url, 'message': 'Documento cargado exitosamente'}
@@ -220,7 +221,7 @@ def especialista_cargarimagen(request):
             form = UploadImageForm(request.POST, request.FILES, instance=especialistaimg)
             if form.is_valid():
                 archivo = especialistaimg.imagen.path
-                crear_directorios_documentos(archivo)
+                crear_directorio_documentos(archivo)
                 especialistaimg = form.save()
                 doc_url = especialistaimg.imagen.url if especialistaimg.imagen else None
                 data = {'imagen_url': doc_url, 'message': 'Imagen cargada exitosamente'}
@@ -232,3 +233,48 @@ def especialista_cargarimagen(request):
         data = {'imagen_url': None, 'message': 'Solicitud inválida'}
     return JsonResponse(data)
 
+
+def especialistas_buscar(request):
+
+    if (request.method == 'GET'):
+        try:
+            rubro = int(request.GET.get('rubro'))
+            regiones = Regiones.objects.order_by('nombre')
+            comunas = Comunas.objects.filter(region_id=Constantes.REGIONMETRO).order_by('nombre')
+            categorias = Categorias.objects.filter(rubro_id=rubro).order_by('nombre')
+            categoria_id = categorias.first().id
+            subcategorias = SubCategorias.objects.filter(categoria_id=categoria_id).order_by('nombre')
+            if (rubro == Constantes.MEDICINA):
+                tiposprevision = TipoPrevision.objects.order_by('nombre')
+            else:
+                tiposprevision = {}
+            return render(request, 'especialistas_buscar.html', {'regiones': regiones,'miregion': Constantes.REGIONMETRO,'comunas': comunas,'micomuna': Constantes.COMUNASTGO,
+                                                            'categorias': categorias,'subcategorias': subcategorias,'tiposprevision': tiposprevision,'rubro': rubro,'nombreuser': ''})
+        except Exception as e:
+            return render(request, 'error.html', {'error_ph': ErroresPH.ERRORESPH[ErroresPH.ERROR_LECTURA][1]+' ('+ str(e)+')'} )
+    else:
+        return render(request, 'error.html', {'error_ph': ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]} )
+
+
+def especialistas_buscar_detalle(request):
+
+    if (request.method == 'POST'):
+        try:
+            rubro = request.POST.get('rubro')
+            regiones = Regiones.objects.order_by('nombre')
+            comunas = Comunas.objects.filter(region_id=Constantes.REGIONMETRO).order_by('nombre')
+            categorias = Categorias.objects.filter(rubro_id=rubro).order_by('nombre')
+            categoria_id = categorias.first().id
+            subcategorias = SubCategorias.objects.filter(categoria_id=categoria_id).order_by('nombre')
+            if (rubro == Constantes.MEDICINA):
+                previsiones = TipoPrevision.objects.order_by('nombre')
+            else:
+                previsiones = {}
+            return render(request, 'especialistas_buscar_detalle.html', {'regiones': regiones,'miregion': Constantes.REGIONMETRO,'comunas': comunas,'micomuna': Constantes.COMUNASTGO,
+                                                            'categorias': categorias,'subcategorias': subcategorias,'previsiones': previsiones,'rubro': rubro,'nombreuser': ''})
+        except Exception as e:
+            return render(request, 'error.html', {'error_ph': ErroresPH.ERRORESPH[ErroresPH.ERROR_LECTURA][1]+ ' ('+ str(e)+')'} )
+    else:
+        return render(request, 'error.html', {'error_ph': ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]})
+    
+    

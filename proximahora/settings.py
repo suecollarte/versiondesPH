@@ -26,8 +26,11 @@ SECRET_KEY = 'django-insecure-v*^#@e5blohq=0(!)$7f&2umax7)lny67nt6ltgs2lxm8s2p1e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['34.176.119.93', 'localhost', '127.0.0.1', 'www.proximahora.cl','admin.proximahora.cl']
+ALLOWED_HOSTS = ['34.176.119.93', 'localhost', '127.0.0.1', 'www.proximahora.cl','www.proximahora.cl:8000','admin.proximahora.cl']
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 # Application definition
 
@@ -42,10 +45,7 @@ INSTALLED_APPS = [
     'tablas',
     'usuarios',
     'especialistas',
-    'appesp',
-    'applogin',
-    'appuser',
-    
+    'debug_toolbar',   
 ]
 
 MIDDLEWARE = [
@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'proximahora.urls'
@@ -76,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -153,3 +155,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+
+
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST = 'mail.vilco.cl'
+EMAIL_HOST_USER = 'aconlledo@vilco.cl'
+EMAIL_HOST_PASSWORD = 'Rocko.5862.'
+EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+

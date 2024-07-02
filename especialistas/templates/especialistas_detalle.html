@@ -1,4 +1,4 @@
-{% extends 'base_adm.html' %}
+{% extends 'home_adm_base.html' %}
 
 {% load static %}
 
@@ -6,8 +6,12 @@
 
 {% block content %}
 
-    <!-- Custom JS -->
-<script type="text/javascript" src="{% static 'js/especialistas/especialistas_det.js' %}"></script>  
+<!-- Custom CSS -->
+<link rel="stylesheet" type='text/css' href="{% static 'css/upload/fileinput.css' %}" />
+<link rel='stylesheet' type='text/css' href="{% static 'css/upload/theme.css' %}" />
+
+<!-- Custom JS -->
+<script type="text/javascript" src="{% static 'js/especialistas/especialistas_detalle.js' %}"></script>  
 <script type="text/javascript" src="{% static 'js/upload/fileinput.min.js' %}"></script>  
 <script type="text/javascript" src="{% static 'js/upload/es.js' %}"></script>  
 <script type="text/javascript" src="{% static 'js/upload/fa5-theme.min.js' %}"></script>  
@@ -175,7 +179,7 @@
                                             <span class="input-group-text"><i class="fa fa-bars"></i></span>
                                         </div>
                                         <div id="divcategorias" name="divcategorias">
-                                            {% include 'varios/categorias_ajax_select.html' %}
+                                            {% include 'varios/categorias_ajax_select_adm.html' %}
                                         </div> 
                                     </div>
                                 </div>
@@ -188,7 +192,7 @@
                                             <span class="input-group-text"><i class="fa fa-bars"></i></span>
                                         </div>
                                         <div id="divsubcategorias" name="divsubcategorias">
-                                            {% include 'varios/subcategorias_ajax_select.html' %}
+                                            {% include 'varios/subcategorias_ajax_select_adm.html' %}
                                         </div> 
                                     </div>
                                 </div>
@@ -304,7 +308,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <div class="file-loading">
-                            <input id="mifoto" name="foto" type="file" accept="image/*">
+                            <input id="mifoto" name="mifoto" type="file" accept="image/*">
                         </div>    
                     </div>
                 </div>

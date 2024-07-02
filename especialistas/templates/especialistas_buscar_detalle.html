@@ -1,0 +1,524 @@
+{% extends 'home_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Custom JS -->
+<script type="text/javascript" src="{% static 'js/especialistas/especialistas_buscar_detalle.js' %}"></script>  
+
+<div class="container container-md container-fluid">
+  <div class="cajas">
+    <!-- miga de pan -->
+    <div class="migapan">
+      <ul class="breadcrumb">
+        <li><a href="/home">Inicio</a></li>
+        <li><a href="/especialista/buscaespe">Buscar Especialista</a></li>
+        <li>Selecciona tu hora</li>
+      </ul>
+    </div>
+    <h1 class="text-center">Busca tu Especialista</h1>
+  </div>
+  <div class="cajas">
+    <div class="container-fluid container-md">
+      <form>
+        <div class="mb-3 d-block p-2">
+          <input type="text" id="nomespecialista" style=" width: 100%;" class="icon input2" value="" placeholder="Ingresa Nombre Especialista">
+        </div>
+        <label class="text-muted mb-2" for="categoria">Selecciona Especialidad</label>
+        
+        <div id="divcategoria" name="divcategoria">
+          {% include 'varios/categorias_ajax_select_user.html' %}
+        </div>
+        <div id="divsubcategoriastit" name="divsubcategoriastit">
+          <label class="text-muted mb-2" for="subcategoria">Seleccciona SubEspecialidad</label>
+          <div id="divsubcategorias" name="divsubcategorias">
+            {% include 'varios/subcategorias_ajax_select_user.html' %}
+          </div>
+        </div>
+        {% if rubro == 1 %} 
+          <div class="mb-3 d-block">
+            <label class="text-muted mb-2" for="tipoprevision">Su Previsión</label>
+
+            <div id="divtipoprevision" name="divtipoprevision">
+              {% include 'varios/tipoprevision_ajax_select.html' %}
+            </div>
+
+          </div>
+        {% endif %}
+
+        <label class="text-muted mb-2" for="region">Región</label>
+
+        <div id="divregion" name="divregion">
+          {% include 'regiones/regiones_ajax_select_user.html' %}
+        </div>  
+
+        <label class="text-muted mb-2" for="comuna">Comuna</label>
+
+        <div id="divcomunas" name="divcomunas">
+          {% include 'comunas/comunas_ajax_select_user.html' %}
+        </div>
+
+      </form>
+    </div>
+  </div>
+  <div class="container-md fechas">
+
+    <h3 class="text-center">Selecciona una hora</h3>
+    <!-- for de dias disponibles -->
+    <div id="horasdisponible" class="carousel slide">
+      <div class="carousel-inner" style=" height: 100px;">
+        <div class="carousel-item active">
+          <!-- generar con for listado de 7 dias posibles -->
+          <div class="row">
+            <div class="col"><button class="btn btn-warning" type="submit">
+                <p>Lunes</p>13/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Martes</p>14/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Miercoles</p>15/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Jueves</p>16/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Viernes</p>17/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Sabado</p>18/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Lunes</p>20/11
+              </button></div>
+          </div>
+          <!-- generar con for listado de dias posibles -->
+        </div>
+        <div class="carousel-item">
+          <!-- generar con for listado de 7 dias posibles -->
+          <div class="row">
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Lunes</p>13/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Martes</p>14/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Miercoles</p>15/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Jueves</p>16/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Viernes</p>17/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Sabado</p>18/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Lunes</p>20/11
+              </button></div>
+          </div>
+          <!-- generar con for listado de dias posibles -->
+        </div>
+        <div class="carousel-item">
+          <!-- generar con for listado de 7 dias posibles -->
+          <div class="row">
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Lunes</p>13/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Martes</p>14/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Miercoles</p>15/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Jueves</p>16/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Viernes</p>17/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Sabado</p>18/11
+              </button></div>
+            <div class="col"><button class="btn btn-info" type="submit">
+                <p>Lunes</p>20/11
+              </button></div>
+          </div>
+          <!-- generar con for listado de dias posibles -->
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#horasdisponible" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#horasdisponible" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+
+
+  <div class="cajas p-4">
+
+    <!-- generar para ese dia seleccionado las opciones -->
+    <!-- primera fila  -->
+    <div class="row ">
+      <!-- primer registro  -->
+      <div class="col cajas">
+        <div class="row">
+          <div class="col"> <img src="/media/fotostest/rut1.png"></div>  <!-- foto del especialista -->
+          <div class="col">
+            <h4>Rodrigo Santa Maria</h4>  <!-- nombre del especialista  -->
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#HoraModal">
+                  13:00</button>
+                <button class="btn btn-light" type="submit"> 15:30</button> <!-- horas disponibles  -->
+                <button class="btn btn-light" type="submit"> 17:30</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img src="{% static 'img/estrella5.svg'%}"> 
+              </div>
+            </div>
+            <div class="row">
+              <div class="col"> <!-- descripcion del especialista  -->
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary" type="submit"> Ver más</button> <!-- mas info del especialista  -->
+              </div>
+              <div class="col">
+                <button class="btn btn-info" type="submit"> Ver agenda</button> <!-- ver agenda del especialista  -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- segundo  registro  -->
+      <div class="col cajas">
+        <div class="row">
+          <div class="col"> <img src="/media/fotostest/rut8.png"></div>
+          <div class="col">
+            <h4>Amalia FIgueroa</h4>
+            <div class="row">
+              <div class="col"><button class="btn btn-warning" type="submit"> 13:00</button>
+                <button class="btn btn-light" type="submit"> 15:30</button>
+                <button class="btn btn-light" type="submit"> 17:30</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img src="{% static 'img/estrella5.svg'%}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary" type="submit"> Ver más</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-info" type="submit"> Ver agenda</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- 2da fila  -->
+    <div class="row">
+      <div class="col cajas"> <!-- tercer registro  -->
+        <div class="row">
+          <div class="col"> <img src="/media/fotostest/rut7.png"></div>
+          <div class="col">
+            <h4>Rosa Cardenas</h4>
+            <div class="row">
+              <div class="col"><button class="btn btn-warning" type="button" data-bs-toggle="modal"
+                  data-bs-target="#HoraModal">
+                  13:00</button>
+                <button class="btn btn-light" type="submit"> 15:30</button>
+                <button class="btn btn-light" type="submit"> 17:30</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img src="{% static 'img/estrella5.svg'%}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary" type="submit"> Ver más</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-info" type="submit"> Ver agenda</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col cajas">
+        <div class="row">
+          <div class="col"> <img src="/media/fotostest/rut2.png"></div>
+          <div class="col">
+            <h4>Rodrigo Santa Maria</h4>
+            <div class="row">
+              <div class="col"><button class="btn btn-warning" type="submit"> 13:00</button>
+                <button class="btn btn-light" type="submit"> 15:30</button>
+                <button class="btn btn-light" type="submit"> 17:30</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img src="{% static 'img/estrella5.svg'%}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary" type="submit"> Ver más</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-info" type="submit"> Ver agenda</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col cajas">
+        <div class="row">
+          <div class="col"> <img src="/media/fotostest/rut3.png"></div>
+          <div class="col">
+            <h4>Rodrigo Santa Maria</h4>
+            <div class="row">
+              <div class="col"><button class="btn btn-warning" type="submit"> 13:00</button>
+                <button class="btn btn-light" type="submit"> 15:30</button>
+                <button class="btn btn-light" type="submit"> 17:30</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img src="{% static 'img/estrella5.svg'%}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary" type="submit"> Ver más</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-info" type="submit"> Ver agenda</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col cajas">
+        <div class="row">
+          <div class="col"> <img src="/media/fotostest/rut4.png"></div>
+          <div class="col">
+            <h4>Rodrigo Santa Maria</h4>
+            <div class="row">
+              <div class="col"><button class="btn btn-warning" type="submit"> 13:00</button>
+                <button class="btn btn-light" type="submit"> 15:30</button>
+                <button class="btn btn-light" type="submit"> 17:30</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img src="{% static 'img/estrella5.svg'%}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary" type="submit"> Ver más</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-info" type="submit"> Ver agenda</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col cajas">
+        <div class="row"> <!-- primer registro -->
+          <div class="col"> <img src="/media/fotostest/rut5.png"></div>
+          <div class="col">
+            <h4>Rodrigo Santa Maria</h4>
+            <div class="row">
+              <div class="col"><button class="btn btn-warning" type="submit"> 13:00</button>
+                <button class="btn btn-light" type="submit"> 15:30</button>
+                <button class="btn btn-light" type="submit"> 17:30</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img src="{% static 'img/estrella5.svg'%}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary" type="submit"> Ver más</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-info" type="submit"> Ver agenda</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col cajas">
+        <div class="row">
+          <div class="col"> <img src="/media/fotostest/rut6.png"></div>
+          <div class="col">
+            <h4>Rodrigo Santa Maria</h4>
+            <div class="row">
+              <div class="col"><button class="btn btn-warning" type="submit"> 13:00</button>
+                <button class="btn btn-light" type="submit"> 15:30</button>
+                <button class="btn btn-light" type="submit"> 17:30</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img src="{% static '/img/estrella5.svg'%}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-primary" type="submit"> Ver más</button>
+              </div>
+              <div class="col">
+                <button class="btn btn-info" type="submit"> Ver agenda</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+</div>
+
+<!-- Modal -->
+<div class="modal modallogin fade" id="HoraModal" tabindex="-1" aria-labelledby="ModalHora" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <div style="max-width: 100%;">
+          <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;"><button type="button" class="btn-close float-end"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+                  <div class="row g-0">
+                    <div class="col-md-12 d-flex align-items-center">
+                      <div class="card-body p-4 p-lg-5 text-black myform">
+                        <form>
+                          <div class="d-flex align-items-center mb-3 pb-1">
+                            <span class="h1 fw-bold mb-0"><img src="{% static 'img/ok.png' %}"></span>
+                          </div>
+
+                          <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">¡Cita Agendada! Revise su correo
+                            enviado a xxx@xxx.com</h5>
+                          <p> En unos minutos se le enviará un correo como comprobante de su agendamiento. Puede guardar
+                            una imagen de esta ventana como respaldo de su cita. En caso de que el correo demore en
+                            llegar, revise su bandeja de Correo no Deseado (SPAM).</p>
+
+                          <div class="row">
+                            <div class="col"> <img src="{% static 'fotosespe/espe1.png'%}"></div>
+                            <div class="col">
+                              <h4>Especialista: <input type="text" read-only name="especialista" id=""
+                                  value="Rodrigo Valenzuela"> </h4><br>
+
+
+                              Fecha Hora:<input type="text" read-only name="fechah" id="fechah" value="13/11/2024"> <br>
+                              Dirección Consulta:<input type="text" read-only name="direccion" id="direccion"
+                                value="San Francisco 2345, Santiago, Santiago"> <br>
+                              Modalidad Atencion:<input type="text" read-only name="modalidad" id="modalidad"
+                                value="Presencial"> <br>
+                              Prevision(si es salud):<input type="text" read-only name="prevision" id="prevision"
+                                value="Fonasa"> <br>
+
+
+                              <div class="pt-1 mb-4">
+                                <button data-mdb-button-init data-mdb-ripple-init class="btn boton btn-danger btn-block"
+                                  type="button">Anular Cita</button>
+                              </div>
+
+                        </form>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

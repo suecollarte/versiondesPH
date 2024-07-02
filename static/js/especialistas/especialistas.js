@@ -53,7 +53,7 @@ $(document).ready(function(){
 	$('#rut').blur(function(){
 		if (validarRUT()) {
 			$('#rut').val(allTrim($('#rut').val()));
-			$('#username').val(rut_a_username($('#rut').val()));
+			$('#username').val(rut_sin_formato($('#rut').val()));
 			if (ACCION == AGREGAR_REG) {
 				VerSiExisteRut();
 				}
@@ -268,7 +268,7 @@ function EnviaPeticionAjax(accion,id){
 //
 function Cargar_Persona() {
 
-	$('#username').val(rut_a_username($('#rut').val()));
+	$('#username').val(rut_sin_formato($('#rut').val()));
 
 	$.ajax({
 		async: false,
@@ -493,7 +493,7 @@ function VerUnEspecialista(id) {
 //	$("#rubro").unbind("change");
 //	$("#categoria").unbind("change");
 	$('#rut').val($('#rut'+id).val());
-	$('#username').val(rut_a_username($('#rut').val()));
+	$('#username').val(rut_sin_formato($('#rut').val()));
 
 	$.ajax({
 		url: "/especialistas/especialistas_verespecialista/",

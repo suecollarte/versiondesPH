@@ -62,11 +62,11 @@ $(document).ready(function(){
 
 	$('input').addClass("ui-corner-all");
 	
-	try{
+/*	
 		$(".fechainput").datepicker({
 			showOn: 'button',
-			buttonImageOnly: true,
-			buttonImage: "/static/imagenes/icon_calendar.png",
+//			buttonImageOnly: true,
+//			buttonImage: "/static/imagenes/icon_calendar.png",
 			numberOfMonths: 1,
 			dateFormat: "dd-mm-yy",
 			changeMonth: true,
@@ -79,10 +79,7 @@ $(document).ready(function(){
 			dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
 			monthNamesShort: [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ] 
 			});
-		} catch (e) {
-			alert(e);
-	};
-
+*/	
 	$(".uppcase").blur(function(){
 		if ($('#chk_upper').length) {
 			if ($("#chk_upper").is(':checked'))
@@ -295,8 +292,11 @@ function number_puntoxcoma(par) {
 	var	tmp = String(par);
 	return tmp.replace(/[.]/g,',');
 	}
-	
 
+function formatNumber(num,dec=0) {
+	return num.toLocaleString('es-CL', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+	}
+	
 function textvalida(e,obj) {
 	tecla = (document.all) ? e.keyCode : e.which;
 	if (tecla != 13) 
@@ -383,7 +383,7 @@ function validarRUT(rut,sndmsg=true) {
 //
 // Elimina ".""  y " -"" del RUT formateado para campo usuario
 //
-function rut_a_username(rut) {
+function rut_sin_formato(rut) {
 	var tmpstr = "";
 	var crut = allTrim(rut);
 
@@ -454,7 +454,7 @@ function enviarmostrarMensaje(mensaje) {
 	
 function confirmarMensaje(texto,callback1,par1,par2) {
 	var msg1  = "<div id='msg' title='Mensaje del Sistema'><span style='float: left; margin: 0 7px 50px 0;'><p class='tit10lb'>"+
-				"<button class='btn btn-sm btn-danger'><i class='fa-solid fa-circle-question'></i></button>"+
+				"<button class='btn btn-sm btn-warning'><i class='fa-solid fa-circle-question'></i></button>"+
 			    "&nbsp&nbsp&nbspA T E N C I O N:</p><p>"+texto+"</p> Esta Ud. Seguro?</span></div>";
 	enviarconfirmarMensaje(msg1,callback1,par1,par2);
 	}
@@ -537,4 +537,52 @@ function sumaFecha(d, fecha) {
 	var fechaFinal = dia+sep+mes+sep+anno;
  	return (fechaFinal);
  	}
- 
+
+function efectoTemblor(paramdiv) {
+	const $div = paramdiv;
+	const interval = 80;  // Duración de cada movimiento (en milisegundos)
+	const distance = 10;   // Distancia que se mueve el div
+	const times = 4;       // Número de veces que se mueve el div (izquierda y derecha)
+
+	for (let i = 0; i < times; i++) {
+		$div.animate({ left: -distance }, interval)
+			.animate({ left: distance }, interval);
+		}
+	$div.animate({ left: 0 }, interval);  // Devolver el div a su posición original
+	}
+	
+function checkStrength(password) {
+	var strength = 0
+	if (password.length < 6) {
+		$('#strengthMessage').removeClass();
+		$('#strengthMessage').addClass('Short');
+		return 'Muy Corto';
+		}
+	if (password.length > 7) ;;
+	// If it has numbers and characters, increase strength value.
+	if (password.match(/([a-zA-Z])/) && password.match(/([0-9])/)) 
+		strength += 1;
+	// If it has one special character, increase strength value.
+	if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) 
+		strength += 1;
+	// If it has two special characters, increase strength value.
+	if (password.match(/(.*[!,%,&,@,#,$,^,*,?,_,~].*[!,%,&,@,#,$,^,*,?,_,~])/)) 
+		strength += 1;
+	// Calculated strength value, we can return messages
+	// If value is less than 2
+	if (strength < 2) {
+		$('#strengthMessage').removeClass();
+		$('#strengthMessage').addClass('Weak');
+		return 'Debil';
+		} 
+	else if (strength == 2) {
+		$('#strengthMessage').removeClass();
+		$('#strengthMessage').addClass('Good');
+		return 'Bueno';
+		} 
+	else {
+		$('#strengthMessage').removeClass();
+		$('#strengthMessage').addClass('Strong');
+		return 'Fuerte';
+		}
+	} 

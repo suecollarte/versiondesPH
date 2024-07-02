@@ -16,6 +16,17 @@ $(document).ready(function(){
 		var f104 = new LiveValidation('rut');
 		f104.add(Validate.Presence);
 		} catch (e) {};
+
+	$('#fnacimiento').datepicker({
+//		calendarWeeks: true,
+		locale: 'es-es', 
+		size: 'small',
+		format: 'dd-mm-yyyy',
+		iconsLibrary: 'fontawesome',
+		uiLibrary: 'bootstrap5',
+		keyboardNavigation: true,
+		showOtherMonths: true,
+		});
 //
 // Dialogo para Modificar Registro.
 //	
@@ -75,6 +86,10 @@ $(document).ready(function(){
 			$("#txtConfirmPassword").val('');
 			}
 	});	
+
+    $('#txtPassword').keyup(function () {
+        $('#strengthMessage').html(checkStrength($('#txtPassword').val()));
+	    })
 //
 // Validacion de RUT.
 //	
@@ -83,7 +98,7 @@ $(document).ready(function(){
 	$('#rut').blur(function(){
 		if (validarRUT('rut')) {
 			$('#rut').val(allTrim($('#rut').val()));
-			$('#username').val(rut_a_username($('#rut').val()));
+			$('#username').val(rut_sin_formato($('#rut').val()));
 			if (ACCION == AGREGAR_REG) {
 				VerSiExisteRut();
 				}
@@ -108,12 +123,35 @@ $(document).ready(function(){
 	CampoDisabled("estado");	
 	CampoDisabled("perfil");
 
-
 });
 //
 // ********************************
 //          Funciones
 // ********************************
+//
+// Valida Password nueva
+//
+function PasswordValida() { 
+	var txtaux1 = allTrim($('#txtPassword').val());
+	if (txtaux1 == "") 	{
+		mostrarMensaje("Debe indicar Password",MSG_STOP);
+		return false;
+		}	
+	var txtaux2 = allTrim($('#txtConfirmPassword').val());
+	if (txtaux2 == "") 	{
+		mostrarMensaje("Debe Confirmar Password",MSG_STOP);
+		return false;
+		}
+	if (txtaux1 != txtaux2) {
+		mostrarMensaje("Password no Coinciden",MSG_STOP);
+		return false;
+		}
+	if (txtaux1.length < 8) {
+		mostrarMensaje("Password debe tener al menos 8 caracteres",MSG_STOP);
+		return false;
+		}
+	return true;
+	};
 //
 // Valida Campos
 //
@@ -326,9 +364,9 @@ function VerUnaPersona() {
 	$("#region").unbind("change");
 
 	$.ajax({
-		url: "/usuarios/personas_verpersona/",
 		type: 'GET',
 		dataType: 'json',
+		url: "/usuarios/personas_verpersona/",
 		data: {username: $('#username').val()},
 		success: function( data ) {
 			$.each(data, function(index, element) {
@@ -376,10 +414,10 @@ function Cargar_Comunas() {
 		}
 //	alert("En Cargar_Comunas Region="+region+" Comuna="+comuna)
 	$.ajax({
-		url: "/tablas/selectcomunas",
-		data: {region: region, comuna: comuna},
 		type: 'GET',
 		dataType: 'html',
+		url: "/tablas/selectcomunas",
+		data: {region: region, comuna: comuna},
 		success: function(response) {
 			$('#divcomunas').html(response);
 			$('#comuna option:first').prop('selected', true);
@@ -414,10 +452,10 @@ function Cargar_Ciudades() {
 		}
 //	alert("En Cargar_Ciudades Region="+region+" Ciudad="+ciudad)
 	$.ajax({
-		url: "/tablas/selectciudades",
-		data: {region: region, ciudad: ciudad},
 		type: 'GET',
 		dataType: 'html',
+		url: "/tablas/selectciudades",
+		data: {region: region, ciudad: ciudad},
 		success: function(response) {
 			$('#divciudades').html(response);
 			$('#ciudad option:first').prop('selected', true);
@@ -458,6 +496,7 @@ function CambiarEstadoPersona(id,estado){
 		$.ajax({
 			type: "POST",
 			url: "/usuarios/personas_cambiarestado/",
+			dataType: 'html',			
 			data: {id: id, estado: estado, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
 			success: function( response ) {
 				if (response != ""){
@@ -514,13 +553,14 @@ function EnviarPassword(id){
 	try {
 		$.ajax({
 			type: "POST",
+			dataType: 'json',
 			url: "/usuarios/personas_password/",
 			data: {id: id, password: allTrim($('#txtPassword').val()), csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
 			success: function( response ) {
-				if (response == "OK")
-					mostrarMensaje("Cambio realizado con exito",MSG_SUCCESS);
+				if (response.status == 200)
+					mostrarMensaje(response.message,MSG_SUCCESS);
 				else
-					mostrarMensaje(response+"<br />Cambio NO realizado",MSG_WARNING);
+					mostrarMensaje(response.message+"<br />Cambio NO realizado",MSG_WARNING);
 				}
 			});
 	} catch (error) {
@@ -536,12 +576,13 @@ function VerSiExisteRut(){
 	try {
 		$.ajax({
 			type: "POST",
+			dataType: 'json',
 			url: "/usuarios/personas_verificarut/",
 			data: {rut: rut, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
-			success: function( id ) {
-				if (id != "0") {
+			success: function( response ) {
+				if (response.status == 200) {
 					$('#username').val('');
-					mostrarMensaje("R.U.T. Ya se encuentra Ingresado como Usuario",MSG_STOP);
+					mostrarMensaje(response.message,MSG_STOP);
 					}
 				}
 			});
@@ -565,20 +606,7 @@ function Crear_DataTable() {
 			{ searchable: false, targets: [6] }
             ]
         });
-/*		
 
-	$('#tablaregs').DataTable({
-        language: {url: '/static/jquery/datatables.es-CL.json'},
-		pagingType: 'full_numbers',
-		bJQueryUI: 'true',
-		iDisplayLength: '25',
-		order: [[1, 'asc']],
-		columnDefs: [
-			{ orderable: false, targets: [0,6] },
-			{ searchable: false, targets: [6] }
-			]
-		});
-*/
 	$(".tip").tooltip();
 
 	};

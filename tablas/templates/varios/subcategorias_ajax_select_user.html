@@ -1,0 +1,11 @@
+
+<select required="required" class="form-select w-auto" name="subcategoria" id="subcategoria">
+    <option value="0">Seleccione SubEspecialidad</option>
+    {% for subcategoria in subcategorias %}    
+        {% if subcategoria.id == misubcategoria %} 
+            <option value="{{subcategoria.id}}" selected >{{subcategoria.nombre}}</option>
+        {% else %}
+            <option value="{{subcategoria.id}}">{{subcategoria.nombre}}</option>
+        {% endif %}
+    {% endfor %}
+</select>

@@ -22,14 +22,15 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('__debug__/', include('debug_toolbar.urls')),
     path('', views.home),
-    path('home', views.home),
+    path('home', views.home, name='home'),
     path('administrador/', views.administrador),
-    path('about/', views.about),
-    path('ayuda/', views.ayuda),
+    path('about/', views.about, name='about'),
+    path('ayuda/', views.ayuda, name='ayuda'),
+    path('test/', views.test, name='test'),     
     path('tablas/', include ('tablas.urls')),
     path('usuarios/', include ('usuarios.urls')),
     path('especialistas/', include ('especialistas.urls')),
-    path('applogin/', include ('applogin.urls')),
         
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

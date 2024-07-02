@@ -1,5 +1,77 @@
 /* system.css Copyright (c) 2024 proximahora  */
 
+/* Check Password */
+
+.Short {
+  width: 100%;
+  background-color: #dc3545;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  height: 3px;
+  color: #dc3545;
+  font-weight: 500;
+  font-size: 12px;
+}
+.Weak {
+  width: 100%;
+  background-color: #ffc107;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  height: 3px;
+  color: #ffc107;
+  font-weight: 500;
+  font-size: 12px;
+}
+.Good {
+  width: 100%;
+  background-color: #28a745;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  height: 3px;
+  color: #28a745;
+  font-weight: 500;
+  font-size: 12px;
+}
+.Strong {
+  width: 100%;
+  background-color: #d39e00;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  height: 3px;
+  color: #d39e00;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.link-chk span {
+  display: inline-flex;
+  align-items: center;
+}
+.link-chk input[type="checkbox"] {
+  margin-right: 5px; /* Espacio entre el checkbox y el texto */
+}
+
+/* Imagen Espera */ 
+
+.loader-msg-wait {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+  
 .foto-especialista {
   width: 50px;
   height: 50px;

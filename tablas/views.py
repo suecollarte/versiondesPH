@@ -9,7 +9,7 @@
     accion=1 Crea registro
     accion=2 modifica registro """
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -80,13 +80,17 @@ def selectciudades(request):
     if (request.method == 'GET'):
         region = request.GET.get('region')
         ciudad = request.GET.get('ciudad')
+        estilo = request.POST.get('estilo')
         if (region == 0):
             ciudades = Ciudades.objects.order_by('nombre')
         else:        
             ciudades = Ciudades.objects.filter(region_id=region).order_by('nombre')
-        return render(request,'ciudades/ciudades_ajax_select.html', {'ciudades': ciudades, 'miciudad': ciudad})
+        if (estilo is None):
+            return render(request,'ciudades/ciudades_ajax_select_adm.html', {'ciudades': ciudades, 'miciudad': ciudad})
+        else:
+            return render(request,'ciudades/ciudades_ajax_select_user.html', {'ciudades': ciudades, 'miciudad': ciudad})
     else:
-        return HttpResponse('Petición inválida') 
+        return render(request, 'error.html', {'error_ph': ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]})
      
         
 # @login_required(login_url='/users/userlogin')
@@ -112,8 +116,7 @@ def comunas(request):
                 print('Accion= ' + accion + ' Error= '+str(e))
         else:
             try:
-                Comunas.objects.filter(id=id).update(
-                    nombre=nombre, region_id=region)
+                Comunas.objects.filter(id=id).update(nombre=nombre, region_id=region)
             except Exception as e:
                 print('Accion= ' + accion + ' Error= '+str(e))
         return render(request, 'comunas/comunas_ajax_list.html', {'comunas': comunas})
@@ -123,13 +126,17 @@ def selectcomunas(request):
     if (request.method == 'GET'):
         region = request.GET.get('region')
         comuna = request.GET.get('comuna')
+        estilo = request.POST.get('estilo')
         if (region == 0):
             comunas = Comunas.objects.order_by('nombre')
         else:        
             comunas = Comunas.objects.filter(region_id=region).order_by('nombre')
-        return render(request,'comunas/comunas_ajax_select.html', {'comunas': comunas, 'micomuna': comuna})
+        if ((estilo is None) or (estilo == 0)):
+            return render(request,'comunas/comunas_ajax_select_adm.html', {'comunas': comunas, 'micomuna': comuna})
+        else:
+            return render(request,'comunas/comunas_ajax_select_user.html', {'comunas': comunas, 'micomuna': comuna})
     else:
-        return HttpResponse('Petición inválida') 
+        return render(request, 'error.html', {'error_ph': ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]})
 
 
 # @login_required(login_url='/users/userlogin')
@@ -164,11 +171,16 @@ def categorias(request):
     
 def selectcategorias(request):
     if (request.method == 'POST'):
-        rubro = request.POST.get('rubro')       
-        categorias = Categorias.objects.filter(rubro_id=rubro).order_by('nombre')
-        return render(request,'varios/categorias_ajax_select.html', {'categorias': categorias})
+        rubro = request.POST.get('rubro')  
+        estilo = request.POST.get('estilo')
     else:
-        return HttpResponse('Petición inválida') 
+        rubro = request.POST.get('rubro') 
+        estilo = request.GET.get('estilo')                  
+    categorias = Categorias.objects.filter(rubro_id=rubro).order_by('nombre')
+    if ((estilo is None) or (estilo == 0)):
+        return render(request,'varios/categorias_ajax_select_adm.html', {'categorias': categorias})
+    else:
+       return render(request,'varios/categorias_ajax_select_user.html', {'categorias': categorias})
     
     
 # @login_required(login_url='/users/userlogin')
@@ -209,11 +221,15 @@ def subcategorias(request):
 def selectsubcategorias(request):
     if (request.method == 'POST'):
         categoria = request.POST.get('categoria')
-        subcategorias = SubCategorias.objects.filter(categoria_id=categoria).order_by('nombre')
-
-        return render(request,'varios/subcategorias_ajax_select.html', {'subcategorias': subcategorias})
+        estilo = request.POST.get('estilo')
     else:
-        return HttpResponse('Petición inválida') 
+        categoria = request.GET.get('categoria')
+        estilo = request.GET.get('estilo')
+    subcategorias = SubCategorias.objects.filter(categoria_id=categoria).order_by('nombre')
+    if ((estilo is None) or (estilo == 0)):
+        return render(request,'varios/subcategorias_ajax_select_adm.html', {'subcategorias': subcategorias})
+    else:
+        return render(request,'varios/subcategorias_ajax_select_user.html', {'subcategorias': subcategorias})
     
     
 # @login_required(login_url='/users/userlogin')
@@ -415,4 +431,25 @@ def planes(request):
                 print('Accion= ' + accion + ' Error= '+str(e))
         return render(request, 'varios/planes_ajax_list.html', {'planes': planes})   
     
+def planes_detalles(request):
+    
+    if (request.method == 'GET'):
+        context = {}
+        id = request.GET.get('plan')
+        try:
+            plan = Planes.objects.get(id=id)
+            meses = PeriodicidadPlanes.MESES_PLANES[int(plan.periodicidad)][1]
+            finicio = fecha_de_hoy()
+            ftermino = add_months_to_date(str(finicio),meses)
+            context['status'] = 'OK'
+            context['plan'] = plan.nombre
+            context['finicio'] =  fecha_sql_to_str(fecha_de_hoy())
+            context['ftermino'] =   fecha_sql_to_str(str(ftermino) )
+            context['valor'] = plan.valor
+        except:
+            context['status'] = 'KO'
+            context['plan'] = ErroresPH.ERRORESPH[ErroresPH.ERROR_DATONOEXISTE][1]+' ('+str(id)+')'
+        return JsonResponse(context, status = 200)
+    else:
+        return render(request, 'error.html', {'error_ph': ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]})
     

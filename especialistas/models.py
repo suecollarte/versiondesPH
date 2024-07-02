@@ -4,7 +4,8 @@
 from django.db import models
 from tablas.models import *
 from usuarios.models import UsuariosEspecialistas, UsuariosPersonas
-from proximahora.funciones import uploaddocu_location
+from proximahora.funciones import uploadpago_location, uploaddocu_location
+import os
 
 class EstadosConsultas:
     TERMINADA = '0'
@@ -103,35 +104,15 @@ class EspecialistasContratos(models.Model):
         ordering = ['rut_replegal','nombre_replegal','direccion','fono','estado','finicio','ftermino','valor',
                     'region','comuna','ciudad','especialista','promocion','plan']  
         
-        
-class EspecialistasPlanesSuscripcion(models.Model):
-    '''
-    (16) Tabla con planes comerciales de la plataforma para los especialistas.
-    '''
-    TERMINADO = '0'
-    VIGENTE = '1' 
-    ESTADOS_CHOICES = [
-        (TERMINADO, 'Terminado'),
-        (VIGENTE, 'Vigente'),
-        ]
-    fdesde = models.DateField()    
-    fhasta = models.DateField()
-    nombre = models.CharField(max_length=45)
-    estado = models.CharField(max_length=1,choices=ESTADOS_CHOICES)
-    periodicidad = models.PositiveIntegerField()
-    valor = models.DecimalField(max_digits=10, decimal_places=2)
-         
-    class Meta:
-        db_table = "especialistas_planessuscripcion"    
-        ordering = ['fdesde','fhasta','nombre','estado','periodicidad','valor']
-
 
 class EstadosPagos:
-    PENDIENTE = '0'
-    PAGADO = '1'
+    RECHAZADO = '0'
+    PORCONFIRMAR = '1'
+    CONFIRMADO = '2'
     ESTADOS_PAGOS = [
-        (PENDIENTE, 'Atrasado'),
-        (PAGADO, 'Al Dia'),
+        (RECHAZADO, 'Rechazado'),
+        (PORCONFIRMAR, 'Por Confirmar'),
+        (CONFIRMADO, 'Confirmado'),
     ]
           
 class EspecialistasPagos(models.Model):
@@ -140,17 +121,25 @@ class EspecialistasPagos(models.Model):
     '''
     fdesde = models.DateField()   
     fhasta = models.DateField()
-    fpago = models.DateField()
-    estado = models.CharField(max_length=1,choices=EstadosPagos.ESTADOS_PAGOS,default=EstadosPagos.PENDIENTE)   
+    fpago = models.DateField(auto_now=True)
+    uname = models.CharField(max_length=45, null=True, blank=True)
+    estado = models.CharField(max_length=1,choices=EstadosPagos.ESTADOS_PAGOS,default=EstadosPagos.PORCONFIRMAR)   
     monto = models.DecimalField(max_digits=10, decimal_places=2,blank=True,null=True)
-    numero_dcto = models.CharField(max_length=120)
+    numero_dcto = models.CharField(max_length=45, null=True, blank=True)
+    documento = models.FileField(upload_to=uploadpago_location, null=True, blank=True)
     formapago = models.ForeignKey(FormaPagoGral,on_delete=models.SET_NULL,blank=True,null=True, related_name='pagos_fpago')
     contrato = models.ForeignKey(EspecialistasContratos,on_delete=models.SET_NULL,blank=True,null=True, related_name='pagos_contrato')
-    especialista = models.ForeignKey(UsuariosEspecialistas,on_delete=models.CASCADE, related_name='pagos_especialista')      
+    especialista = models.ForeignKey(UsuariosEspecialistas,on_delete=models.CASCADE,blank=True,null=True, related_name='pagos_especialista')      
              
     class Meta:
         db_table = "especialistas_pagos"       
-        ordering = ['fdesde','fhasta','fpago','estado','monto','numero_dcto','formapago','contrato','especialista']    
+#        ordering = ['fdesde','fhasta','fpago','estado','monto','numero_dcto','formapago','contrato','especialista','documento']    
+
+    def delete(self, *args, **kwargs):
+        if self.documento:
+            if os.path.isfile(self.documento.path):
+                os.remove(self.documento.path)
+        super(EspecialistasPagos, self).delete(*args, **kwargs)
         
 
 class EspecialistasRSaludPagos(models.Model):

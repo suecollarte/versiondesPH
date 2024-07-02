@@ -1,0 +1,154 @@
+{% extends 'home_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Custom JS -->
+<script type="text/javascript" src="{% static 'js/especialistas/especialistas_buscar.js' %}"></script>  
+
+<div class="container container-md ">
+  <div class="cajas">
+    <!-- miga de pan -->
+    <div class="migapan">
+      <ul class="breadcrumb">
+        <li><a href="/home">Inicio</a></li>
+        <li>Buscar Especialista</li>
+      </ul>
+      <h1>Busca tu especialista</h1>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mt-5">
+        <div id="stepper1" class="bs-stepper">
+          <div class="bs-stepper-header">
+            <div class="step" data-target="#test-l-1">
+              <button type="button" class="btn step-trigger">
+                <span class="bs-stepper-circle">1</span>
+                <span class="bs-stepper-label">Tipo Usuario</span>
+              </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#test-l-2">
+              <button type="button" class="btn step-trigger">
+                <span class="bs-stepper-circle">2</span>
+                <span class="bs-stepper-label">Seleccion</span>
+              </button>
+            </div>
+          </div>
+          <div class="bs-stepper-content">
+            <div id="test-l-1">
+              <div class="row">
+                <div class="col-md-3 mt-5">
+                  <img id="selectedAvatar" src="{% static '/img/User.svg' %}" class="rounded-circle"
+                    style="width: 200px; height: 200px; object-fit: cover;" alt="example placeholder" />
+                  <button class="btn  btn-info btn-block mb-3 d-block mt-5 ms-auto"
+                    onclick="location.href='http://127.0.0.1:8000/especialistas/buscaespeinvitado';">
+                    Continuar como invitado
+                  </button>
+                </div>
+                <div class="col-md-3 mt-5">
+                  <img id="selectedAvatar" src="{% static '/img/UserRegistrado.svg' %}" class="rounded-circle"
+                    style="width: 200px; height: 200px; object-fit: cover;" alt="example placeholder" />
+                  <button class="btn  btn-info btn-block mb-3 d-block mt-5 ms-auto"
+                    onclick="location.href='http://127.0.0.1:8000/';">
+                    Iniciar sesion
+                  </button>
+                </div>
+              </div>
+              <div class="row d-flex w-100  ">
+                <div class="col">
+                  <button class="btn align-items-center btn-warning btn-block mb-3 d-block mt-5 ms-auto" onclick="location.href='http://127.0.0.1:8000/';">
+                    Regresar inicio
+                  </button>
+                </div>
+                <div class="col"> 
+                  <button class="btn btn-dark btn-block mb-3 d-block mt-5 ms-auto" onclick="stepper1.next()">Continuar</button>
+                </div>
+              </div>
+            </div>
+            <div id="test-l-2" class="content">
+              <form id="buscarform" name="buscarform" method="POST" action="/especialistas/especialistas_buscar_detalle/">
+                {% csrf_token %}
+                <input type="hidden" name="rubro" id="rubro" value="{{rubro}}" />
+                <div class="row">
+                  <div class="col-sm-12 " style="text-align: center;"> 
+                    Por favor ingresa tu seleccion para buscar tu pr&oacute;xima hora
+                  </div>
+                </div>
+                <div class="mb-3 d-block" style="border-radius: 4px;box-sizing: border-box;">
+                  <label class="text-muted mb-2" for="categoria" style="text-overflow: ellipsis;transform-origin: left top;line-height: 1.4375em;">
+                    Selecciona Especialidad
+                  </label>
+                  <div id="divcategorias" name="divcategorias">
+                    {% include 'varios/categorias_ajax_select_user.html' %}
+                  </div>
+                </div>
+                <div id="divsubcategoriastit" name="divsubcategoriastit">
+                  <div class="mb-3 d-block p-2">
+                    <label class="text-muted mb-2" for="subcategoria">Seleccciona SubEspecialidad</label>
+                    <div id="divsubcategorias" name="divsubcategorias">
+                      {% include 'varios/subcategorias_ajax_select_user.html' %}
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3 d-block">
+                  <label class="text-muted mb-2">Selecciona Tipo de Atención</label>
+                  <div class="tipoatencion">
+                    <input type="checkbox" id="opcion1" class="bg-light" checked /> <label>Presencial</label><br>
+                    <input type="checkbox" id="opcion2" class="bg-light " /> <label>Online</label><br>
+                    <input type="checkbox" id="opcion3" class="bg-light " /> <label>Domicilio</label>
+                  </div>
+                </div>
+                <div class="mb-3 d-block">
+                  <label class="text-muted mb-2" for="region">Región</label>
+                  <div id="divregion" name="divregion">
+                    {% include 'regiones/regiones_ajax_select_user.html' %}
+                  </div>  
+                </div>
+                <div class="mb-3 d-block">
+                  <label class="text-muted mb-2" for="comuna">Comuna</label>
+                  <div id="divcomunas" name="divcomunas">
+                    {% include 'comunas/comunas_ajax_select_user.html' %}
+                  </div>
+                </div>
+                <!-- solo si es salud -->
+                {% if rubro == 1 %} 
+                  <div class="mb-3 d-block">
+                    <label class="text-muted mb-2" for="tipoprevision">Su Previsión</label>
+                    <div id="divtipoprevision" name="divtipoprevision">
+                      {% include 'varios/tipoprevision_ajax_select_user.html' %}
+                    </div>
+                  </div>
+                {% endif %}
+                <div class="row">
+                  <div class="col">
+                    <button class="btn btn-dark btn-block mb-3 d-block mt-5" onclick="stepper1.previous()">Regresar</button>
+                  </div>
+                  <div class="col"> 
+                    <input type="submit" value="Ir a Selección" class="btn btn-info btn-block mb-3 d-block mt-5" />
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script src="/static/js/bs-stepper.min.js"></script>
+
+    <script>
+      var stepper1Node = document.querySelector('#stepper1')
+      var stepper1 = new Stepper(document.querySelector('#stepper1'))
+
+      /* $(document).ready(function () {
+        var stepper = new Stepper($('.bs-stepper')[0])
+      })  */
+
+      stepper1Node.addEventListener('show.bs-stepper', function (event) {
+        console.warn('show.bs-stepper', event)
+      })
+
+    </script>
+
+    {% endblock %}

@@ -16,7 +16,10 @@ urlpatterns = [
     path('especialistas_cambiarestado/', views.especialistas_cambiarestado, name='especialistas_cambiarestado'),
     path('especialista_cargarfoto/', views.especialista_cargarfoto, name='especialista_cargarfoto'),    
     path('especialista_cargarimagen/', views.especialista_cargarimagen, name='especialista_cargarimagen'),    
-    path('especialista_cargardocumento/', views.especialista_cargardocumento, name='especialista_cargardocumento'),           
+    path('especialista_cargardocumento/', views.especialista_cargardocumento, name='especialista_cargardocumento'),    
+    path('especialistas_buscar/', views.especialistas_buscar, name='especialistas_buscar'),   
+    path('especialistas_buscar_detalle/', views.especialistas_buscar_detalle, name='especialistas_buscar_detalle'),   
+          
     ]
 
 if settings.DEBUG:

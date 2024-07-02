@@ -1,4 +1,4 @@
-{% extends 'base_adm.html' %}
+{% extends 'home_adm_base.html' %}
 
 {% load static %}
 
@@ -6,7 +6,13 @@
 
 {% block content %}
 
-    <!-- Custom JS -->
+<!-- datepicker -->
+<link rel='stylesheet' type='text/css' href="{% static 'gijgo/core/core.min.css' %}" />
+<link rel='stylesheet' type='text/css' href="{% static 'gijgo/datepicker/datepicker.min.css' %}" />
+<script type="text/javascript" src="{% static 'gijgo/core/core.min.js' %}"></script>  
+<script type="text/javascript" src="{% static 'gijgo/datepicker/datepicker.min.js' %}"></script>  
+
+<!-- Custom JS -->
 <script type="text/javascript" src="{% static 'js/usuarios/personas.js' %}"></script>  
 
 <div  class="container-xxl mt-4">
@@ -21,8 +27,8 @@
                         <td width="90%" class="titform20">Usuarios Proxima Hora</td>
                         <td width="10%" class="text8c">
                         <button class='btn btn-sm btn-primary tip' title='Agregar Usuario' onClick='AgregarRegistro()' >
-                                <i class='fa-solid fa-plus'></i>
-                            </button>                        
+                            <i class='fa-solid fa-plus'></i>
+                        </button>                        
                         </td>
                     </tr>
                 </table>
@@ -122,10 +128,7 @@
                             <div class="form-group">
                                 <label class="tit10lb">Fecha Nacimiento</label>
                                 <div class="input-group">
-                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                    </div>
-                                    <input type="text" name="fnacimiento" id="fnacimiento" placeholder="dd-mm-aaaa"  size="12" maxlength="10" class="form-control w-25 fechainput text8l" />
+                                    <input type="text" name="fnacimiento" id="fnacimiento" width="150" class="form-control w-25 text8l" />
                                 </div>
                             </div>
                         </div>
@@ -161,7 +164,7 @@
                                         <span class="input-group-text"><i class="fa fa-bars"></i></span>
                                     </div>
                                     <div id="divcomunas" name="divcomunas">
-                                        {% include 'comunas/comunas_ajax_select.html' %}
+                                        {% include 'comunas/comunas_ajax_select_adm.html' %}
                                     </div> 
                                 </div>
                             </div>
@@ -174,7 +177,7 @@
                                         <span class="input-group-text"><i class="fa fa-bars"></i></span>
                                     </div>
                                     <div id="divciudades" name="divciudades">
-                                        {% include 'ciudades/ciudades_ajax_select.html' %}
+                                        {% include 'ciudades/ciudades_ajax_select_adm.html' %}
                                     </div> 
                                 </div>
                             </div>
@@ -267,6 +270,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <br />
                                 <label class="tit10lb">Confirmar Password</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">

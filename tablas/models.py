@@ -174,13 +174,18 @@ class EstadosPlanes:
         ]
 
 class PeriodicidadPlanes:
-    TRIMESTRAL = '0'
-    SEMESTRAL = '1'
-    ANUAL = '2'
+    TRIMESTRAL = 0
+    SEMESTRAL = 1
+    ANUAL = 2
     PERIODICIDAD_PLANES = [
         (TRIMESTRAL, 'Trimestral'),
         (SEMESTRAL, 'Semestral'),
         (ANUAL, 'Anual'),
+        ]
+    MESES_PLANES = [
+        (TRIMESTRAL, 3),
+        (SEMESTRAL, 6),
+        (ANUAL, 12),
         ]
 
 class Planes(models.Model):

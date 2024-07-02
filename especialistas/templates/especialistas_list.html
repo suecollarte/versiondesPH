@@ -1,4 +1,4 @@
-{% extends 'base_adm.html' %}
+{% extends 'home_adm_base.html' %}
 
 {% load static %}
 
@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <!-- Custom JS -->
+<!-- Custom JS -->
 <script type="text/javascript" src="{% static 'js/especialistas/especialistas.js' %}"></script>  
 
 <div class="container-xxl mt-4">
@@ -163,7 +163,7 @@
                                         <span class="input-group-text"><i class="fa fa-bars"></i></span>
                                     </div>
                                     <div id="divcategorias" name="divcategorias">
-                                        {% include 'varios/categorias_ajax_select.html' %}
+                                        {% include 'varios/categorias_ajax_select_adm.html' %}
                                     </div> 
                                 </div>
                             </div>
@@ -176,7 +176,7 @@
                                         <span class="input-group-text"><i class="fa fa-bars"></i></span>
                                     </div>
                                     <div id="divsubcategorias" name="divsubcategorias">
-                                        {% include 'varios/subcategorias_ajax_select.html' %}
+                                        {% include 'varios/subcategorias_ajax_select_adm.html' %}
                                     </div> 
                                 </div>
                             </div>

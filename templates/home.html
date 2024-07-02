@@ -1,23 +1,26 @@
-{% extends 'base_home.html' %}
+{% extends 'home_base.html' %}
+
+
 {% load static %}
+
+{% block title %}Proxima Hora Inicio{% endblock %}
 
 {% block content %}
 
 <!-- Custom JS -->
-<script type="text/javascript" src="{% static 'js/applogin/dologin.js' %}"></script>  
+<script type="text/javascript" src="{% static 'js/usuarios/home.js' %}"></script>  
 
 <section class="p-4" name="reserva">
     <div class="row" style=" width: 90%;">
-        <!--  <div class="col-lg-0 col-md-12 col-sm-0 col-xs-12">
-    <div class="row "> -->
-
         <div class="col-lg-9 col-xs-12">
-
             <div id="carouselProxima" class="carousel slide mx-2" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselProxima" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
-                    <button type="button" data-bs-target="#carouselProxima" data-bs-slide-to="1" aria-label="Slide 2"  class=""></button>
-                    <button type="button" data-bs-target="#carouselProxima" data-bs-slide-to="2" aria-label="Slide 3"  class=""></button>
+                    <button type="button" data-bs-target="#carouselProxima" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true">
+                    </button>
+                    <button type="button" data-bs-target="#carouselProxima" data-bs-slide-to="1" aria-label="Slide 2" class="">
+                    </button>
+                    <button type="button" data-bs-target="#carouselProxima" data-bs-slide-to="2" aria-label="Slide 3" class="">
+                    </button>
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active ">
@@ -42,8 +45,7 @@
                                     <p class="texto-carousel">No importa donde estes tendras la agenda clara con nosotros.</p>
                                 </div>
                             </div>
-                            <div class="col bg-img-2 carousel-image  "> 
-                            </div>
+                            <div class="col bg-img-2 carousel-image  "> </div>
                         </div>
                     </div>
                     <div class="carousel-item">
@@ -55,8 +57,7 @@
                                     <p class="texto-carousel">Te ayudamos a resolver tu necesidad sin tr&aacute;mites innecesarios.</p>
                                 </div>
                             </div>
-                            <div class="col bg-img-3 carousel-image  ">
-                            </div>
+                            <div class="col bg-img-3 carousel-image"> </div>
                         </div>
                     </div>
                 </div>
@@ -64,74 +65,78 @@
                     <i class="fa fa-chevron-left"></i>
                     <span class="visually-hidden">Anterior</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselProxima"
-                    data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselProxima" data-bs-slide="next">
                     <i class="fa fa-chevron-right "></i>
                     <!--  <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
                     <span class="visually-hidden">Siguiente</span>
                 </button>
             </div>
         </div>
+
         <div class="col-lg-3 col-xs-12">
             <div class="texto-carousel "> Selecciona el rubro para iniciar tu b&uacute;squeda</div>
             <div>
-                <div style="width:100%;">
-                    <select name="selectRubro" class=" form-select ">
-                        <option value="-" selected>Selecciona</option>
-                        {% for rubro in rubros %}    
-                            <option value="{{rubro.id}}" class="text8l">{{rubro.nombre}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="d-block p-2 mt-5">
-                    <button type="button" class="button-especialista ">
-                        <a href="/especialista/buscaespe/" onclick="location='/especialista/buscaespe/'; location.reload();">Buscar Especialista</a></button>
-                </div>
+                <form id="buscarespeform" name="buscarespeform" method="GET" action="/especialistas/especialistas_buscar/">
+                    <div style="width:100%;">
+                        <select name="rubro" id="rubro" required="required" class="form-select w-auto" >
+                             <!--  <option value="-" selected>Selecciona</option> -->
+                            {% for rubro in rubros %}    
+                                {% if rubro.id == mirubro %} 
+                                    <option value="{{rubro.id}}" selected >{{rubro.nombre}}</option>
+                                {% else %}
+                                    <option value="{{rubro.id}}" >{{rubro.nombre}}</option>
+                                {% endif %}
+                          {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-block p-2 mt-5">
+                        <input class="button-especialista"  type="submit"  value="Buscar Especialista" />
+                    </div>
+                </form>
             </div>
         </div>
-        <!-- </div>
-    </div> -->
     </div>
 </section>
-<section name="especialista" class="especialista-home p-2 container-fluid">
 
+<section name="especialista" class="especialista-home p-2 container-fluid">
     <div class=" row especialista-home2">
-        <div class="col-md-3"> <img src="{% static 'img/image57.png'%}" style="width: 100%;height: 100%;object-fit: contain;"></div>
+        <div class="col-md-3"> 
+            <img src="{% static 'img/image57.png'%}" style="width: 100%;height: 100%;object-fit: contain;" />
+        </div>
         <div class="col-md-6  ancho-medio">
             <h1>&iquest;Eres un especialista?</h1>
-            <h2>&iexcl;Reg&iacute;strate en Pr&oacute;xima Hora<br>
-                y comienza a recibir solicitudes! </h2>
+            <h2>&iexcl;Suscribete en Pr&oacute;xima Hora<br>
+                y comienza a recibir solicitudes! 
+            </h2>
             <p>&iexcl;Ofrece tus servicios y saca 100% de provecho a tu tiempo!<br>
                 Hacemos m&aacute;s f&aacute;cil a los que te buscan, para que te encuentren de forma amigable y segura.
             </p>
-            <button type="button" class="btn " class="btn  boton" data-bs-toggle="modal" data-bs-target="#SuscripcionModal">
-                <img src="{% static 'img/registrate.png'%}">
-            </button>
-            <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#ContactoModal">
+            <a href="/usuarios/registro_inicio/1"><img src="{% static 'img/suscribete.jpg'%}" />
+            </a>
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#ContactoModal">
                 <img src="{% static 'img/contactanos.png' %}" />
             </button>
         </div>
-        <div class="col-md-3"> <img src="{% static 'img/plumber-with-his-arms-crossed.jpg'  %}" style="width: 100%; height: 100%; object-fit: contain;"></div>
+        <div class="col-md-3"> <img src="{% static 'img/plumber-with-his-arms-crossed.jpg'  %}" style="width: 100%;
+            height: 100%; object-fit: contain;">
+        </div>
     </div>
-
 </section>
+
 <!-- //eres especialista -->
 <!-- //banner -->
 <section class=" py-2" name="banner">
     <div class="row banner cajas">
         <div class="row">
-            <div class="col">
-
-
-            </div>
+            <div class="col"></div>
         </div>
         <div class="col-lg-7 mb-2 ">
             <div class="row">
-                <div class="p-2 col-lg-1 vector col-md-3 col-sm-0 col-xs-0"> <img src="{% static 'img/Vector.svg' %}">
+                <div class="p-2 col-lg-1 vector col-md-3 col-sm-0 col-xs-0"> 
+                    <img src="{% static 'img/vector.svg' %}" />
                 </div>
                 <div class="col-lg-8">
-                    <h2 class="p-2" style="
-                    font-size: 2rem;   font-weight: 700;  letter-spacing: 0.15px;">&iquest;Quieres que todo el mundo
+                    <h2 class="p-2" style="font-size: 2rem;   font-weight: 700;  letter-spacing: 0.15px;">&iquest;Quieres que todo el mundo
                         vea tu anuncio aqu&iacute;?</h2>
                     <p style="font-size: 1.4rem;font-weight: 400; letter-spacing: 0.5px;">Haz que tu negocio llegue a
                         m&aacute;s personas public&aacute;ndolo en este espacio</p>
@@ -158,29 +163,19 @@
 <section class=" p-4" name="beneficio" id="beneficios">
     <h1> Conoce nuestros beneficios</h1>
     <div class="beneficios">
-
-
-
-
         <div class="card  cards-beneficios ">
-
-
             <figure>
-                <img src="{% static 'img/booking.svg' %}" class="card-img-top ">
+                <img src="{% static 'img/booking.svg' %}" class="card-img-top " />
             </figure>
-
-
             <div class="card-body">
                 <h5 class="card-title">Tomar hora</h5>
                 Permite acceso a clientes nuevos y recurrentes a servicio de búsqueda, agendamiento y mucho m&aacute;s
                 para tomar su pr&oacute;xima hora.
             </div>
         </div>
-
         <div class="card  cards-beneficios">
-
             <figure>
-                <img src="{% static 'img/doctor.svg' %}" class="card-img-top img-fluid rounded-start">
+                <img src="{% static 'img/doctor.svg' %}" class="card-img-top img-fluid rounded-start" />
             </figure>
             <div class="card-body">
                 <h5 class="card-title">Certificaci&oacute;n</h5>
@@ -190,11 +185,9 @@
         </div>
 
         <div class="card  cards-beneficios" style="box-shadow: 0px 5px 15px 0px rgba(15, 73, 86, 0.20);">
-
             <figure>
-                <img src="{% static 'img/access.svg' %}" class="card-img-top img-fluid rounded-start">
+                <img src="{% static 'img/access.svg' %}" class="card-img-top img-fluid rounded-start" />
             </figure>
-
             <div class="card-body">
                 <h5 class="card-title">Acceso</h5>
                 Acceso r&aacute;pido 24/7 a búsqueda y agendamiento con su profesional desde cualquier lugar donde se
@@ -204,25 +197,18 @@
     </div>
 
     <div class="beneficios">
-
-
         <div class="card  cards-beneficios ">
-
             <figure>
-                <img src="{% static 'img/register.svg' %}" class="card-img-top img-fluid rounded-start">
+                <img src="{% static 'img/register.svg' %}" class="card-img-top img-fluid rounded-start" />
             </figure>
-
-
-
             <div class="card-body">
                 <h5 class="card-title">Historial</h5>
                 Acceso a historial de servicios y especialistas visitados s&oacute;lo usuarios registrados
             </div>
         </div>
-
         <div class="card  cards-beneficios">
             <figure>
-                <img src="{% static 'img/ubication.svg' %}" class="card-img-top img-fluid rounded-start">
+                <img src="{% static 'img/ubication.svg' %}" class="card-img-top img-fluid rounded-start" />
             </figure>
             <div class="card-body">
                 <h5 class="card-title">Ubicaci&oacute;n</h5>
@@ -232,23 +218,18 @@
 
         <div class="card  cards-beneficios">
             <figure>
-                <img src="{% static 'img/security.svg' %}" class="card-img-top img-fluid rounded-start">
+                <img src="{% static 'img/security.svg' %}" class="card-img-top img-fluid rounded-start" />
             </figure>
-
             <div class="card-body">
                 <h5 class="card-title">Seguridad</h5>
                 Manejo seguro de la informaci&oacute;n de especialistas y usuarios
             </div>
         </div>
     </div>
-
-
 </section>
 
-<section class="nosotros p-4 " style="background: var(--Foundation-Primario-1-primario-1-50, #EBF2FF); " id="nosotros"
-    name="nosotros">
+<section class="nosotros p-4 " style="background: var(--Foundation-Primario-1-primario-1-50, #EBF2FF); " id="nosotros" name="nosotros">
     <div class="container  p-2 mx-6">
-
         <div class="row p-2 " class="nosotros">
             <div class="col-lg-1"></div>
             <div class="col-md-5 p-2">
@@ -258,106 +239,29 @@
                 Independientes (EIRLs) y tambien PYMES,
                 generando un bien social, permitiendo buscar alternativas a servicios que presentan largas colas
                 de espera y saturaci&oacute;n.
-
-
-                <div class="p-2">
+                <div class="p-2"> 
                     <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#Historia">
-                 <!-- OJO -->                       
-                        <dev style="font-weight:bold;color:white;">M&aacute;s...</span>
+                        <span style="font-weight:bold;color:white;">M&aacute;s...</span>
                     </a>
                 </div>
-                <!-- Modal -->
-                <div class="modal fade" id="Historia" tabindex="-1" aria-labelledby="Historia" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="Historia">Pr&oacute;xima Hora</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h4>Qué ofrecemos?</h4>
-                                Para ello hemos creado un buscador que permite a los visitantes encontrar al
-                                Especialista necesario, tomando en cuenta su cercan&iacute;a y disponibilidad y pudiendo
-                                agendar online su Hora las 24 horas del d&iacute;a, los 7 d&iacute;as de la semana en
-                                los distintos rubros ofrecidos.
-                                <hr>
-                                <h4>Historia de la marca</h4>
-                                Pr&oacute;xima Hora nace como una idea basada en la experiencia personal de uno de los
-                                Socios de CRUVAL Business Ltda. que identifica que en el rubro de la salud existen pocos
-                                caminos
-                                alternativos para buscar y agendar servicios de especialistas m&aacute;s all&aacute; de
-                                las p&aacute;ginas de cl&iacute;nicas, por
-                                lo que para las personas que buscan esos servicios, los especialistas independientes o
-                                dependientes con disponibilidad de atenci&oacute;n fuera de sus horarios laborales
-                                quedan fuera de su
-                                alcance. No solamente acotada al rubro de la salud, esta necesidad se puede extrapolar a
-                                todos los rubros y servicios.<br>
-                                De ah&iacute; nace el nombre “Pr&oacute;xima Hora”, ya que la idea es permitir encontrar
-                                de modo r&aacute;pido, f&aacute;cil
-                                y accesible la hora m&aacute;s pr&oacute;xima en tiempo y distancia disponible.<br>
-                                <hr>
-                                <h4>Equipo</h4>
-                                Pr&oacute;xima Hora nace como un proyecto de dos cuñados: Juan Pablo, Psic&oacute;logo
-                                de la
-                                Universidad de los Andes con un MBA UC y Francisco, Ingeniero Civil Industrial de la UGM
-                                y
-                                cuenta con dos MBAs (UC y Meigen en Negocios Internacionales). Nos complementamos
-                                sumando
-                                management con el conocimiento del mercado de los Especialistas Independientes. <br>
-                                Pr&oacute;xima Hora
-                                es simple, accesible y serio; buscando simplificar y abaratar el acceso a los Servicios
-                                de
-                                Especialistas a todas las personas, sin trabas ni grandes complicaciones, generando un
-                                bien social,
-                                permitiendo buscar alternativas a servicios que presentan largas colas de espera y
-                                saturaci&oacute;n.
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- termino modal -->
+            {% include 'home_modal_nosotros.html' %}
 
             </div>
-
-
             <div class="col-md-5 p-5 ">
-                <img src="{% static 'img/nosotros.jpg' %}"
-                    style="width:100%;object-fit: cover;  display: inline-block;">
+                <img src="{% static 'img/nosotros.jpg' %}" style="width:100%;object-fit: cover;  display: inline-block;" />
             </div>
             <div class="col-lg-1"></div>
-
-
         </div>
     </div>
-
-
-
 </section>
 
-<section
-    style="background: var(--gradiente-02, linear-gradient(0deg, #FFF 0%, rgba(255, 255, 255, 0.50) 0.01%, #EBF2FF 115.49%));"
-    id="noticias" name="noticias">
+<section style="background: var(--gradiente-02, linear-gradient(0deg, #FFF 0%, rgba(255, 255, 255, 0.50) 0.01%, #EBF2FF 115.49%));" id="noticias" name="noticias">
     <h1> Nuestras noticias</h1>
     <div class="beneficios ">
-
-
-
-
-
         <div class="card  cards-noticias ">
-
-
-
-            <img src="{% static 'img/futuroisapres.jpg' %}" class="card-img-top rounded-top">
-
+            <img src="{% static 'img/futuroisapres.jpg' %}" class="card-img-top rounded-top" />
             <div class="card-body my-3">
-
                 <h5 class=" card-title subtitulo2">Futuro Isapres</h5>
                 <p class="card-text ms-2 me-2"> Some quick example text to build on the card title and make up the bulk
                     of the card's content.
@@ -365,16 +269,10 @@
                 <div class="row">
                     <div class="col ms-2"><a href="#" class="btn btn-info">Ver Noticia</a></div>
                 </div>
-
             </div>
         </div>
-
-
         <div class="card  cards-noticias">
-
-
-            <img src="{% static 'img/fotos/medico1.jpg' %}" class="card-img-top rounded-top">
-
+            <img src="{% static 'img/fotos/medico1.jpg' %}" class="card-img-top rounded-top" />
             <div class="card-body">
                 <h5 class="subtitulo2">Seguimiento de agenda</h5>
                 <p class="ms-2 me-2">
@@ -385,41 +283,28 @@
             </div>
         </div>
         <div class="card  cards-noticias">
-            <img src="{% static 'img/taxsii.png' %}" class="card-img-top rounded-top">
-
+            <img src="{% static 'img/taxsii.png' %}" class="card-img-top rounded-top" />
             <div class="card-body">
                 <h5 class="subtitulo2">IVA en servicios profesionales</h5>
                 <p class="ms-2 me-2">Excepciones incluidas en la Ley:
                     Servicios prestados por personas naturales°.
-
                 </p>
                 <div class="row">
                     <div class="col ms-2"><a href="#" class="btn btn-info">Ver Noticia</a></div>
                 </div>
             </div>
         </div>
-
-
-
     </div>
-
-
-
 </section>
 
+<!-- va un video promocional -->
 
 <section style="background: var(--Foundation-Primario-2-primario-2-800, #435C8C);  
          border: 1px solid var(--Foundation-Grises-grises-700, #555);" name="video">
     <div class="p-4 col-lg-0 col-md-12 col-sm-0 col-xs-12">
-
-        <img src="{% static 'img/Frame 237.png' %}" style=" align-self: stretch;border-radius: 40px;
-         justify-content: center;width:80%;height: 80%;">
+        <img src="{% static 'img/frame237.png' %}" style=" align-self: stretch;border-radius: 40px;
+         justify-content: center;width:80%;height: 80%;" />
     </div>
-
-
-
-
-
 </section>
 
 
@@ -431,21 +316,16 @@
     </div>
     <div class="container">
         <div class="row " style="text-align:left">
-
             <div class="col col-lg-8 col-sm-12 ">
                 <div class="accordion" id="accordionPH">
-
-
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 &iquest;C&oacute;mo funciona Pr&oacute;xima Hora?
                             </button>
-
                         </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionPH">
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionPH">
                             <div class="accordion-body">
                                 En términos simplificados:
                                 <br> • Los Visitantes (Usuarios demandantes de Servicios) buscan al Especialista de
@@ -456,7 +336,6 @@
                                 de acuerdo con la mejor soluci&oacute;n a su necesidad.
                                 <br>• Autom&aacute;ticamente se genera un aviso al Especialista que le indica que una
                                 hora ha sido tomada y la persona que lo ha hecho.
-
                             </div>
                         </div>
                     </div>
@@ -467,8 +346,7 @@
                                 &iquest;C&oacute;mo protegemos a los Usuarios?
                             </button>
                         </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                            data-bs-parent="#accordionPH">
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionPH">
                             <div class="accordion-body">
                                 Usted cuenta con nuestra ayuda.
                                 <br>Aunque no es común, si tuvieras algún problema con el agendamiento o el
@@ -476,7 +354,6 @@
                                 Lo primero que tienes que hacer es iniciar un Comentario Negativo sobre el Especialista.
                                 Esto lo puedes hacer pasado 48 Hrs. de la hora agendada, para que podamos seguir tu
                                 problema y ayudarte a resolverlo.
-
                             </div>
                         </div>
                     </div>
@@ -487,8 +364,7 @@
                                 &iquest;C&oacute;mo y hasta cu&aacute;ndo puedo cancelar/anular una hora?
                             </button>
                         </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                            data-bs-parent="#accordionPH">
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionPH">
                             <div class="accordion-body">
                                 Para cancelar o anular una hora, busque la opci&oacute;n “ANULAR” que aparece en el menú
                                 de tus horas agendadas y sigue los pasos.
@@ -506,8 +382,7 @@
                                 Demandantes de Servicios?
                             </button>
                         </h2>
-                        <div id="collapselistaF" class="accordion-collapse collapse" aria-labelledby="headinglistaF"
-                            data-bs-parent="#accordionPH">
+                        <div id="collapselistaF" class="accordion-collapse collapse" aria-labelledby="headinglistaF" data-bs-parent="#accordionPH">
                             <div class="accordion-body">
                                 No tiene costo para usuarios Demandantes de Servicios, pero se deben sujetar al
                                 cumplimiento de las reglas de uso del Sitio. Pr&oacute;xima Hora busca simplificar y
@@ -517,10 +392,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne1">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -528,14 +399,14 @@
                                 &iquest;C&oacute;mo y cu&aacute;ndo puedo opinar sobre el Especialista?
                             </button>
                         </h2>
-                        <div id="collapseOne1" class="accordion-collapse collapse" aria-labelledby="headingOne1"
-                            data-bs-parent="#accordionPH">
+                        <div id="collapseOne1" class="accordion-collapse collapse" aria-labelledby="headingOne1" data-bs-parent="#accordionPH">
                             <div class="accordion-body">
                                 A partir de 48 Hrs posteriores a la hora agendada, podr&aacute;s dejar un comentario
                                 sobre el Especialista y lo mostraremos en su perfil.
                                 Previa verificaci&oacute;n de que, a juicio de <strong>Pr&oacute;xima Hora</strong>, el
                                 Comentario no es grosero, ofensivo o incumple las normas de uso de
-                                <strong>Pr&oacute;xima Hora</strong>. </div>
+                                <strong>Pr&oacute;xima Hora</strong>. 
+                            </div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -566,7 +437,7 @@
                         <div id="collapseThree1" class="accordion-collapse collapse" aria-labelledby="headingThree1"
                             data-bs-parent="#accordionPH">
                             <div class="accordion-body">
-                                Los Comentarios estar&aacute;n sujetas a las siguientes reglas:
+                                Los Comentarios estar&aacute;n sujetos a las siguientes reglas:
 
                                 <br>• Deber&aacute;n limitarse a referencias personales sobre la atenci&oacute;n.
                                 <br>• No est&aacute;n permitidas opiniones de car&aacute;cter privado, publicitario,
@@ -595,7 +466,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingG">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -604,10 +474,9 @@
                                 Especialistas?
                             </button>
                         </h2>
-                        <div id="collapseG" class="accordion-collapse collapse" aria-labelledby="headingG"
-                            data-bs-parent="#accordionPH">
+                        <div id="collapseG" class="accordion-collapse collapse" aria-labelledby="headingG" data-bs-parent="#accordionPH">
                             <div class="accordion-body">
-                                <li>>Mayor difusi&oacute;n y visibilidad, especialmente para Especialistas
+                                <li>Mayor difusi&oacute;n y visibilidad, especialmente para Especialistas
                                     independientes y/o recién egresados. Ganar&aacute; sinergia en el esfuerzo de
                                     difusi&oacute;n y publicidad, ya que no solo ser&aacute;s visible cuando busquen tu
                                     servicio, los usuarios demandantes ver&aacute;n que la plataforma ofrece servicios
@@ -618,235 +487,30 @@
                                     donde llegue la red.</li>
                                 <li>Poder gestionar en la Red su disponibilidad horaria aún siendo independiente (no
                                     pertenecer a una Cl&iacute;nica, Hospital u otro tipo de empresa que se queda con un
-                                    alto porcentaje del valor de las atenciones).</li>>
+                                    alto porcentaje del valor de las atenciones).</li>
                                 <li>Bajo requerimiento de equipo, basta contar con Internet para acceder a
                                     gesti&oacute;n, modificaciones, notificaciones y otros servicios.</li>
                                 <li>Optimizaci&oacute;n de horas disponibles.</li>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
             <div class="col-lg-4 col-md-3 col-sm-12 ">
-                <img src="static/img/lupa.png" style="width: 385.637px;
-                    height: 385.637px;
-                    flex-shrink: 0;">
+                <img src="static/img/lupa.png" style="width: 385.637px; height: 385.637px; flex-shrink: 0;" />
                 <h4 class="text-center">&iquest;Tienes dudas o sugerencias?
-                    Comun&iacute;cate con nosotros <a href="">
-                        <img src="{% static 'img/contacto.svg' %}"
-                            style=" width:120px;height:120px; vertical-align: middle;display: inline-block;"></a></h4>
+                    Comun&iacute;cate con nosotros 
+                    <a href="" data-bs-toggle="modal" data-bs-target="#ContactoModal">
+                       <img src="{% static 'img/contacto.svg' %}" class="comunicate" />
+                    </a>
+                </h4>
             </div>
         </div>
     </div>
-
 </section>
 
+{% include 'home_modal_contacto.html' %}
 
 
-
-<!-- Modal suscripcion -->
-
-<div class="modal fade" id="SuscripcionModal" tabindex="-1" aria-labelledby="ModalSuscripcion" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content container-fluid">
-
-            <div class="modal-body">
-                <div style="max-width: 100%;">
-                    <div class="container py-5 h-100">
-                        <div class="row d-flex justify-content-center align-items-center h-100">
-                            <div class="col col-xl-10">
-                                <div class="card" style="border-radius: 1rem;"><button type="button"
-                                        class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    <div class="row g-0">
-                                        <div class="col-md-12 d-flex align-items-center">
-                                            <div class="card-body p-4 p-lg-5 text-black myform">
-
-
-
-
-                                                <div class="d-flex cajas">
-
-                                                    <div class="input-group flex-nowrap mx-4">
-                                                        <h3>¡SUSCRIPCION PROXIMA HORA! </h3>
-                                                        <p style="color:aquamarine;">Datos para realizar Registro</p>
-                                                        <form id="iniciosus" name="iniciosus">
-
-                                                            <div class="d-flex flex-column">
-                                                                <div class="d-flex flex-column mb-3">
-                                                                    <label for="nombreesp" class="form-label">
-                                                                        Nombre <input type="text" class="form-control"
-                                                                            id="nombreesp" name="nombreesp">
-                                                                        Apellido <input type="text" class="form-control"
-                                                                            id="apellidoesp" name="apellidoesp">
-                                                                    </label>
-                                                                </div>
-                                                                <hr>
-                                                                <div class="d-flex flex-column mb-3">
-                                                                    <label for="mail" class="form-label">Mail
-                                                                        <input type="text" class="form-control"
-                                                                            id="mail" name="mail"></label>
-                                                                </div>
-                                                                <div class="d-flex flex-column mb-3">
-                                                                    <label for="rut" class="form-label">RUT
-                                                                        <input type="text" class="form-control" id="rut"
-                                                                            name="rut"></label>
-                                                                </div>
-                                                                <div class="d-flex flex-column mb-3">
-                                                                    <label for="telefono" class="form-label">Telefono
-                                                                        <input type="text" class="form-control"
-                                                                            id="telefono" name="telefono"></label>
-                                                                </div>
-                                                                <hr>
-                                                                <div class="d-flex flex-column mb-3">
-                                                                    <label for="contrasena" class="form-label">Ingrese
-                                                                        una contraseña
-                                                                        <input type="text" class="form-control"
-                                                                            id="contrasena" name="contrasena"></label>
-                                                                </div>
-                                                                <div class="d-flex flex-column mb-3">
-                                                                    <label for="recontrasena" class="form-label">Ingrese
-                                                                        una contraseña
-                                                                        <input type="text" class="form-control"
-                                                                            id="recontrasena"
-                                                                            name="recontrasena"></label>
-                                                                </div>
-
-                                                            </div>
-                                                            Se le enviara un mail, para verificar su cuenta y pueda
-                                                            continuar con la suscripci&oacute;n con Pr&oacute;xima Hora
-                                                            <button type="button" class="btn boton"
-                                                                data-bs-toggle="modal" data-bs-target="#Envio">
-                                                                Verificaci&oacute;n mail
-                                                            </button>
-                                                        </form>
-                                                        <!-- Button trigger modal -->
-
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal contacto -->
-
-<div class="modal fade" id="ContactoModal" tabindex="-1" aria-labelledby="ModalContacto" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content container-fluid">
-
-            <div class="modal-body">
-                <div style="max-width: 100%;">
-                    <div class="py-5 h-100">
-                        <div class="row d-flex justify-content-center align-items-center h-100">
-                            <div class="col col-xl-10">
-                                <div class="card" style="border-radius: 1rem;"><button type="button"
-                                        class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    <div class="row g-0">
-                                        <h3 style="text-align: center;">CONTACTO </h3>
-                                        <div class="col-md-4">
-
-                                            <p class="p-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                Nulla nec risus purus. Suspendisse eget velit mauris. Nunc tempor nunc
-                                                vitae aliquam egestas. Lorem ipsum dolor sit amet, consectetur
-                                                adipiscing elit. Nulla nec risus purus.
-                                            </p>
-                                            Whatsapp: +56 123456789
-                                            <br>
-                                            Mail: contacto@mail.cl
-                                        </div>
-                                        <div class="col-md-8 d-flex align-items-center">
-                                            <div class="card-body p-4 p-lg-5 text-black myform">
-
-
-
-
-
-
-                                                <div class="input-group flex-nowrap mx-4">
-
-                                                    <form id="contacto" name="contacto">
-
-                                                        <div class="d-flex flex-column">
-                                                            <div class="d-flex flex-column mb-3">
-                                                                <label for="nombreesp" class="form-label">
-                                                                    Nombre <input type="text" class="form-control"
-                                                                        id="nombrecontacto" name="nombrecontacto">
-                                                                    Apellido <input type="text" class="form-control"
-                                                                        id="apellidocontacto" name="apellidocontacto">
-                                                                </label>
-                                                            </div>
-
-                                                            <div class="d-flex flex-column mb-3">
-                                                                <label for="mail" class="form-label">Mail
-                                                                    <input type="text" class="form-control"
-                                                                        id="mailcontacto" name="mailcontacto"></label>
-                                                            </div>
-                                                            <div class="d-flex flex-column mb-3">
-                                                                <label for="rut" class="form-label">RUT
-                                                                    <input type="text" class="form-control"
-                                                                        id="rutcontacto" name="rutcontacto"></label>
-                                                            </div>
-                                                            <hr>
-                                                            <div class="d-flex flex-column mb-3">
-                                                                <label for="asunto" class="form-label">Asunto:
-                                                                    <input type="text" class="form-control" id="asunto"
-                                                                        name="asunto"></label>
-                                                            </div>
-                                                            <div class="d-flex flex-column mb-3">
-                                                                <label for="Mensaje" class="form-label">Mensaje:
-                                                                    <textarea class="form-control" id="Mensaje"
-                                                                        name="Mensaje" rows="4" cols="50">
-                        </textarea>
-                                                                </label>
-                                                            </div>
-
-                                                        </div>
-                                                        <button type="button" class="btn boton" data-bs-toggle="modal"
-                                                            data-bs-target="#Envio">
-                                                            Enviar
-                                                        </button>
-                                                    </form>
-                                                    <!-- Button trigger modal -->
-
-
-                                                </div>
-
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-        </div>
-    </div>
-</div>
 {% endblock %}
+

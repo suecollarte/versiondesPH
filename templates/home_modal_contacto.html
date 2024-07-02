@@ -1,0 +1,88 @@
+
+<!-- Modal contacto -->
+
+{% load static %}
+
+<div class="modal fade" id="ContactoModal" name="ContactoModal"  tabindex="-1" aria-labelledby="ModalContacto" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content container-fluid">
+            <div class="modal-body">
+                <div style="max-width: 100%;">
+                    <div class="py-5 h-100">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col col-xl-10">
+                                <div class="card" style="border-radius: 1rem;">
+                                    <button type="button" id="btncerrarcontacto" id="btncerrarcontacto" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        <span class="mb-0"><img src="{% static 'img/logoph-01.svg' %}" width="100" />
+                                        </span>
+                                    </div>                                   
+                                    <div class="row g-0">
+                                        <h3 style="text-align: center;">CONTACTO </h3>
+                                        <div class="col-md-4">
+                                            <p class="p-2">Déjanos tu requerimiento, consulta, reclamo o comentario en el formulario. El equipo de Próxima Hora se contactará a la brevedad para darte una respuesta.
+                                            </p>
+                                            Whatsapp: +56 123456789
+                                            <br>
+                                            Mail: contacto@proximahora.cl
+                                        </div>
+                                        <div class="col-md-8 d-flex align-items-center">
+                                            <div class="card-body p-4 p-lg-5 text-black myform">
+                                                <div class="input-group flex-nowrap mx-4">
+                                                    <div id="formcontacto" name="formcontacto" >
+                                                        {% csrf_token %}
+                                                        <div class="d-flex flex-column">
+                                                            <div class="d-flex flex-column mb-3">
+                                                                <label for="rutcontacto" class="form-label">R.U.T.
+                                                                    <input type="text" class="form-control" id="rutcontacto" name="rutcontacto" />
+                                                                    <input type="hidden" name="rutcontacto2" id="rutcontacto2" />
+                                                                </label>
+                                                            </div>
+                                                            <div class="d-flex flex-column mb-3">
+                                                                <label for="nombrecontacto" class="form-label">Nombre 
+                                                                    <input type="text" class="form-control ucword" id="nombrecontacto" name="nombrecontacto" />
+                                                                    Apellido 
+                                                                    <input type="text" class="form-control ucword" id="apellidocontacto" name="apellidocontacto" />
+                                                                </label>
+                                                            </div>
+                                                            <div class="d-flex flex-column mb-3">
+                                                                <label for="mailcontacto" class="form-label">Mail
+                                                                    <input type="text" class="form-control" id="mailcontacto" name="mailcontacto" />
+                                                                </label>
+                                                            </div>
+                                                            <hr>
+                                                            <div class="d-flex flex-column mb-3">
+                                                                <label for="asuntocontacto" class="form-label">Asunto
+                                                                    <input type="text" class="form-control ucword" id="asuntocontacto" name="asuntocontacto" />
+                                                                </label>
+                                                            </div>
+                                                            <div class="d-flex flex-column mb-3">
+                                                                <label for="msgcontacto" class="form-label">Mensaje
+                                                                    <textarea class="form-control" id="msgcontacto" name="msgcontacto" rows="4" cols="50">
+                                                                    </textarea>
+                                                                </label>
+                                                            </div>
+                                                        </div> 
+                                                        <input data-mdb-button-init data-mdb-ripple-init class="btn boton" type="submit" id="btcontacto" name="btcontacto"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center align-items-center h-100">
+                                            <div id="divcontacterror" style="display: none;" class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                                <strong><span id="contacterror1"></span></strong>&nbsp;&nbsp;&nbsp;<span id="contacterror2"></span>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="hidemsgcontacto" name="hidemsgcontacto"></button>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Termino modal  Contacto  -->

@@ -1,0 +1,46 @@
+<div id="datatablediv">
+    <table id="tablaregs" class="table table-striped table-bordered table-hover" style="width:100%">
+        <thead >
+            <tr>
+                <th width="10%" class="tdtit10">F. Ingreso</th>
+                <th width="10%" class="tdtit10">R.U.T.</th>
+                <th width="30%" class="tdtit10">Nombre</th>
+                <th width="10%" class="tdtit10">Correo</th>                
+                <th width="10%" class="tdtit10">Comprobante</th>
+                <th width="10%" class="tdtit10">Monto</th>
+                <th width="20%" class="tdtit10">Accion</th>
+            </tr>
+        </thead>
+        <tbody>   
+            {% for solicitud in solicitudes %}
+            <tr>
+                <td class="text8c" id="fec{{solicitud.fregistro}}">{{solicitud.fregistro|date:"d-m-Y"}}</td>
+                <td class="text8c" id="rut{{solicitud.id}}">{{solicitud.rut}}  </td>
+                    <input type="hidden" name="id{{solicitud.id}}" id="id{{solicitud.id}}" value="{{solicitud.id}}" />
+                <td class="text8c" id="nom{{solicitud.id}}">{{solicitud.apellido}} , {{solicitud.nombre}} </td>
+                <td class="text8c" id="ema{{solicitud.id}}">{{solicitud.email}}</td>
+                <td class="text8c" id="pai{{solicitud.id}}">{{solicitud.epago.id}}</td>
+                <td class="text8c" id="pam{{solicitud.id}}">{{solicitud.epago.monto}}</td>
+                <td class="text8c"> 
+                    <a href="{{ MEDIA_URL }}/{{solicitud.epago.documento}}" class="btn btn-info" target="_blank" title='Ver Documento'>
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </a>
+                    <button class='btn btn-sm btn-warning tip' title='Enviar mail url Pago' onClick='RenviarMail({{solicitud.id}})'>
+                        <i class='fa-solid fa-envelope'></i>
+                    </button>
+                    <button class='btn btn-sm btn-success tip' title='Aprobar Pago Suscripción' onClick='AprobarSuscripcion({{solicitud.id}})'>
+                        <i class='fa-solid fa-circle-check'></i>
+                    </button>
+                    <button class='btn btn-sm btn-danger tip' title='Rechazar Pago Suscripción' onClick='RechazarSuscripcion({{solicitud.id}})'>
+                        <i class='fa-solid fa-trash-can'></i>
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>   
+</div>
+
+
+<i class="fa-solid fa-file-pdf"></i>
+<i class="fas fa-file-image"></i>

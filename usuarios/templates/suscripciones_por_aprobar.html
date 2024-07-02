@@ -1,0 +1,100 @@
+{% extends 'home_adm_base.html' %}
+
+{% load static %}
+
+{% block title %} PH Suscripciones Por Aprobar{% endblock %}
+
+{% block content %}
+
+<!-- Custom JS -->
+<script type="text/javascript" src="{% static 'js/usuarios/suscripciones_por_aprobar.js' %}"></script>  
+
+<div  class="container-xxl mt-4">
+
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="table-responsive">
+                <table style="width:100%">
+                    <tr>
+                        <td width="90%" class="titform20">Especialistas Suscripciones Por Aprobar</td>
+                        <td width="10%" class="text8c">  
+                            <input type="hidden" name="{{solicita}}" id="{{solicita}}" value="{{solicita}}" />                   
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% include 'suscripciones_por_aprobar_ajax.html' %}
+    </div>
+</div>
+
+
+<div id="diagedit">
+    <div class="container-fluid py-3">
+        <div class="row">
+            <div class="card border-secondary">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="tit10lb">R.U.T.</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-id-card"></i></span>
+                                    </div>
+                                    <input type="text" name="rut" id="rut" class="form-control w-auto text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Nombre</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                    </div>
+                                <input type="text" name="nombre" id="nombre" size="100" class="form-control w-75 text8l" />
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Correo Electrónico</label>
+                                <div class="input-group">
+                                     <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                    </div>
+                                    <input type="text" name="email" id="email" size="100" class="form-control w-75 text8l" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="divmotivo" name="divmotivo">
+                        <div class="col-lg-12 mx-auto">
+                            <div class="form-group">
+                                <label class="tit10lb">Motivo</label>
+                                <div class="input-group">
+                                     <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-comment"></i></span>
+                                    </div>
+                                    <textarea name="motivo" id="motivo" rows="4"  maxlength="120" class="form-control w-25 text8l"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

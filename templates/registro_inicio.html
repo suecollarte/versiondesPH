@@ -1,0 +1,182 @@
+{% extends 'home_base2.html' %}
+
+{% load static %}
+
+{% block title %}Proxima Hora Registro{% endblock %}
+
+{% block content %}
+<!-- datepicker -->
+<link rel='stylesheet' type='text/css' href="{% static 'gijgo/core/core.min.css' %}" />
+<link rel='stylesheet' type='text/css' href="{% static 'gijgo/datepicker/datepicker.min.css' %}" />
+<script type="text/javascript" src="{% static 'gijgo/core/core.min.js' %}"></script>  
+<script type="text/javascript" src="{% static 'gijgo/datepicker/datepicker.min.js' %}"></script>  
+
+<!-- Custom JS -->
+<script type="text/javascript" src="{% static 'js/usuarios/registro_inicio.js' %}"></script>  
+
+<!-- miga de pan -->
+<div class="migapan">
+<!-- nombre del menu en que esta -->
+  <ul class="breadcrumb">
+    <li><a href="/home">Inicio</a></li>
+    <li>{{ titulo1 }}</li>
+  </ul>
+</div>
+
+
+<div class="row d-flex justify-content-center align-items-center h-100">
+  <div class="col col-xl-10">
+    <div class="card cajas" >
+                                         
+      <div class="row g-0">
+        <h4 style="text-align: center;">{{ titulo1 }}</h4><hr>
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="card-body p-4 p-lg-5 text-black myform">
+            <div class="input-group flex-nowrap mx-4">
+              <div id="formcontacto" name="formcontacto" >
+                <form name="formsuscripstep1" id="formsuscripstep1" method="post" action="/home"> 
+                  {% csrf_token %}
+                  <div class="d-flex flex-column">
+                    <div class="d-flex flex-column">
+                      <label for="formsusrut" class="form-label d-block">R.U.T.
+                        <input type="text" class="d-block " id="formsusrut" name="formsusrut" size="20" maxlength="15"  />
+                        <input type="hidden" name="formsusrut2" id="formsusrut2" />
+                        <input type="hidden" name="formsussolicita" id="formsussolicita" value="{{ solicita }}"/>
+                      </label>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <label for="formsusnombre" class="form-label">Nombre(s)
+                        <input type="text" class="d-block mt-0 ucword" id="formsusnombre" name="formsusnombre" size="50" maxlength="45" />
+                      </label>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <label for="formsusapellido" class="form-label">Apellido(s)
+                        <input type="text" class="d-block mt-0 ucword" id="formsusapellido" name="formsusapellido" size="50" maxlength="45" />
+                      </label>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <label for="formsusmail" class="form-label d-block">Correo Electrónico 
+                        <input type="text" class="d-block mt-0" id="formsusmail" name="formsusmail"  size="50" maxlength="45" />
+                      </label> 
+                    </div>
+                    <div class="d-flex flex-column">
+                      <label for="formsusfono" class="form-label d-block">Contacto Telefónico
+                        <input type="text" class="d-block mt-0" id="formsusfono" name="formsusfono" size="20" maxlength="20" />
+                      </label>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <label for="fnacimiento" class="form-label d-block">Fecha Nacimiento
+                        <input type="text"  class="d-block mt-0 fechainput"  id="fnacimiento" name="fnacimiento" with="150" />
+                      </label>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <a class="nav-link active" aria-current="page" href="#Politicas">
+                        <span><input type="checkbox" class="d-block mt-0" id="chkacepto" name="chkacepto" /> Acepto los términos y condiciones </span></a>            
+                    </div>
+                    <div id="msgmodal" name="msgmodal">
+                      <div id="divmsg" style="display: none;" class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                        <strong><span id="divmsg1"></span></strong>&nbsp;&nbsp;<span id="divmsg2"></span>
+                      </div>
+                      <div class="pt-1 mb-4">
+                       <button type="button" class="btn btn-primary" id="btnformsuscrip" name="btnformsuscrip">Enviar</button>     
+                       <button type="button" class="btn btn-primary" id="btncancelar" name="btncancelar">Cancelar</button>     
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 ">
+
+          <h4>Conoce los beneficios de estar en ProximaHora</h4>
+          <div class="beneficios d-flex align-items-right">
+           <div class="card  cards-beneficios ">
+            <figure>
+                <img src="{% static 'img/booking.svg' %}" class="card-img-top " />
+            </figure>
+            <div class="card-body">
+                <h5 class="card-title">Tomar hora</h5>
+                Permite acceso a clientes nuevos y recurrentes a servicio de búsqueda, agendamiento y mucho m&aacute;s
+                para tomar su pr&oacute;xima hora.
+            </div>
+        </div>
+        <div class="card  cards-beneficios">
+            <figure>
+                <img src="{% static 'img/doctor.svg' %}" class="card-img-top img-fluid rounded-start" />
+            </figure>
+            <div class="card-body">
+                <h5 class="card-title">Certificaci&oacute;n</h5>
+                Profesionales de la Salud en Chile cuentan con registro en Superintendencia de Salud, validados por
+                ProximaHora.
+            </div>
+        </div>
+        <div class="card  cards-beneficios"  >
+          <figure>
+              <img src="{% static 'img/access.svg' %}" class="card-img-top img-fluid rounded-start" />
+          </figure>
+          <div class="card-body">
+              <h5 class="card-title">Acceso</h5>
+              Acceso r&aacute;pido 24/7 a búsqueda y agendamiento con su profesional desde cualquier lugar donde se
+              encuentre.
+          </div>
+      </div>
+      
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal de Confirmacion -->
+<div class="modal modallogin fade" id="AvisoRegStep1Modal" name="AvisoRegStep1Modal" tabindex="-1" aria-labelledby="ModalLogin" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div style="max-width: 100%;">
+          <div class="container py-2 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="col col-xl-10">
+                <div class="card" style="border-radius: 0.5rem;">
+                  <div class="row g-0">
+                    <div class="col d-flex align-items-center">
+                      <div class="card-body p-2 p-lg-2 text-black myform">
+                        <div class="d-flex align-items-center mb-3 pb-1">
+                          <span class="mb-0"><img src="{% static 'img/logoph-01.svg' %}" width="100" /></span>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                          <h4>Solicitud de {{ titulo2 }} a Pr&oacute;xima Hora</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div id="msgcontinuarreg1" name="msgcontinuarreg1">
+                            ¿Desea continuar con su {{ titulo2 }} en Pr&oacute;xima Hora?
+                            <div></div>
+                            <div class="pt-1 mb-4">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal" id="koenviosuscrip" name="koenviosuscrip">Cancelar</button>
+                              <button type="button" class="btn btn-primary" id="okenviosuscrip" name="okenviosuscrip">Continuar</button>
+                            </div>
+                          </div>
+                          <div id="msgresreg1" name="msgresreg1">
+                            <div id="divregerror" style="display: none;" class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                              <strong><span id="divregerror1"></span></strong>
+                            </div>
+                            <div class="pt-1 mb-4">
+                              <button type="button" class="btn btn-primary" id="oksubmitformsuscrip"  name="oksubmitformsuscrip">Terminar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

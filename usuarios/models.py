@@ -23,7 +23,7 @@ class AppsUsuarios:
         (ROOT, 'administrador/'),
         (ADMINISTRADOR, 'administrador/'),
         (ESPECIALISTA, 'especialista/'),
-        (REGISTRADO, 'usuario/'),
+        (REGISTRADO, 'registrado/'),
         (INVITADO, 'home/'),
         (RELACIONADO, 'home/'),
         ]
@@ -65,6 +65,7 @@ class UsuariosPersonas(models.Model):
     perfil = models.CharField(max_length=1,choices=PerfilesUsuarios.PERFILES_USUARIOS,default=PerfilesUsuarios.REGISTRADO)
     fnacimiento = models.DateField()    
     telefono = models.CharField(max_length=20)  
+    cclave = models.PositiveSmallIntegerField(default=1)  
     region = models.ForeignKey(Regiones,on_delete=models.SET_NULL,blank=True,null=True)
     comuna = models.ForeignKey(Comunas,on_delete=models.SET_NULL,blank=True,null=True)
     ciudad = models.ForeignKey(Ciudades,on_delete=models.SET_NULL,blank=True,null=True)
@@ -72,7 +73,7 @@ class UsuariosPersonas(models.Model):
 
     class Meta:
         db_table = "usuarios_personas"        
-        ordering = ['rut','estado','perfil','fnacimiento','telefono','region','comuna','ciudad','usuario']  
+        ordering = ['rut','estado','perfil','fnacimiento','telefono','cclave','region','comuna','ciudad','usuario']  
 
 
 class EstadosSuscripcion:

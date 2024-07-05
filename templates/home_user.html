@@ -1,0 +1,23 @@
+{% extends 'home_user_base.html' %}
+
+{% load static %}
+
+{% block title %}Proxima Hora Inicio{% endblock %}
+
+
+  <!-- Main componentes-->
+  <div class="main">
+    <main class="content-lg px-3 py-2">
+      <div class="container-fluid">
+        <div class="mb-3">
+          <h4> {{nombre_usuario}} </h4>
+        </div>
+        <hr>
+
+        {% block content %}
+        {% endblock %}
+
+      </div>
+    </main>
+  </div>
+  

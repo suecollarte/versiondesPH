@@ -224,6 +224,43 @@ def dologin(request):
     
     context = {}
     context['status'] = 0 
+    context['message1'] = ''
+    context['message2'] = ''   
+    if (request.method == 'POST'):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request,username=username, password=password)
+        if user is None :
+            context['status'] = 404 
+            context['message1'] = 'Ingreso Inválido!!'
+            context['message2'] = 'Intente con RUT y Contraseña válidos.'           
+            return JsonResponse(context, status = 200)
+        elif user is not None and not user.is_active:
+            context['status'] = 403
+            context['message1'] = 'La cuenta se encuentra desactivada.'
+            context['message2'] = 'Contacte nuestra Area de Soporte.'       
+            return JsonResponse(context, status = 200)
+        elif user:
+            login(request, user)
+            userid = User.objects.get(username=username).id
+            perfil = UsuariosPersonas.objects.get(usuario_id=userid).perfil
+            context['status'] = 200 
+            context['message1'] = 'Ingreso Correcto.'                           
+            return JsonResponse(context, status = 200) 
+        else:           
+            context['status'] = 404 
+            context['message1'] = 'Ingreso Inválido!!'
+            context['message2'] = 'Intente con RUT y Contraseña válidos.'       
+            return JsonResponse(context, status = 200)
+    else:
+        context['status'] = 405
+        context['message1'] = ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]
+    return JsonResponse(context)
+ 
+def dologout(request):
+    
+    context = {}
+    context['status'] = 0 
     context['home'] = ""
     context['message1'] = ''
     context['message2'] = ''   
@@ -258,7 +295,7 @@ def dologin(request):
         context['status'] = 405
         context['message1'] = ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]
     return JsonResponse(context)
- 
+
  
 def enviarcontacto(request):
     '''
@@ -458,7 +495,7 @@ def registro_usuario_crear(request):
                     l2 = 'Adjunto encontrará nuestra Declaración de Privacidad y Confidencialidad de la Información de Próxima Hora\n\n'
                     l3 = 'No dude en comunicarse con nuestra área de soporte ante cualquier inconveniente.\n\n'
                     l4 = 'Este es un correo enviado automáticamente desde ProximaHora. Favor No responder\n\nAtentamente\nPlataforma ProximaHora '
-                    body = l1 + l2 + l3 + l4
+                    body = l1 + l2 + l3 + l4 
                     from_email = EMAIL_HOST_USER
                     to_email = [mail]
                     email = EmailMessage(subject, body, from_email, to_email)                  
@@ -858,10 +895,11 @@ def enviar_mail_pago_suscripcion_aceptado(solicitante):
     Envia mail al especialista indicando recepcion del comprobante de pago
     Desde suscripciones_cambiar_estado en esta views.py
     '''
+    clave = generar_password(8)
     subject = f"Suscripción Plataforma ProximaHora"
     l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} RUT {solicitante.rut}. \n\n'
-    l2 = 'Nos complace informar que su Pago de Suscripción ha sidp aceptado.\n\nAdjunto encontrará copia de nuestro Contrato\n\n'
-    l3 = 'Para finalizar el proceso favor ingrese a nuestra Proxima Hora su RUT en Usuario y RUT sin puntos ni guión en Clave\n\n'
+    l2 = 'Nos complace informar que su Pago de Suscripción ha sido aceptado.\n\nAdjunto encontrará copia de nuestro Contrato\n\n'
+    l3 = f'Para finalizar el proceso favor ingrese a Proxima Hora con su RUT en Usuario y su clave temporal {clave}.\n\n'
     l4 = 'No dude en comunicarse con nuestra área de soporte ante cualquier inconveniente.\n\n'
     l5 = 'Este es un correo enviado automáticamente desde ProximaHora. Favor No responder\n\nAtentamente\nPlataforma ProximaHora'
     body = l1 + l2 + l3 + l4 +l5

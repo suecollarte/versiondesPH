@@ -9,6 +9,8 @@ from django.conf import settings
 import calendar
 import os
 import re
+import string
+import random
 from dateutil.relativedelta import relativedelta
 
 
@@ -22,6 +24,7 @@ class ErroresPH:
     ERROR_TIPODATO = 6
     ERROR_FALTAPARAM = 7
     ERROR_ERRORPARAM = 8
+    ERROR_USERLOCK = 9
     ERRORESPH = [
         (ERROR_DESCONOCIDO, 'ERROR DESCONOCIDO'),
         (ERROR_ACCESO, 'ERROR TIPO DE ACCESO'),
@@ -32,6 +35,7 @@ class ErroresPH:
         (ERROR_TIPODATO, 'ERROR TIPO DE DATO NO EXISTE'),
         (ERROR_FALTAPARAM, 'ERROR FALTAN PARAMETROS'),
         (ERROR_ERRORPARAM, 'ERROR EN PARAMETROS'),
+        (ERROR_USERLOCK, 'ERROR USUARIO NO HABILITADO'),
         ]
     
     
@@ -162,6 +166,12 @@ def rut_a_username(rut):
  
 def fecha_de_hoy():
     return  date.today()
+
+
+def generar_password(longitud=8):
+    caracteres = string.ascii_letters + string.digits + string.punctuation
+    password = ''.join(random.choice(caracteres) for i in range(longitud))
+    return password
 
 
 def add_months_to_date(date_str, months):

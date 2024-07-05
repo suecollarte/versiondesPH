@@ -17,7 +17,7 @@
                           <div class="d-flex justify-content-end">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" name="closeloginmodal" id="closeloginmodal" ></button>
                           </div>
-                          <form id="formlogin" name="formlogin" method="GET" action="#">
+                          <form id="formlogin" name="formlogin" method="POST" action="ingresar_plataforma/">
                             {% csrf_token %}
                             <div class="d-flex align-items-center mb-3 pb-1">
                               <span class="mb-0"><img src="{% static 'img/logoph-01.svg' %}" width="100" />

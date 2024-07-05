@@ -31,7 +31,6 @@ $(document).ready(function(){
 		var password = allTrim($('#txtPassword').val());
 		event.preventDefault();
 		limpiarMsgModalLogin();
-//		alert("Submit RUT="+ $('#rutuser').val()+" Clave="+ $('#txtPassword').val()+" Username="+ $('#username').val());
 		if (username == "") {
 			enviarMsgModalLogin("Falta R.U.T.","Debe Indicar R.U.T.");
 			efectoTemblor($('#LoginModal'));
@@ -62,7 +61,6 @@ function EnviarLogin(username,password) {
 			data: {username: username, password: password, csrfmiddlewaretoken:  $("input[name=csrfmiddlewaretoken]").val()},
 			success: function( response ) {
 				if (response['status'] == 200){
-					$('#formlogin').attr('action', response['home']);
 					$('#LoginModal').hide();
 					$('#formlogin')[0].submit();
 					}

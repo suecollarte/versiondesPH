@@ -76,11 +76,11 @@ def crear_persona(rut,username,estado,perfil,fnacimiento,telefono,region,comuna,
         try:
             nueva_persona = UsuariosPersonas.objects.create(rut=rut,estado=estado,perfil=perfil,fnacimiento=fnacimiento,
                                                             telefono=telefono,region_id=region,comuna_id=comuna,ciudad_id=ciudad,usuario_id=userid)
-            return "OK", nuevo_usuario, nueva_persona
+            return 200, nuevo_usuario, nueva_persona
         except:
-            return "KO2"
+            return 400
     except:
-        return "KO1"
+        return 400
 
 
 def modificar_persona(id,fnacimiento,telefono,region,comuna,ciudad,email,nombre,apellido):
@@ -103,7 +103,7 @@ def modificar_persona(id,fnacimiento,telefono,region,comuna,ciudad,email,nombre,
         print('Accion= Modificar Persona' + ' Error= '+str(e))
     
     
-def personas_password(request):
+def personas_password(request):  # OJO DOCUMENTAR
     '''
     Modifica password en tabla auth_user; Retorna json
     '''  
@@ -129,7 +129,7 @@ def personas_password(request):
     return JsonResponse(context)
 
 
-def personas_cambiarestado(request):
+def personas_cambiarestado(request):  # OJO DOCUMENTAR
     '''
     Modifica estado en tablas usuarios_personas y auth_user; Retorna html
     '''
@@ -149,7 +149,7 @@ def personas_cambiarestado(request):
         return render(request, 'error.html', {'error_ph': ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]})
     
     
-def personas_verificarut(request):
+def personas_verificarut(request):  # OJO DOCUMENTAR
     '''
     Verifica si ya ha sido ingresado un RUT en tabla usuarios_personas
     '''
@@ -201,6 +201,7 @@ class personas_verpersona(View):
 def validarlogin(request):
     '''
     Verifica si existe username en tabla auth_user
+    Ajax desde dologin.js
     '''   
     context = {}
     context['status'] = 0 
@@ -210,16 +211,129 @@ def validarlogin(request):
         password = request.POST.get('password')
         try:
             usuario = User.objects.get(username=username)
-            context['status'] = 200 
+            if (password is not None):
+                if (usuario.check_password(password)):
+                    todook = True
+                else:
+                    todook = False
+            else:
+                todook = True
+            if (todook):    
+                context['status'] = 200 
+                context['message'] = enmascarar_email(usuario.email)
+            else: 
+                context['status'] = 404 
+                context['message'] = 'Usuario Indicado NO Existe'
+        except User.DoesNotExist:
+            context['status'] = 404 
+            context['message'] = 'Usuario Indicado NO Existe'
         except Exception as e:
             context['status'] = 404 
-            context['message'] = 'Usuario ingresado no Existe<br />'
+            context['message'] = f'Error Interno. Error = {e}'
+    else:
+        context['status'] = 400
+        context['message'] = f'{ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]}'
+    return JsonResponse(context)
+ 
+  
+def confirmacambioclave(request):
+    '''
+    Confirma cambio de clave del usuario o especialista.
+    Ajax desde cambio_clave.js, Modal home_modal_cambio_clave
+    '''   
+    context = {}
+    context['status'] = 0 
+    context['message'] = ''
+    if (request.method == 'POST'):
+        username = request.POST.get('username')
+        oldpassword = request.POST.get('oldpassword')
+        newpassword = request.POST.get('newpassword')
+        try:
+            usuario = User.objects.get(username=username)
+            if (oldpassword is None):
+                todook = False
+            else:
+                if (usuario.check_password(oldpassword)):
+                    todook = True
+                else:
+                    todook = False
+            if (todook): 
+                usuario.is_active= True
+                usuario.set_password(newpassword)
+                usuario.save()
+                UsuariosPersonas.objects.filter(usuario_id=usuario.id).update(cclave=0)
+                context['status'] = 200 
+                context['message'] = 'Contraseña Cambiada' 
+            else:
+                context['status'] = 404
+                context['message'] = f'{ErroresPH.ERRORESPH[ErroresPH.ERROR_DATONOEXISTE][1]}'
+        except Exception as e:
+            context['status'] = 404 
+            context['message'] = f'Error Interno. Error = {e}'
     else:
         context['status'] = 400
         context['message'] = f'{ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]}'
     return JsonResponse(context)
   
   
+def confirmaolvidoclave(request):
+    '''
+    Confirma cambio de clave por olvido enviando nueva clave al mail del usuario
+    Ajax desde dologin.js
+    '''   
+    context = {}
+    context['status'] = 0 
+    context['message'] = ''
+    if (request.method == 'POST'):
+        username = request.POST.get('username')
+        try:
+            usuario = User.objects.get(username=username)
+            password = generar_password(longitud=16)
+            usuario.set_password(password)
+            usuario.save()
+            nombre = usuario.first_name
+            apellido = usuario.last_name
+            mail = usuario.email
+            persona = UsuariosPersonas.objects.get(usuario_id=usuario.id)
+            rut = persona.rut
+            UsuariosPersonas.objects.filter(id=persona.id).update(cclave=1)
+            status , mensaje = envio_mail_nueva_clave(nombre,apellido,rut,password,mail)
+            context['status'] = status 
+            context['message'] = mensaje 
+        except User.DoesNotExist:
+            context['status'] = 404 
+            context['message'] = 'Error: Usuario Indicado NO existe'
+        except Exception as e:
+            context['status'] = 400 
+            context['message'] = f'Error Interno. Error = {e}'
+    else:
+        context['status'] = 400
+        context['message'] = f'Error Interno: {ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]}'
+    return JsonResponse(context) 
+
+
+def envio_mail_nueva_clave(nombre,apellido,rut,password,mail):
+    '''
+    Envia mail al usuario o especialista con una nueva contraseña temporal
+    Desde vista confirmacambioclave
+    '''
+    subject = 'Cambio Clave Plataforma ProximaHora'
+    l1 = f'Estimado(a): {nombre} {apellido} R.U.T. {rut}. \n\nUsted ha solicitado Recuperar Contraseña en {Constantes.URL_PROXIMAHORAPROD}\n\n'
+    l2 = f'En su próximo Inicio de Sesión utilice su R.U.T. y Contraseña  Temporal "{password}" (Copie y Pegue lo que esta entre comillas)\n\n'
+    body = l1 + l2 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS
+    from_email = EMAIL_HOST_USER
+    to_email = [mail]
+    email = EmailMessage(subject, body, from_email, to_email) 
+    try:
+        email.send()
+        status = 200
+        mensaje = f"Correo de Confirmación enviado a {mail}"
+    except Exception as e:
+        status = 400
+        mensaje = f"Correo NO enviado. Se produjo Error({status}): {str(e)}"
+    return status , mensaje  
+  
+   
 def dologin(request):
     
     context = {}
@@ -232,7 +346,7 @@ def dologin(request):
         user = authenticate(request,username=username, password=password)
         if user is None :
             context['status'] = 404 
-            context['message1'] = 'Ingreso Inválido!!'
+            context['message1'] = 'Ingreso Inválido'
             context['message2'] = 'Intente con RUT y Contraseña válidos.'           
             return JsonResponse(context, status = 200)
         elif user is not None and not user.is_active:
@@ -270,7 +384,7 @@ def dologout(request):
         user = authenticate(request,username=username, password=password)
         if user is None :
             context['status'] = 404 
-            context['message1'] = 'Ingreso Inválido!!'
+            context['message1'] = 'Ingreso Inválido'
             context['message2'] = 'Intente con RUT y Contraseña válidos.'           
             return JsonResponse(context, status = 200)
         elif user is not None and not user.is_active:
@@ -288,7 +402,7 @@ def dologout(request):
             return JsonResponse(context, status = 200) 
         else:           
             context['status'] = 404 
-            context['message1'] = 'Ingreso Inválido!!'
+            context['message1'] = 'Ingreso Inválido'
             context['message2'] = 'Intente con RUT y Contraseña válidos.'       
             return JsonResponse(context, status = 200)
     else:
@@ -318,8 +432,7 @@ def enviarcontacto(request):
         l1 = f"El usuario {nombre} {apellido}, RUT {rut}. email {mail} ha enviado el siguente mensaje\n"
         l2 = f"Asunto: {asunto}\n"
         l3 = f"Mensaje: {msg}\n\n\n"
-        l4 = 'Este es un correo enviado automáticamente desde ProximaHora.Favor No responder'
-        body = f'Estimado Administrador(ra).\n\n'+l1+l2+l3+l4
+        body = f'Estimado Administrador(ra).\n\n'+ l1 + l2 + l3 + Constantes.FIRMA_CORREOS
         from_email = EMAIL_HOST_USER
 #        to_email = ["aconlledo@vilco.cl","scollarte@cmdgroup.cl"]
         to_email = [Constantes.MAIL_ADMIN]
@@ -418,8 +531,7 @@ def envio_primer_mail(nombre,apellido,rut,solicita,token,mail):
     l1 = f'Estimado(a): {nombre} {apellido} RUT {rut}. \n\nUsted ha solicitado {aux2} en {Constantes.URL_PROXIMAHORAPROD}\n\n'
     l2 = 'Para continuar con el proceso por favor vaya al siguiente enlace:\n\n'
     l3 = f'{Constantes.URL_PROXIMAHORATEST}/usuarios/suscripcion_final/{solicita}/{rut}/{token}\n\n'
-    l4 = 'Este es un correo enviado automáticamente desde ProximaHora.Favor No responder\n\nAtentamente\nPlataforma ProximaHora '
-    body = l1 + l2 + l3 + l4
+    body = l1 + l2 + l3 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS
     from_email = EMAIL_HOST_USER
     to_email = [mail]
     email = EmailMessage(subject, body, from_email, to_email) 
@@ -477,7 +589,6 @@ def registro_usuario_crear(request):
         try:
             solicitante = UsuariosRegisterRequest.objects.get(rut=rut)
             if (solicitante.token == token):              
-                password = request.POST.get('password')
                 username = request.POST.get('username')
                 region = request.POST.get('region')
                 comuna = request.POST.get('comuna')
@@ -485,17 +596,17 @@ def registro_usuario_crear(request):
                 try:
                     msg, usuario, persona = crear_persona(rut,username,EstadosUsuarios.HABILITADO,PerfilesUsuarios.REGISTRADO, solicitante.fnacimiento,
                                                         solicitante.telefono,region,comuna,ciudad,solicitante.email,solicitante.nombre,solicitante.apellido)
+                    password = generar_password(longitud=16)
                     usuario.set_password(password)
-                    usuario.is_active = 1
+                    usuario.is_active = True
                     usuario.save()
                     UsuariosRegisterRequest.objects.filter(id=solicitante.id).delete()
                     mail = usuario.email                 
                     subject = f"Registro Plataforma ProximaHora"
-                    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} RUT {rut}. \n\nUsted ha sido registrado como Usuario en {Constantes.URL_PROXIMAHORAPROD}\n\n'
-                    l2 = 'Adjunto encontrará nuestra Declaración de Privacidad y Confidencialidad de la Información de Próxima Hora\n\n'
-                    l3 = 'No dude en comunicarse con nuestra área de soporte ante cualquier inconveniente.\n\n'
-                    l4 = 'Este es un correo enviado automáticamente desde ProximaHora. Favor No responder\n\nAtentamente\nPlataforma ProximaHora '
-                    body = l1 + l2 + l3 + l4 
+                    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {rut}. \n\nUsted ha sido registrado como Usuario en {Constantes.URL_PROXIMAHORAPROD}\n\n'
+                    l2 = f'En su próximo Inicio de Sesión utilice su R.U.T. y Contraseña Temporal "{password}" (Copie y Pegue lo que esta entre comillas)\n\n'
+                    l3 = 'Adjunto encontrará nuestra Declaración de Privacidad y Confidencialidad de la Información de Próxima Hora\n\n'
+                    body = l1 + l2 + l3 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS
                     from_email = EMAIL_HOST_USER
                     to_email = [mail]
                     email = EmailMessage(subject, body, from_email, to_email)                  
@@ -525,7 +636,7 @@ def registro_usuario_crear(request):
 
 def suscripcion_formulario_pago(request,rut,token):
     '''
-    Envia formulario al futuro especialista para que realice pago
+    Envia formulario al especialista para que realice pago
     '''
     if (request.method == 'GET'):
         try:
@@ -573,11 +684,10 @@ def enviar_mail_url_pago(solicitante):
     Desde suscripcion_pagar y renviar_mail_url_pago en esta views.py
     '''
     subject = "Suscripción Plataforma ProximaHora"
-    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} RUT {solicitante.rut}. \n\nUsted ha iniciado proceso de pago en {Constantes.URL_PROXIMAHORAPROD}\n\n'
+    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}. \n\nUsted ha iniciado proceso de pago en {Constantes.URL_PROXIMAHORAPROD}\n\n'
     l2 = 'Para confirmar su pago y enviar comprobante de pago (pdf, png o jpg) por favor vaya al siguiente enlace:\n\n'
     l3 = f'{Constantes.URL_PROXIMAHORATEST}/usuarios/suscripcion_formulario_pago/{solicitante.rut}/{solicitante.token}\n\n'
-    l4 = 'Este es un correo enviado automáticamente desde ProximaHora. Favor No responder\n\nAtentamente\nPlataforma ProximaHora '
-    body = l1 + l2 + l3 + l4
+    body = l1 + l2 + l3 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS
     from_email = EMAIL_HOST_USER
     to_email = [solicitante.email]
     email = EmailMessage(subject, body, from_email, to_email)
@@ -671,12 +781,10 @@ def envio_mail_pago_suscripcion_user(solicitante):
     Desde suscripcion_cargar_pago en esta views.py
     '''
     subject = f"Suscripción Plataforma ProximaHora"
-    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} RUT {solicitante.rut}. \n\n'
+    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}. \n\n'
     l2 = 'Hemos recibido su comprobante de pago. Nuestros ejecutivos verificarán la información y pronto recibirá un correo de confirmación.\n\n'
     l3 = 'Adjunto encontrará nuestra Declaración de Privacidad y Confidencialidad de la Información de Próxima Hora\n\n'
-    l4 = 'No dude en comunicarse con nuestra área de soporte ante cualquier inconveniente.\n\n'
-    l5 = 'Este es un correo enviado automáticamente desde ProximaHora. Favor No responder\n\nAtentamente\nPlataforma ProximaHora'
-    body = l1 + l2 + l3 + l4 +l5
+    body = l1 + l2 + l3 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS
     from_email = EMAIL_HOST_USER
     to_email = [solicitante.email]
     email = EmailMessage(subject, body, from_email, to_email)   
@@ -697,12 +805,11 @@ def envio_mail_pago_suscripcion_admin(solicitante):
     Envia mail al administrador indicando recepcion del comprobante de pago
     Desde suscripcion_cargar_pago en esta views.py
     '''
-    subject = f"Suscripción y Pago Plataforma ProximaHora RUT {solicitante.rut}"
+    subject = f"Suscripción y Pago Plataforma ProximaHora R.U.T. {solicitante.rut}"
     l1 = 'Estimado(a) Administrador:\n\n'
-    l2 = f'Hemos recibido comprobante de pago de  {solicitante.nombre} {solicitante.apellido} RUT {solicitante.rut}\n\n'
-    l3 = 'Favor consulte y verifique en Módulo de Administración, Suscripciones por Aprobar\n\n'
-    l4 = 'Este es un correo enviado automáticamente desde ProximaHora. Favor No responder\n\nAtentamente\nPlataforma ProximaHora'
-    body = l1 + l2 + l3 + l4
+    l2 = f'Hemos recibido comprobante de pago de  {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}\n\n'
+    l3 = 'Favor consulte y verifique en Módulo de Administración, Especialistas y luego Suscripciones por Aprobar\n\n'
+    body = l1 + l2 + l3 + Constantes.FIRMA_CORREOS
     from_email = EMAIL_HOST_USER
     to_email = [Constantes.MAIL_ADMIN]
     email = EmailMessage(subject, body, from_email, to_email)                  
@@ -824,7 +931,7 @@ def suscripciones_por_aprobar(request):
         return render(request, 'error.html', {'error_ph': ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]})
     
     
-def suscripciones_cambiar_estado(request):
+def suscripciones_cambiar_estado(request):  # OJO
     '''
     Cambia estado de la suscripcion de un especialista; es el ultimo paso en caso de ser aceptado el pago. 
     Si el pago es rechazado se elimina toda informacion y la persona debe comenzar un nuevo proceso
@@ -840,16 +947,17 @@ def suscripciones_cambiar_estado(request):
             EspecialistasPagos.objects.filter(id=solicitante.epago_id).delete() 
             status = enviar_mail_pago_suscripcion_rechazado(solicitante,motivo)
         else:
-            username = rut_a_username(solicitante.rut)
+            username = rut_a_username(solicitante.rut)    # OJO
             EspecialistasPagos.objects.filter(id=solicitante.epago_id).update(estado=EstadosPagos.CONFIRMADO) 
             UsuariosEspecialistas.objects.filter(id=solicitante.idespecialista).update(estado=EstadosSuscripcion.VIGENTE)
             msg, usuario, persona = crear_persona(solicitante.rut,username,EstadosUsuarios.HABILITADO,PerfilesUsuarios.ESPECIALISTA, solicitante.fnacimiento,
                                                 solicitante.telefono,"","","",solicitante.email,solicitante.nombre,solicitante.apellido)
             especialista = UsuariosEspecialistas.objects.create(persona_id=persona.id,plan_id=solicitante.plan)
-            usuario.set_password(username)
-            usuario.is_active = 0
+            password = generar_password(longitud=16)
+            usuario.set_password(password)
+            usuario.is_active = False
             usuario.save()
-            status = enviar_mail_pago_suscripcion_aceptado(solicitante)
+            status = enviar_mail_pago_suscripcion_aceptado(solicitante,password)
             solicitante.delete()
         try:
             solicitudes = UsuariosRegisterRequest.objects.filter(solicita=SolicitudRegister.REVISARPAGO)
@@ -866,15 +974,13 @@ def enviar_mail_pago_suscripcion_rechazado(solicitante,motivo):
     Desde suscripciones_cambiar_estado en esta views.py
     '''
     subject = f"Suscripción Plataforma ProximaHora: Pago Rechazado"
-    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} RUT {solicitante.rut}. \n\n'
+    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}. \n\n'
     l2 = 'Lamentamos informar que el pago informado por Ud. ha sido rechazado.\n\n'
     if (motivo != ""):
         l3 = f'Motivo: \n\n {motivo.email}\n\n'
     else:
         l3 = ""
-    l4 = 'No dude en comunicarse con nuestra área de soporte ante cualquier inconveniente.\n\n'
-    l5 = 'Este es un correo enviado automáticamente desde ProximaHora. Favor No responder\n\nAtentamente\nPlataforma ProximaHora'
-    body = l1 + l2 + l3 + l4 +l5
+    body = l1 + l2 + l3 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS
     from_email = EMAIL_HOST_USER
     to_email = [solicitante.email]
     email = EmailMessage(subject, body, from_email, to_email)   
@@ -890,24 +996,21 @@ def enviar_mail_pago_suscripcion_rechazado(solicitante,motivo):
     return status , mensaje
 
 
-def enviar_mail_pago_suscripcion_aceptado(solicitante):
+def enviar_mail_pago_suscripcion_aceptado(solicitante,password):
     '''
     Envia mail al especialista indicando recepcion del comprobante de pago
     Desde suscripciones_cambiar_estado en esta views.py
     '''
-    clave = generar_password(8)
     subject = f"Suscripción Plataforma ProximaHora"
-    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} RUT {solicitante.rut}. \n\n'
+    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}. \n\n'
     l2 = 'Nos complace informar que su Pago de Suscripción ha sido aceptado.\n\nAdjunto encontrará copia de nuestro Contrato\n\n'
-    l3 = f'Para finalizar el proceso favor ingrese a Proxima Hora con su RUT en Usuario y su clave temporal {clave}.\n\n'
-    l4 = 'No dude en comunicarse con nuestra área de soporte ante cualquier inconveniente.\n\n'
-    l5 = 'Este es un correo enviado automáticamente desde ProximaHora. Favor No responder\n\nAtentamente\nPlataforma ProximaHora'
-    body = l1 + l2 + l3 + l4 +l5
+    l3 = f'En su próximo Inicio de Sesión utilice su R.U.T. y Contraseña Temporal "{password}" (Copie y Pegue lo que esta entre comillas)\n\n'
+    body = l1 + l2 + l3 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS
     from_email = EMAIL_HOST_USER
     to_email = [solicitante.email]
     email = EmailMessage(subject, body, from_email, to_email)   
-    if os.path.isfile(Constantes.PDF_CONFIDENCIALIDAD):
-        email.attach_file(Constantes.PDF_CONFIDENCIALIDAD)   
+    if os.path.isfile(Constantes.PDF_CONTRATO):
+        email.attach_file(Constantes.PDF_CONTRATO)   
     try:
         email.send()
         status = 200

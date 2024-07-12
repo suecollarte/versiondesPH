@@ -1,0 +1,89 @@
+<!-- Modal Cambio de Clave -->
+
+{% load static %}
+
+<script type="text/javascript" src="{% static 'js/usuarios/cambio_clave.js' %}"></script>  
+
+  <input type="hidden" name="cclaveusername" id="cclaveusername" value="{{usuario.username}}" />
+  <input type="hidden" name="cclaverut" id="cclaverut" value="{{persona.rut}}" />
+  <input type="hidden" name="cclave" id="cclave" value="{{persona.cclave}}" />
+  
+  {% csrf_token %}
+  <div class="modal modallogin fade" id="modalcclave" name="modalcclave" tabindex="-1" aria-labelledby="ModalLogin" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div style="max-width: 100%;">
+            <div class="container py-2 h-100">
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                  <div class="card" style="border-radius: 0.5rem;">
+                    <div class="row g-0">
+                      <div class="col d-flex align-items-center">
+                        <div class="card-body p-2 p-lg-2 text-black myform">
+                          <div class="d-flex justify-content-end">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" name="closeloginmodal" id="closeloginmodal" ></button>
+                          </div>
+                          <div class="d-flex align-items-center mb-3 pb-1">
+                            <span class="mb-0"><img src="{% static 'img/logoph-01.svg' %}" width="100" />
+                            </span>
+                          </div>
+                          <div class="d-flex justify-content-center">
+                            <h4>Cambio de Contraseña</h4>
+                          </div>
+                          <div class="form-group">
+                            <div data-mdb-input-init class="form-outline mb-4"> 
+                              <label for="claveactual" class="form-label">Contraseña Actual 
+                              </label>
+                              <div class="input-group">
+                                <input type="password" class="form-control text8l" maxlength="20" id="claveactual" name="claveactual" />
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary" type="button" id="toggleclaveactual" name="toggleclaveactual">
+                                    <i class="fa fa-eye"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div data-mdb-input-init class="form-outline mb-4">
+                              <label class="form-label" for="nuevaclave">Nueva Contraseña</label>
+                              <div class="input-group">
+                                <input id="nuevaclave" name="nuevaclave"  type="password"  maxlength="20" class="form-control text8l" />
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary" type="button" id="toggleclavenueva" name="toggleclavenueva">
+                                    <i class="fa fa-eye"></i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div id="strengthMessage"></div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div data-mdb-input-init class="form-outline mb-4">
+                              <label class="form-label" for="nuevaclaveconf">Confirmar Nueva Contraseña</label>
+                              <div class="input-group">
+                                <input id="nuevaclaveconf" name="nuevaclaveconf"  type="password"  maxlength="20" class="form-control text8l" />
+                              </div>
+                            </div>
+                          </div>
+                          <div id="msgmodalcclave" style="display: none;" class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                            <strong><span id="divmsgcclave1"></span></strong>&nbsp;&nbsp;&nbsp;<span id="divmsgcclave2"></span>
+                          </div>
+                          <div class="pt-1 mb-4 d-flex">
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn boton mx-3" name="btncclavesok" id="btncclavesok">Continuar</button>
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn boton" name="btncclavesko" id="btncclavesko">Cancelar</button>
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn boton" name="btncclavesfin" id="btncclavesfin">Terminar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

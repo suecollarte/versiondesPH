@@ -29,6 +29,7 @@ urlpatterns = [
     path('salir_plataforma/', views.salir_plataforma, name='salir_plataforma'),
     path('administrador/', views.administrador, name='administrador'),
     path('registrado/', views.registrado, name='registrado'),
+    path('especialista/', views.especialista, name='especialista'),
     path('about/', views.about, name='about'),
     path('ayuda/', views.ayuda, name='ayuda'),
     path('test/', views.test, name='test'),     

@@ -55,6 +55,9 @@ class Constantes:
     URL_PROXIMAHORAPROD = 'http://www.proximahora.cl'
     URL_PROXIMAHORATEST = 'http://127.0.0.1:8000'
     PDF_CONFIDENCIALIDAD = 'media/proximahora/privacidad.pdf'
+    PDF_CONTRATO = 'media/proximahora/contrato.pdf'
+    FIRMA_SOPORTE = 'No dude en comunicarse con nuestra área de Soporte ante cualquier inconveniente.\n\n'
+    FIRMA_CORREOS = 'Este es un correo enviado automáticamente desde ProximaHora. Favor No responder\n\nAtentamente\nPlataforma ProximaHora\n\n'
         
 class FuncionesAjax:
     ELIMINAR = '0'
@@ -203,14 +206,26 @@ def mostrar_fecha_actual():
     dia_semana = dias_semana[now.weekday()]
     mes_y_anio = now.strftime('%B %Y')  # Formato completo del mes y el año, por ejemplo "Mayo 2024"
     return dia_semana , mes_y_anio, now.strftime("%d/%m/%Y") , dia1.strftime("%d/%m/%Y"),dia2.strftime("%d/%m/%Y"),dia3.strftime("%d/%m/%Y"),dia4.strftime("%d/%m/%Y")
-       
-        
+
+
 def enmascarar_email(email):
-    
     usuario, dominio = email.split('@')  # Separar el nombre de usuario y el dominio
-    usuario_enmascarado = usuario[0] + '*' * (len(usuario) - 1) # Enmascarar el nombre de usuario dejando el primer carácter visible
-    dominio_nombre, tld = dominio.rsplit('.', 1) # Separar el dominio en la parte antes del punto y el TLD
-    dominio_enmascarado = '*' * len(dominio_nombre) + '.' + tld  # Enmascarar el dominio dejando solo el TLD visible
-    email_enmascarado = usuario_enmascarado + '@' + dominio_enmascarado # Combinar el usuario enmascarado con el dominio enmascarado 
+
+    # Enmascarar el nombre de usuario dejando la primera y última letra visible
+    if len(usuario) > 2:
+        usuario_enmascarado = usuario[0] + '*' * (len(usuario) - 2) + usuario[-1]
+    else:
+        usuario_enmascarado = usuario[0] + '*' * (len(usuario) - 1) # Enmascarar el nombre de usuario dejando el primer carácter visible
+
+    dominio_nombre, tld = dominio.rsplit('.', 1)  # Separar el dominio en la parte antes del punto y el TLD
+
+    # Enmascarar el nombre del dominio dejando la primera y última letra visible
+    if len(dominio_nombre) > 2:
+        dominio_enmascarado = dominio_nombre[0] + '*' * (len(dominio_nombre) - 2) + dominio_nombre[-1]
+    else:
+        dominio_enmascarado = dominio_nombre  # Si el nombre del dominio tiene 2 o menos caracteres, no se enmascara
+
+    # Combinar el usuario enmascarado con el dominio enmascarado y el TLD visible
+    email_enmascarado = usuario_enmascarado + '@' + dominio_enmascarado + '.' + tld
     return email_enmascarado
 

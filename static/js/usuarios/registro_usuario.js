@@ -20,74 +20,48 @@ $(document).ready(function(){
 	
 	$('#divnewuser').modal('show');
 
-	$('#txtPassword').keyup(function () {
-		$('#strengthMessage').html(checkStrength($('#txtPassword').val()));
-		})
-
 	$('#oksubmitformsuscrip').on('click', function() {
 		$('#formclaves').submit();
 		})
 	
 	$('#btnclaves').on('click',function(event) {
-		var password1 = allTrim($('#txtPassword').val());
-		var password2 = allTrim($('#txtConfirmPassword').val());
+		var rut = allTrim($('#rutusuario').val());
+		var token = allTrim($('#entok').val());
+		var region = $('#region option:selected').val();
+		var comuna = $('#comuna option:selected').val();
+		var ciudad = $('#ciudad option:selected').val();
+		var username = rut_sin_formato(rut);
 		event.preventDefault();
-		limpiarMsgModalLogin();
-		if (password1 == "") {
-			enviarMsgModal("Debe ingresar Contraseña");
-			efectoTemblor($('#divnewuser'));
-			}
-		else if (password2 == "") {
-			enviarMsgModal("Debe confirmar Contraseña");
-			efectoTemblor($('#divnewuser'));
-			}
-		else if (password1 != password2) {
-			enviarMsgModal("Contraseñas No coinciden");
-			efectoTemblor($('#divnewuser'));
-			}
-		else if (password1.length < 8) {
-			enviarMsgModal("Contraseña debe tener al menos 8 carcateres");
-			efectoTemblor($('#divnewuser'));
-			}
-		else {
-			var rut = allTrim($('#rutusuario').val());
-			var password = allTrim($('#txtPassword').val());
-			var token = allTrim($('#entok').val());
-			var region = $('#region option:selected').val();
-			var comuna = $('#comuna option:selected').val();
-			var ciudad = $('#ciudad option:selected').val();
-			var username = rut_sin_formato(rut);
 
-			$('#loader-msg-wait').show();
-			$('#divnewuser').modal('hide');
-			$('#AvisoRegStep2Modal').modal('show');
-			$('#oksubmitformsuscrip').prop('disabled', false);
+		$('#loader-msg-wait').show();
+		$('#divnewuser').modal('hide');
+		$('#AvisoRegStep2Modal').modal('show');
+		$('#oksubmitformsuscrip').prop('disabled', false);
 
-			try {
-				$.ajax({
-					type: "POST",
-					dataType: 'json',
-					url: "/usuarios/registro_usuario_crear/",
-					data: {rut: rut, password: password, token: token, region: region, comuna: comuna, ciudad: ciudad, 
-							username: username, csrfmiddlewaretoken:  $("input[name=csrfmiddlewaretoken]").val()},
-					success: function( response ) {
-						if (response['status'] == 200)
-							enviarMsgFinal(response['message']) 
-						else
-							enviarMsgFinal(response['message']+' ('+response['status']+')');
-						},
-					error: function(jqXHR, textStatus, errorThrown) {
-						enviarMsgFinal(textStatus);
-						},
-					complete: function() {
-						$('#loader-msg-wait').hide();
-						}			
-					});
-				} 
-			catch (error) {
-				enviarMsgFinal(error);
-				}	
-			}
+		try {
+			$.ajax({
+				type: "POST",
+				dataType: 'json',
+				url: "/usuarios/registro_usuario_crear/",
+				data: {rut: rut, token: token, region: region, comuna: comuna, ciudad: ciudad, username: username, 
+						csrfmiddlewaretoken:  $("input[name=csrfmiddlewaretoken]").val()},
+				success: function( response ) {
+					if (response['status'] == 200)
+						enviarMsgFinal(response['message']) 
+					else
+						enviarMsgFinal(response['message']+' ('+response['status']+')');
+					},
+				error: function(jqXHR, textStatus, errorThrown) {
+					enviarMsgFinal(textStatus);
+					},
+				complete: function() {
+					$('#loader-msg-wait').hide();
+					}			
+				});
+			} 
+		catch (error) {
+			enviarMsgFinal(error);
+			}	
 		});
 
 	$('#region').change(function(){

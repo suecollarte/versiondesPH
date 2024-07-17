@@ -114,7 +114,7 @@ $(document).ready(function(){
 //
 //	
 function EnviarLogin(username,password) {
-
+//	alert("Usuario="+username+" Password="+password);
 	try {
 		$.ajax({
 			type: "POST",

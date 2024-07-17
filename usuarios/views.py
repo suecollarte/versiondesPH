@@ -64,7 +64,7 @@ def personas_listar(request):
             modificar_persona(id,fnacimiento,telefono,region,comuna,ciudad,email,nombre,apellido)
         return render(request, 'personas_ajax_list.html', {'personas': personas})
 
-    
+   
 def crear_persona(rut,username,estado,perfil,fnacimiento,telefono,region,comuna,ciudad,email,nombre,apellido):
     '''
     Crea registro en tabla  usuarios_personas y en auth_user; generando un usuario registrado
@@ -77,10 +77,10 @@ def crear_persona(rut,username,estado,perfil,fnacimiento,telefono,region,comuna,
             nueva_persona = UsuariosPersonas.objects.create(rut=rut,estado=estado,perfil=perfil,fnacimiento=fnacimiento,
                                                             telefono=telefono,region_id=region,comuna_id=comuna,ciudad_id=ciudad,usuario_id=userid)
             return 200, nuevo_usuario, nueva_persona
-        except:
-            return 400
-    except:
-        return 400
+        except Exception as e:
+            return 400, nuevo_usuario, ' Error= '+str(e)
+    except Exception as e:
+        return 404, ' Error= '+str(e), ''
 
 
 def modificar_persona(id,fnacimiento,telefono,region,comuna,ciudad,email,nombre,apellido):
@@ -319,7 +319,7 @@ def envio_mail_nueva_clave(nombre,apellido,rut,password,mail):
     '''
     subject = 'Cambio Clave Plataforma ProximaHora'
     l1 = f'Estimado(a): {nombre} {apellido} R.U.T. {rut}. \n\nUsted ha solicitado Recuperar Contraseña en {Constantes.URL_PROXIMAHORAPROD}\n\n'
-    l2 = f'En su próximo Inicio de Sesión utilice su R.U.T. y Contraseña  Temporal "{password}" (Copie y Pegue lo que esta entre comillas)\n\n'
+    l2 = f'En su próximo Inicio de Sesión utilice su R.U.T. y Contraseña Temporal "{password}" (Copie y Pegue lo que esta entre comillas)\n\n'
     body = l1 + l2 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS
     from_email = EMAIL_HOST_USER
     to_email = [mail]
@@ -346,7 +346,7 @@ def dologin(request):
         user = authenticate(request,username=username, password=password)
         if user is None :
             context['status'] = 404 
-            context['message1'] = 'Ingreso Inválido'
+            context['message1'] = f'Ingreso Inválido ({username}) ({password})'
             context['message2'] = 'Intente con RUT y Contraseña válidos.'           
             return JsonResponse(context, status = 200)
         elif user is not None and not user.is_active:
@@ -362,12 +362,12 @@ def dologin(request):
             context['message1'] = 'Ingreso Correcto.'                           
             return JsonResponse(context, status = 200) 
         else:           
-            context['status'] = 404 
-            context['message1'] = 'Ingreso Inválido!!'
+            context['status'] = 405 
+            context['message1'] = f'Ingreso Inválido ({username}) ({password})'
             context['message2'] = 'Intente con RUT y Contraseña válidos.'       
             return JsonResponse(context, status = 200)
     else:
-        context['status'] = 405
+        context['status'] = 406
         context['message1'] = ErroresPH.ERRORESPH[ErroresPH.ERROR_ACCESO][1]
     return JsonResponse(context)
  
@@ -603,7 +603,7 @@ def registro_usuario_crear(request):
                     UsuariosRegisterRequest.objects.filter(id=solicitante.id).delete()
                     mail = usuario.email                 
                     subject = f"Registro Plataforma ProximaHora"
-                    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {rut}. \n\nUsted ha sido registrado como Usuario en {Constantes.URL_PROXIMAHORAPROD}\n\n'
+                    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {rut}\n\nUsted ha sido registrado como Usuario en {Constantes.URL_PROXIMAHORAPROD}\n\n'
                     l2 = f'En su próximo Inicio de Sesión utilice su R.U.T. y Contraseña Temporal "{password}" (Copie y Pegue lo que esta entre comillas)\n\n'
                     l3 = 'Adjunto encontrará nuestra Declaración de Privacidad y Confidencialidad de la Información de Próxima Hora\n\n'
                     body = l1 + l2 + l3 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS
@@ -684,7 +684,7 @@ def enviar_mail_url_pago(solicitante):
     Desde suscripcion_pagar y renviar_mail_url_pago en esta views.py
     '''
     subject = "Suscripción Plataforma ProximaHora"
-    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}. \n\nUsted ha iniciado proceso de pago en {Constantes.URL_PROXIMAHORAPROD}\n\n'
+    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}\n\nUsted ha iniciado proceso de pago en {Constantes.URL_PROXIMAHORAPROD}\n\n'
     l2 = 'Para confirmar su pago y enviar comprobante de pago (pdf, png o jpg) por favor vaya al siguiente enlace:\n\n'
     l3 = f'{Constantes.URL_PROXIMAHORATEST}/usuarios/suscripcion_formulario_pago/{solicitante.rut}/{solicitante.token}\n\n'
     body = l1 + l2 + l3 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS
@@ -781,7 +781,7 @@ def envio_mail_pago_suscripcion_user(solicitante):
     Desde suscripcion_cargar_pago en esta views.py
     '''
     subject = f"Suscripción Plataforma ProximaHora"
-    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}. \n\n'
+    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}\n\n'
     l2 = 'Hemos recibido su comprobante de pago. Nuestros ejecutivos verificarán la información y pronto recibirá un correo de confirmación.\n\n'
     l3 = 'Adjunto encontrará nuestra Declaración de Privacidad y Confidencialidad de la Información de Próxima Hora\n\n'
     body = l1 + l2 + l3 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS
@@ -948,17 +948,23 @@ def suscripciones_cambiar_estado(request):  # OJO
             status = enviar_mail_pago_suscripcion_rechazado(solicitante,motivo)
         else:
             username = rut_a_username(solicitante.rut)    # OJO
-            EspecialistasPagos.objects.filter(id=solicitante.epago_id).update(estado=EstadosPagos.CONFIRMADO) 
-            UsuariosEspecialistas.objects.filter(id=solicitante.idespecialista).update(estado=EstadosSuscripcion.VIGENTE)
             msg, usuario, persona = crear_persona(solicitante.rut,username,EstadosUsuarios.HABILITADO,PerfilesUsuarios.ESPECIALISTA, solicitante.fnacimiento,
                                                 solicitante.telefono,"","","",solicitante.email,solicitante.nombre,solicitante.apellido)
-            especialista = UsuariosEspecialistas.objects.create(persona_id=persona.id,plan_id=solicitante.plan)
-            password = generar_password(longitud=16)
-            usuario.set_password(password)
-            usuario.is_active = False
-            usuario.save()
-            status = enviar_mail_pago_suscripcion_aceptado(solicitante,password)
-            solicitante.delete()
+            if (msg == 200):
+                password = generar_password(longitud=16)
+                usuario.set_password(password)
+                usuario.is_active = True
+                usuario.save()
+                status = enviar_mail_pago_suscripcion_aceptado(solicitante,password)
+                UsuariosEspecialistas.objects.create(persona_id=persona.id,plan_id=solicitante.plan,estado_suscripcion=EstadosSuscripcion.VIGENTE)
+                EspecialistasPagos.objects.filter(id=solicitante.epago_id).update(estado=EstadosPagos.CONFIRMADO) 
+                solicitante.delete()
+            else:
+                if (msg == 404):
+                    msgerror = f'{ErroresPH.ERRORESPH[ErroresPH.ERROR_DESCONOCIDO][1]} {usuario}.'
+                else:
+                    msgerror = f'{ErroresPH.ERRORESPH[ErroresPH.ERROR_DESCONOCIDO][1]} {persona}.'
+                return render(request, 'error.html', {'error_ph': msgerror })
         try:
             solicitudes = UsuariosRegisterRequest.objects.filter(solicita=SolicitudRegister.REVISARPAGO)
         except:
@@ -974,7 +980,7 @@ def enviar_mail_pago_suscripcion_rechazado(solicitante,motivo):
     Desde suscripciones_cambiar_estado en esta views.py
     '''
     subject = f"Suscripción Plataforma ProximaHora: Pago Rechazado"
-    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}. \n\n'
+    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}\n\n'
     l2 = 'Lamentamos informar que el pago informado por Ud. ha sido rechazado.\n\n'
     if (motivo != ""):
         l3 = f'Motivo: \n\n {motivo.email}\n\n'
@@ -1002,7 +1008,7 @@ def enviar_mail_pago_suscripcion_aceptado(solicitante,password):
     Desde suscripciones_cambiar_estado en esta views.py
     '''
     subject = f"Suscripción Plataforma ProximaHora"
-    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}. \n\n'
+    l1 = f'Estimado(a): {solicitante.nombre} {solicitante.apellido} R.U.T. {solicitante.rut}\n\n'
     l2 = 'Nos complace informar que su Pago de Suscripción ha sido aceptado.\n\nAdjunto encontrará copia de nuestro Contrato\n\n'
     l3 = f'En su próximo Inicio de Sesión utilice su R.U.T. y Contraseña Temporal "{password}" (Copie y Pegue lo que esta entre comillas)\n\n'
     body = l1 + l2 + l3 + Constantes.FIRMA_SOPORTE + Constantes.FIRMA_CORREOS

@@ -1,0 +1,59 @@
+{% extends 'home_base.html' %}
+{% block title %} Inicio Plataforma Proxima Hora {% endblock%}
+{% load static %}
+
+
+<div class="main">
+    <main class="content-lg px-3 py-2">
+      <div class="container-fluid">
+    
+     
+
+        {% block content %} 
+         <div class="card cards-noticias">
+        <div class="row">
+            <div class="col-5"> <img src="{{ Primer_post.image.url }}" class="card-img-top rounded-top img-thumbnail"></div>
+            <div class="col-5">
+                <div class="card-body my-3">
+
+            <h5 class=" card-title subtitulo2">{{ Primer_post.title }}"</h5>
+            <p class="card-text ms-2 me-2"> {{ Primer_post.des }}"
+            </p>
+           
+        </div>
+
+        </div>
+        
+      
+
+        
+   
+    {% for post in posts %}
+        <div class="card  cards-noticias ">
+
+            
+
+            <img src="{{ post.image.url }}" class="card-img-top rounded-top img-thumbnail">
+
+            <div class="card-body my-3">
+
+                <h5 class=" card-title subtitulo2">{{ post.title }}"</h5>
+                <p class="card-text ms-2 me-2"> {{ post.des }}"   </p>
+                <p class="card-text ms-2 me-2"> {{ post.content|safe }}"   </p>
+                
+            </div>
+        </div>
+    {% endfor %}
+    {% endblock %}
+
+      </div>
+    </main>
+  </div>
+  
+
+
+
+
+        
+        
+  

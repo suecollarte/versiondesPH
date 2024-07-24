@@ -12,3 +12,5 @@ temp/*
 
 # Ignorar todos los archivos y directorios dentro de "media"
 media/*
+
+env/*

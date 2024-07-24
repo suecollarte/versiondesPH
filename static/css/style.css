@@ -656,7 +656,7 @@ select:hover {
 
     flex-direction: column;
     align-items: center;
-    gap: 36px;
+    /* gap: 36px; */
     border-radius: 20px;
     border: 1px solid var(--Foundation-Grises-grises-100, #D5D5D5);
     background: var(--Foundation-Blanco-blanco-50, #FDFDFD);
@@ -669,8 +669,6 @@ select:hover {
     font-size: 1rem;
     color: var(--Foundation-Grises-grises-800, #424242);
 }
-
-
 
 
 

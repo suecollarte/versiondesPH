@@ -45,7 +45,13 @@ INSTALLED_APPS = [
     'tablas',
     'usuarios',
     'especialistas',
+    # pip install python-dateutil
+    #django-debug_toolbar
     'debug_toolbar',   
+    #Blog-noticias
+    'blog.apps.BlogConfig',
+    #django-ckeditor
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -89,7 +95,7 @@ WSGI_APPLICATION = 'proximahora.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
+""" DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "proximahoraDB",
@@ -99,9 +105,19 @@ DATABASES = {
         "HOST": "172.29.1.77",
         "PORT": "3306",
     }
+} """
+
+DATABASES = {
+    'default': {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "proximahoradb",
+#   Servidor Mysql y web local
+        "USER": "root",
+        "PASSWORD": "admin",
+        "HOST": "localhost",
+        "PORT": "3306",
+    }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

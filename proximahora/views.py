@@ -2,14 +2,14 @@
 #   views.py proximahora
 #
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from tablas.models import Rubros
 from usuarios.models import UsuariosPersonas, EstadosUsuarios, PerfilesUsuarios
 from .funciones import Constantes, ErroresPH
-
+from blog.models import Post
 
 
 @csrf_exempt
@@ -65,7 +65,8 @@ def salir_plataforma(request):
 
 def home(request):
     rubros = Rubros.objects.all().order_by('nombre')
-    return render(request,'home.html',{'rubros': rubros, 'mirubro': Constantes.MEDICINA})
+    blogs = Post.objects.all()
+    return render(request,'home.html',{'rubros': rubros, 'mirubro': Constantes.MEDICINA, 'posts':blogs})
 
 # @login_required(login_url='users/userlogin')
 def administrador(request):

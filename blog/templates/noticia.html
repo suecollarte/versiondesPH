@@ -1,0 +1,29 @@
+{% extends 'home_base.html' %}
+{% block title %} Noticia {{post.title}} {% endblock%}
+{% load static %}
+
+
+{% block content %}
+
+
+    <div class="container-md cajas">
+
+        <div  class="d-flex justify-content-center">
+            <img src="{{post.image.url}}" class="card-img-top rounded-top " style="width: 50%;">
+        </div>
+        
+
+
+
+
+
+
+        <article class="article p-2">
+            <h4 class="titulo2">Noticia</h4>
+            <h4 class=" card-title titulo1 p-2">{{post.title}}</h4>
+            <div class="p-2"><p> {{post.des}} </p>  </div>
+            <div> {{post.content|safe}}   </div>
+        </article>
+    </div>
+
+{% endblock %}

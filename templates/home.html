@@ -259,41 +259,26 @@
 <section style="background: var(--gradiente-02, linear-gradient(0deg, #FFF 0%, rgba(255, 255, 255, 0.50) 0.01%, #EBF2FF 115.49%));" id="noticias" name="noticias">
     <h1> Nuestras noticias</h1>
     <div class="beneficios ">
+      {% for post in posts %}
         <div class="card  cards-noticias ">
-            <img src="{% static 'img/futuroisapres.jpg' %}" class="card-img-top rounded-top" />
-            <div class="card-body my-3">
-                <h5 class=" card-title subtitulo2">Futuro Isapres</h5>
-                <p class="card-text ms-2 me-2"> Some quick example text to build on the card title and make up the bulk
-                    of the card's content.
-                </p>
-                <div class="row">
-                    <div class="col ms-2"><a href="#" class="btn btn-info">Ver Noticia</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="card  cards-noticias">
-            <img src="{% static 'img/fotos/medico1.jpg' %}" class="card-img-top rounded-top" />
+
+
+
+            <img src="{{ post.image.url }}" class="card-img-top rounded-top img-thumbnail">
+
             <div class="card-body">
-                <h5 class="subtitulo2">Seguimiento de agenda</h5>
-                <p class="ms-2 me-2">
+
+                <h5 class=" card-title subtitulo2">{{ post.title }}</h5>
+                <p class="card-text ms-2 me-2"> {{ post.des }}
                 </p>
                 <div class="row">
-                    <div class="col ms-2"><a href="#" class="btn btn-info">Ver Noticia</a></div>
+                    <div class="col ms-2">
+                    <a href="{% url 'post' post.id %}" class="btn btn-info">Ver Noticia</a></div>
                 </div>
+
             </div>
         </div>
-        <div class="card  cards-noticias">
-            <img src="{% static 'img/taxsii.png' %}" class="card-img-top rounded-top" />
-            <div class="card-body">
-                <h5 class="subtitulo2">IVA en servicios profesionales</h5>
-                <p class="ms-2 me-2">Excepciones incluidas en la Ley:
-                    Servicios prestados por personas naturales°.
-                </p>
-                <div class="row">
-                    <div class="col ms-2"><a href="#" class="btn btn-info">Ver Noticia</a></div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </section>
 

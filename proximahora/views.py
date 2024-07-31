@@ -10,6 +10,7 @@ from tablas.models import Rubros
 from usuarios.models import UsuariosPersonas, EstadosUsuarios, PerfilesUsuarios
 from .funciones import Constantes, ErroresPH
 from blog.models import Post
+from banner.models import Banner
 
 
 @csrf_exempt
@@ -66,7 +67,8 @@ def salir_plataforma(request):
 def home(request):
     rubros = Rubros.objects.all().order_by('nombre')
     blogs = Post.objects.all()
-    return render(request,'home.html',{'rubros': rubros, 'mirubro': Constantes.MEDICINA, 'posts':blogs})
+    publicidad=  Banner.objects.first()
+    return render(request,'home.html',{'rubros': rubros, 'mirubro': Constantes.MEDICINA, 'posts':blogs, 'publicidad': publicidad})
 
 # @login_required(login_url='users/userlogin')
 def administrador(request):

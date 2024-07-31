@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'debug_toolbar',   
     #Blog-noticias
     'blog.apps.BlogConfig',
+    'banner.apps.BannerConfig',
     #django-ckeditor
     'ckeditor',
 ]

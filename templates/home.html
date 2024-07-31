@@ -11,7 +11,7 @@
 <script type="text/javascript" src="{% static 'js/usuarios/home.js' %}"></script>  
 
 <section class="p-4" name="reserva">
-    <div class="row" style=" width: 90%;">
+    <div class="row" >
         <div class="col-lg-9 col-xs-12">
             <div id="carouselProxima" class="carousel slide mx-2" data-bs-ride="carousel">
                 <div class="carousel-indicators">
@@ -33,19 +33,20 @@
                                         necesidad, la mejor comunicaci&oacute;n con tu especialista</p>
                                 </div>
                             </div>
-                            <div class="col carousel-image bg-img-1"> </div>
+                            <div class="col" > <img src='{% static "img/fotos/medica.png" %}' class="carousel-image"></div>
+                             
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row">
                             <div class="col">
-                                <div class="bg-light.bg-gradient p-4 mx-3 d-none d-md-block">
+                                <div class="bg-light.bg-gradient mx-3 d-none d-md-block">
                                     <span class="titulo1 ">Encuentra diferentes especialistas </span>
                                     <span class="titulo2">una soluci&oacute;n f&aacute;cil y a tu alcance</span><br>
                                     <p class="texto-carousel">No importa donde estes tendras la agenda clara con nosotros.</p>
                                 </div>
                             </div>
-                            <div class="col bg-img-2 carousel-image  "> </div>
+                            <div class="col" > <img src='{% static "img/fotos/foto2.jpg" %}' class="carousel-image"></div>
                         </div>
                     </div>
                     <div class="carousel-item">
@@ -57,7 +58,7 @@
                                     <p class="texto-carousel">Te ayudamos a resolver tu necesidad sin tr&aacute;mites innecesarios.</p>
                                 </div>
                             </div>
-                            <div class="col bg-img-3 carousel-image"> </div>
+                            <div class="col" > <img src='{% static "img/fotos/foto3.jpg" %}' class="carousel-image"></div>
                         </div>
                     </div>
                 </div>
@@ -123,38 +124,22 @@
     </div>
 </section>
 
-<!-- //eres especialista -->
+
 <!-- //banner -->
 <section class=" py-2" name="banner">
     <div class="row banner cajas">
-        <div class="row">
-            <div class="col"></div>
-        </div>
-        <div class="col-lg-7 mb-2 ">
-            <div class="row">
-                <div class="p-2 col-lg-1 vector col-md-3 col-sm-0 col-xs-0"> 
-                    <img src="{% static 'img/vector.svg' %}" />
-                </div>
-                <div class="col-lg-8">
-                    <h2 class="p-2" style="font-size: 2rem;   font-weight: 700;  letter-spacing: 0.15px;">&iquest;Quieres que todo el mundo
-                        vea tu anuncio aqu&iacute;?</h2>
-                    <p style="font-size: 1.4rem;font-weight: 400; letter-spacing: 0.5px;">Haz que tu negocio llegue a
-                        m&aacute;s personas public&aacute;ndolo en este espacio</p>
-                    <button type="button" class="btn btn-info">Cont&aacute;ctanos para mas informaci&oacute;n</button>
-                </div>
+     
+     
+                <div class="col" >
+                    <div class="container">
+                        <img src="{{ publicidad.image.url }}" alt="publicidad">
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#ContactoAnunModal">Cont&aacute;ctanos para mas informaci&oacute;n</button>
+                      </div>
+                    
+               </div>
             </div>
-
-        </div>
-        <div class="col-lg-2 col-md-6 col-sm-0 col-xs-0">
-            <img src="{% static 'img/Star-1.png' %}">
-            <img src="{% static 'img/Star.png' %}">
-            <img src="{% static 'img/Star-2.png' %}">
-            <img src="{% static 'img/Star-3.png' %}">
-            <img src="{% static 'img/Star-4.png' %}">
-        </div>
-        <div class="col-lg-1 col-md-0 col-sm-0 col-xs-0">
-            <img src="{% static 'img/Megaphone.png' %}">
-        </div>
+        
+       
     </div>
 
 </section>
@@ -495,6 +480,7 @@
 </section>
 
 {% include 'home_modal_contacto.html' %}
+{% include 'home_modal_contactoanuncio.html' %}
 
 
 {% endblock %}
